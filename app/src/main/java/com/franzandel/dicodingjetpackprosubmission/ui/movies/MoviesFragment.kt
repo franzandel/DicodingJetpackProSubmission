@@ -7,10 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.franzandel.dicodingjetpackprosubmission.data.entity.Movie
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentMoviesBinding
 
 class MoviesFragment : Fragment() {
+
+    companion object {
+        private const val GRID_SPAN_COUNT = 2
+    }
 
     private lateinit var moviesViewModel: MoviesViewModel
     private lateinit var fragmentMoviesBinding: FragmentMoviesBinding
@@ -18,8 +23,6 @@ class MoviesFragment : Fragment() {
     private val adapter by lazy {
         MoviesAdapter(requireContext())
     }
-
-    private lateinit var movies: List<Movie>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,9 +43,14 @@ class MoviesFragment : Fragment() {
 
     private fun setupObservers() {
         moviesViewModel.movies.observe(viewLifecycleOwner, Observer { movies ->
-            this.movies = movies
-            fragmentMoviesBinding.rvMovies.adapter = adapter
-            adapter.submitList(movies)
+            setupRV(movies)
         })
+    }
+
+    private fun setupRV(movies: List<Movie>) {
+        fragmentMoviesBinding.rvMovies.layoutManager =
+            GridLayoutManager(requireContext(), GRID_SPAN_COUNT)
+        fragmentMoviesBinding.rvMovies.adapter = adapter
+        adapter.submitList(movies)
     }
 }
