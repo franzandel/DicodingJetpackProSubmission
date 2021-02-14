@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.franzandel.dicodingjetpackprosubmission.data.entity.Movie
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentMoviesBinding
 
 class MoviesFragment : Fragment() {
@@ -17,6 +18,8 @@ class MoviesFragment : Fragment() {
     private val adapter by lazy {
         MoviesAdapter(requireContext())
     }
+
+    private lateinit var movies: List<Movie>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,13 +34,13 @@ class MoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        setupObservers()
-//        moviesViewModel.getMovies()
-        MoviesFragmentDirections.actionNavigationMoviesToDetailFragment()
+        setupObservers()
+        moviesViewModel.getMovies()
     }
 
     private fun setupObservers() {
         moviesViewModel.movies.observe(viewLifecycleOwner, Observer { movies ->
+            this.movies = movies
             fragmentMoviesBinding.rvMovies.adapter = adapter
             adapter.submitList(movies)
         })
