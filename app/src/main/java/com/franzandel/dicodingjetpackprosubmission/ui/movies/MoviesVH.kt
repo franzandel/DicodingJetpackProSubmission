@@ -16,8 +16,6 @@ class MoviesVH(private val itemMovieBinding: ItemMovieBinding) :
     fun bind(movie: Movie) {
         with(itemMovieBinding) {
             ivItemMovie.setImageResource(movie.image)
-            tvItemTitle.text = movie.title
-            tvItemDescription.text = movie.desription
 
             cvItemMovie.setOnClickListener {
                 val navDirections =

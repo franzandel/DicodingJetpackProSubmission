@@ -6,6 +6,8 @@
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_10">10dp</dimen>
     <dimen name="margin_32">32dp</dimen>
+    <dimen name="margin_300">300dp</dimen>
+    <dimen name="margin_500">500dp</dimen>
 
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_18">18sp</dimen>
