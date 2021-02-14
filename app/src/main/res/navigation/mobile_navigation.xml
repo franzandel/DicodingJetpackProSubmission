@@ -30,10 +30,17 @@
         android:label="DetailFragment"
         tools:layout="@layout/fragment_detail">
         <argument
-            android:name="movie"
-            app:argType="com.franzandel.dicodingjetpackprosubmission.data.entity.Movie"
+            android:name="movies"
+            app:argType="com.franzandel.dicodingjetpackprosubmission.data.entity.Movie[]"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="currentPosition"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_detailFragment_self"
+            app:destination="@id/detailFragment" />
     </fragment>
 
 </navigation>
