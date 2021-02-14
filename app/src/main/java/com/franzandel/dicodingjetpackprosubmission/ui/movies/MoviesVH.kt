@@ -1,6 +1,6 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.movies
 
-import android.widget.Toast
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.franzandel.dicodingjetpackprosubmission.data.entity.Movie
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemMovieBinding
@@ -20,7 +20,10 @@ class MoviesVH(private val itemMovieBinding: ItemMovieBinding) :
             tvItemDescription.text = movie.desription
 
             cvItemMovie.setOnClickListener {
-                Toast.makeText(it.context, movie.title, Toast.LENGTH_SHORT).show()
+                val navDirections =
+                    MoviesFragmentDirections.actionNavigationMoviesToDetailFragment()
+                navDirections.movie = movie
+                findNavController(root).navigate(navDirections)
             }
         }
     }
