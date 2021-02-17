@@ -2,20 +2,20 @@ package com.franzandel.dicodingjetpackprosubmission.ui.detail
 
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.franzandel.dicodingjetpackprosubmission.data.entity.Movie
-import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDetailMovieBinding
+import com.franzandel.dicodingjetpackprosubmission.data.entity.TvShow
+import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDetailBinding
 
 /**
  * Created by Franz Andel on 12/02/21.
  * Android Engineer
  */
 
-class DetailVH(private val itemDetailMovieBinding: ItemDetailMovieBinding) :
-    RecyclerView.ViewHolder(itemDetailMovieBinding.root) {
+class DetailTvShowVH(private val itemDetailBinding: ItemDetailBinding) :
+    RecyclerView.ViewHolder(itemDetailBinding.root) {
 
-    fun bind(movies: List<Movie>) {
-        with(itemDetailMovieBinding) {
-            val movie = movies[adapterPosition]
+    fun bind(tvShows: List<TvShow>) {
+        with(itemDetailBinding) {
+            val movie = tvShows[adapterPosition]
             ivItemDetailMovie.setImageResource(movie.image)
             tvItemDetailTitle.text = movie.title
             tvItemDetailGenre.text = movie.genre
@@ -23,7 +23,7 @@ class DetailVH(private val itemDetailMovieBinding: ItemDetailMovieBinding) :
             cvItemMovie.setOnClickListener {
                 val navDirections =
                     DetailFragmentDirections.actionDetailFragmentSelf()
-                navDirections.movies = movies.toTypedArray()
+                navDirections.tvShows = tvShows.toTypedArray()
                 navDirections.currentPosition = adapterPosition
                 findNavController(root).navigate(navDirections)
             }

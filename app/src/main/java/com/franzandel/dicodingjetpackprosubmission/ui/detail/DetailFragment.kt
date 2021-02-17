@@ -16,7 +16,11 @@ class DetailFragment : Fragment() {
 
     private val detailFragmentArgs: DetailFragmentArgs by navArgs()
     private val movies by lazy {
-        detailFragmentArgs.movies?.toMutableList() ?: mutableListOf()
+        detailFragmentArgs.movies?.toMutableList()
+    }
+
+    private val tvShows by lazy {
+        detailFragmentArgs.tvShows?.toMutableList()
     }
 
     private val currentPosition by lazy {
@@ -27,8 +31,12 @@ class DetailFragment : Fragment() {
 
     private lateinit var fragmentDetailBinding: FragmentDetailBinding
 
-    private val adapter by lazy {
-        DetailAdapter(requireContext())
+    private val detailMovieAdapter by lazy {
+        DetailMovieAdapter(requireContext())
+    }
+
+    private val detailTvShowAdapter by lazy {
+        DetailTvShowAdapter(requireContext())
     }
 
     override fun onCreateView(
@@ -42,14 +50,37 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fragmentDetailBinding.toolbar.title = movies[currentPosition].title
-        fragmentDetailBinding.tvRelease.text = movies[currentPosition].releaseDate
-        fragmentDetailBinding.tvGenre.text = movies[currentPosition].genre
-        fragmentDetailBinding.tvLength.text = movies[currentPosition].length
-        fragmentDetailBinding.tvRating.text = movies[currentPosition].rating
-        fragmentDetailBinding.tvOverview.text = movies[currentPosition].desription
-        fragmentDetailBinding.ivDetail.setImageResource(movies[currentPosition].image)
+        setupMoviesUI()
+        setupTvShowsUI()
+        setupListeners()
+        setupRV()
+    }
 
+    private fun setupMoviesUI() {
+        movies?.let {
+            fragmentDetailBinding.toolbar.title = it[currentPosition].title
+            fragmentDetailBinding.tvRelease.text = it[currentPosition].releaseDate
+            fragmentDetailBinding.tvGenre.text = it[currentPosition].genre
+            fragmentDetailBinding.tvLength.text = it[currentPosition].length
+            fragmentDetailBinding.tvRating.text = it[currentPosition].rating
+            fragmentDetailBinding.tvOverview.text = it[currentPosition].desription
+            fragmentDetailBinding.ivDetail.setImageResource(it[currentPosition].image)
+        }
+    }
+
+    private fun setupTvShowsUI() {
+        tvShows?.let {
+            fragmentDetailBinding.toolbar.title = it[currentPosition].title
+            fragmentDetailBinding.tvRelease.text = it[currentPosition].releaseYear
+            fragmentDetailBinding.tvGenre.text = it[currentPosition].genre
+            fragmentDetailBinding.tvLength.text = it[currentPosition].length
+            fragmentDetailBinding.tvRating.text = it[currentPosition].rating
+            fragmentDetailBinding.tvOverview.text = it[currentPosition].desription
+            fragmentDetailBinding.ivDetail.setImageResource(it[currentPosition].image)
+        }
+    }
+
+    private fun setupListeners() {
         fragmentDetailBinding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
@@ -60,29 +91,35 @@ class DetailFragment : Fragment() {
             if (isBookmarked) {
                 fragmentDetailBinding.fabBookmark.setImageResource(R.drawable.ic_baseline_star_24)
                 Snackbar.make(
-                    view,
+                    it,
                     getString(R.string.detail_bookmark_added),
                     Snackbar.LENGTH_SHORT
                 ).show()
             } else {
                 fragmentDetailBinding.fabBookmark.setImageResource(R.drawable.ic_baseline_star_border_24)
                 Snackbar.make(
-                    view,
+                    it,
                     getString(R.string.detail_bookmark_removed),
                     Snackbar.LENGTH_SHORT
                 ).show()
             }
         }
-
-        setupRV()
     }
 
     private fun setupRV() {
         fragmentDetailBinding.rvDetail.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        fragmentDetailBinding.rvDetail.adapter = adapter
 
-        movies.removeAt(currentPosition)
-        adapter.submitList(movies)
+        movies?.let {
+            it.removeAt(currentPosition)
+            fragmentDetailBinding.rvDetail.adapter = detailMovieAdapter
+            detailMovieAdapter.submitList(movies)
+        }
+
+        tvShows?.let {
+            it.removeAt(currentPosition)
+            fragmentDetailBinding.rvDetail.adapter = detailTvShowAdapter
+            detailTvShowAdapter.submitList(tvShows)
+        }
     }
 }
