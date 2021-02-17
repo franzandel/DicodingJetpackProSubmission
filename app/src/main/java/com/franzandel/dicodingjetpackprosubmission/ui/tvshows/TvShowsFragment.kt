@@ -4,28 +4,53 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.franzandel.dicodingjetpackprosubmission.R
+import androidx.recyclerview.widget.GridLayoutManager
+import com.franzandel.dicodingjetpackprosubmission.data.entity.TvShow
+import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentTvShowsBinding
 
 class TvShowsFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: TvShowsViewModel
+    companion object {
+        private const val GRID_SPAN_COUNT = 2
+    }
+
+    private lateinit var tvShowsViewModel: TvShowsViewModel
+    private lateinit var fragmentTvShowsBinding: FragmentTvShowsBinding
+
+    private val adapter by lazy {
+        TvShowsAdapter(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
+        tvShowsViewModel =
             ViewModelProvider(this).get(TvShowsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_tv_shows, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+        fragmentTvShowsBinding = FragmentTvShowsBinding.inflate(inflater, container, false)
+        return fragmentTvShowsBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupObservers()
+        tvShowsViewModel.getTvShows()
+    }
+
+    private fun setupObservers() {
+        tvShowsViewModel.tvShows.observe(viewLifecycleOwner, Observer { movies ->
+            setupRV(movies)
         })
-        return root
+    }
+
+    private fun setupRV(tvShows: List<TvShow>) {
+        fragmentTvShowsBinding.rvTvShows.layoutManager =
+            GridLayoutManager(requireContext(), GRID_SPAN_COUNT)
+        fragmentTvShowsBinding.rvTvShows.adapter = adapter
+        adapter.submitList(tvShows)
     }
 }

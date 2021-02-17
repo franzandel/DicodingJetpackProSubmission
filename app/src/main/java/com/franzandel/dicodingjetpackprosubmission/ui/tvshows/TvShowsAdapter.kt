@@ -1,10 +1,10 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.movies
+package com.franzandel.dicodingjetpackprosubmission.ui.tvshows
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import com.franzandel.dicodingjetpackprosubmission.data.entity.Movie
+import com.franzandel.dicodingjetpackprosubmission.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDashboardBinding
 
 /**
@@ -12,16 +12,16 @@ import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDashboardBind
  * Android Engineer
  */
 
-class MoviesAdapter(private val context: Context) :
-    ListAdapter<Movie, MoviesVH>(MoviesDiffCallback()) {
+class TvShowsAdapter(private val context: Context) :
+    ListAdapter<TvShow, TvShowsVH>(TvShowsDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesVH {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsVH {
         val itemDashboardBinding =
             ItemDashboardBinding.inflate(LayoutInflater.from(context), parent, false)
-        return MoviesVH(itemDashboardBinding)
+        return TvShowsVH(itemDashboardBinding)
     }
 
-    override fun onBindViewHolder(holder: MoviesVH, position: Int) {
+    override fun onBindViewHolder(holder: TvShowsVH, position: Int) {
         holder.bind(currentList)
     }
 }

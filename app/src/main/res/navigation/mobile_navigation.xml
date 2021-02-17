@@ -41,6 +41,11 @@
         <action
             android:id="@+id/action_detailFragment_self"
             app:destination="@id/detailFragment" />
+        <argument
+            android:name="tvShows"
+            app:argType="com.franzandel.dicodingjetpackprosubmission.data.entity.TvShow[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
 </navigation>
