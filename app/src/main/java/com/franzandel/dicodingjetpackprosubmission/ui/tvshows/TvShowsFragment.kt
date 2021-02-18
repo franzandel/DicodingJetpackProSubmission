@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentTvShowsBinding
+import com.franzandel.dicodingjetpackprosubmission.external.showShareMessage
 
 class TvShowsFragment : Fragment() {
 
@@ -38,6 +40,7 @@ class TvShowsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupObservers()
+        setupListeners()
         tvShowsViewModel.getTvShows()
     }
 
@@ -45,6 +48,18 @@ class TvShowsFragment : Fragment() {
         tvShowsViewModel.tvShows.observe(viewLifecycleOwner, Observer { movies ->
             setupRV(movies)
         })
+    }
+
+    private fun setupListeners() {
+        fragmentTvShowsBinding.mtbTvShows.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_share -> {
+                    requireActivity().showShareMessage()
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun setupRV(tvShows: List<TvShow>) {

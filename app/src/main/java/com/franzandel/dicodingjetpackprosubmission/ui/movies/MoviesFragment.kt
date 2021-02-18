@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.data.entity.Movie
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentMoviesBinding
+import com.franzandel.dicodingjetpackprosubmission.external.showShareMessage
 
 class MoviesFragment : Fragment() {
 
@@ -58,16 +58,10 @@ class MoviesFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        fragmentMoviesBinding.mtbMovies.setOnMenuItemClickListener {
-            when (it.itemId) {
+        fragmentMoviesBinding.mtbMovies.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
                 R.id.menu_share -> {
-                    val mimeType = "text/plain"
-                    ShareCompat.IntentBuilder
-                        .from(requireActivity())
-                        .setType(mimeType)
-                        .setChooserTitle(getString(R.string.share_message_title))
-                        .setText(getString(R.string.share_message_description))
-                        .startChooser()
+                    requireActivity().showShareMessage()
                     true
                 }
                 else -> false
