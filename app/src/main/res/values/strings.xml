@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EpicMovie</string>
+    <string name="app_name">Home Cinema</string>
 
     <string name="title_movies">Movies</string>
     <string name="title_tv_shows">Tv Shows</string>
@@ -7,7 +7,7 @@
     <string name="menu_share">Share</string>
 
     <string name="share_message_title">Let\'s share this apps to your friends!</string>
-    <string name="share_message_description">Know more info about Movies &amp; Tv Shows at <b>EpicMovie</b> in Google Play Store</string>
+    <string name="share_message_description">Know more info about Movies &amp; Tv Shows at <b>Home Cinema</b> in Google Play Store</string>
 
     <string name="detail_overview_title">Overview</string>
     <string name="detail_bookmark_added">Bookmark added!</string>
