@@ -9,7 +9,7 @@ import com.franzandel.dicodingjetpackprosubmission.data.entity.TvShow
  * Android Engineer
  */
 
-object EpicMovieData {
+object HomeCinemaData {
 
     fun getAllMovies(): List<Movie> {
         val movies = mutableListOf<Movie>()

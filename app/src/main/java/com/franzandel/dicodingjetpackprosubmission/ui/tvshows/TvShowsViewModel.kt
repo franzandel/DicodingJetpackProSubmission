@@ -3,7 +3,7 @@ package com.franzandel.dicodingjetpackprosubmission.ui.tvshows
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.franzandel.dicodingjetpackprosubmission.data.EpicMovieData
+import com.franzandel.dicodingjetpackprosubmission.data.HomeCinemaData
 import com.franzandel.dicodingjetpackprosubmission.data.entity.TvShow
 
 class TvShowsViewModel : ViewModel() {
@@ -12,6 +12,6 @@ class TvShowsViewModel : ViewModel() {
     val tvShows: LiveData<List<TvShow>> = _tvShows
 
     fun getTvShows() {
-        _tvShows.value = EpicMovieData.getAllTvShows()
+        _tvShows.value = HomeCinemaData.getAllTvShows()
     }
 }
