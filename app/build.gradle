@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'androidx.navigation.safeargs'
     id 'kotlin-parcelize'
+    id "de.mannodermaus.android-junit5"
 }
 
 android {
@@ -36,6 +37,31 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    // Spek Configuration
+    // Add Kotlin source directory to all source sets
+    sourceSets.each {
+        it.java.srcDirs += "src/$it.name/kotlin"
+    }
+
+    testOptions {
+        junitPlatform {
+            filters {
+                engines {
+                    include 'spek2'
+                }
+            }
+            jacocoOptions {
+                // here goes all jacoco config, for example
+                html.enabled = true
+                xml.enabled = false
+                csv.enabled = false
+            }
+        }
+        unitTests.all {
+            testLogging.events = ["passed", "skipped", "failed"]
+        }
+    }
 }
 
 dependencies {
@@ -45,14 +71,24 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.navigation:navigation-fragment:2.3.2'
-    implementation 'androidx.navigation:navigation-ui:2.3.2'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
+    implementation 'androidx.navigation:navigation-fragment:2.3.3'
+    implementation 'androidx.navigation:navigation-ui:2.3.3'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.+'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'android.arch.core:core-testing:1.1.1'
+    // spek
+    testImplementation "org.spekframework.spek2:spek-dsl-jvm:2.0.15"
+    testImplementation "org.spekframework.spek2:spek-runner-junit5:2.0.15"
+
+    // spek requires kotlin-reflect, omit when already in classpath
+    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
