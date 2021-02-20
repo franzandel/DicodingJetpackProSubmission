@@ -14,7 +14,7 @@ class DashboardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_dashboard)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         val navHostFragment =
