@@ -3,7 +3,7 @@ package com.franzandel.dicodingjetpackprosubmission.ui.tvshows
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
+import com.franzandel.dicodingjetpackprosubmission.base.BaseAdapter
 import com.franzandel.dicodingjetpackprosubmission.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDashboardBinding
 
@@ -13,13 +13,13 @@ import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDashboardBind
  */
 
 class TvShowsAdapter(private val context: Context) :
-    ListAdapter<TvShow, TvShowsVH>(TvShowsDiffCallback()) {
+    BaseAdapter<TvShow, TvShowsVH, ItemDashboardBinding>(TvShowsDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsVH {
-        val itemDashboardBinding =
-            ItemDashboardBinding.inflate(LayoutInflater.from(context), parent, false)
-        return TvShowsVH(itemDashboardBinding)
-    }
+    override fun getViewBinding(parent: ViewGroup): ItemDashboardBinding =
+        ItemDashboardBinding.inflate(LayoutInflater.from(context), parent, false)
+
+    override fun getViewHolder(viewBinding: ItemDashboardBinding): TvShowsVH =
+        TvShowsVH(viewBinding)
 
     override fun onBindViewHolder(holder: TvShowsVH, position: Int) {
         holder.bind(currentList)
