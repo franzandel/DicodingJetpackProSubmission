@@ -1,4 +1,4 @@
-package com.franzandel.dicodingjetpackprosubmission
+package com.franzandel.dicodingjetpackprosubmission.ui.dashboard
 
 import android.os.Bundle
 import android.view.Menu
@@ -6,8 +6,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.franzandel.dicodingjetpackprosubmission.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class DashboardActivity : AppCompatActivity() {
@@ -20,14 +20,6 @@ class DashboardActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_movies, R.id.navigation_tv_shows
-            )
-        )
-//        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 

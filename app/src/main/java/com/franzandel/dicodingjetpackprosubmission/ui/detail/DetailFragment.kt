@@ -58,30 +58,30 @@ class DetailFragment : Fragment() {
 
     private fun setupMoviesUI() {
         movies?.let {
-            fragmentDetailBinding.toolbar.title = it[currentPosition].title
+            fragmentDetailBinding.toolbarDetail.title = it[currentPosition].title
             fragmentDetailBinding.tvRelease.text = it[currentPosition].releaseDate
             fragmentDetailBinding.tvGenre.text = it[currentPosition].genre
             fragmentDetailBinding.tvLength.text = it[currentPosition].length
             fragmentDetailBinding.tvRating.text = it[currentPosition].rating
-            fragmentDetailBinding.tvOverview.text = it[currentPosition].desription
+            fragmentDetailBinding.tvOverview.text = it[currentPosition].description
             fragmentDetailBinding.ivDetail.setImageResource(it[currentPosition].image)
         }
     }
 
     private fun setupTvShowsUI() {
         tvShows?.let {
-            fragmentDetailBinding.toolbar.title = it[currentPosition].title
+            fragmentDetailBinding.toolbarDetail.title = it[currentPosition].title
             fragmentDetailBinding.tvRelease.text = it[currentPosition].releaseYear
             fragmentDetailBinding.tvGenre.text = it[currentPosition].genre
             fragmentDetailBinding.tvLength.text = it[currentPosition].length
             fragmentDetailBinding.tvRating.text = it[currentPosition].rating
-            fragmentDetailBinding.tvOverview.text = it[currentPosition].desription
+            fragmentDetailBinding.tvOverview.text = it[currentPosition].description
             fragmentDetailBinding.ivDetail.setImageResource(it[currentPosition].image)
         }
     }
 
     private fun setupListeners() {
-        fragmentDetailBinding.toolbar.setNavigationOnClickListener {
+        fragmentDetailBinding.toolbarDetail.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
 

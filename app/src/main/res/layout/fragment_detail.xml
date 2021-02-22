@@ -21,7 +21,7 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleTextAppearance="@style/expandedAppBar"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar">
+            app:toolbarId="@+id/toolbarDetail">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivDetail"
@@ -33,7 +33,7 @@
                 app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/toolbarDetail"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
@@ -45,6 +45,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/svDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_32"
