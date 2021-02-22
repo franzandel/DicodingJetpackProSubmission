@@ -1,4 +1,4 @@
-package com.franzandel.dicodingjetpackprosubmission
+package com.franzandel.dicodingjetpackprosubmission.ui.dashboard
 
 import android.os.Bundle
 import android.view.Menu
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.franzandel.dicodingjetpackprosubmission.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class DashboardActivity : AppCompatActivity() {

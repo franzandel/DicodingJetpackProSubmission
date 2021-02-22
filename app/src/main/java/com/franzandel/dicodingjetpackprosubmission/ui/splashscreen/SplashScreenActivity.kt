@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import com.franzandel.dicodingjetpackprosubmission.DashboardActivity
 import com.franzandel.dicodingjetpackprosubmission.R
+import com.franzandel.dicodingjetpackprosubmission.ui.dashboard.DashboardActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 

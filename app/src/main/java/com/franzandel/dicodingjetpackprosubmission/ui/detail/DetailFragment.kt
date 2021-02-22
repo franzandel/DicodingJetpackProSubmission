@@ -75,7 +75,7 @@ class DetailFragment : Fragment() {
             fragmentDetailBinding.tvGenre.text = it[currentPosition].genre
             fragmentDetailBinding.tvLength.text = it[currentPosition].length
             fragmentDetailBinding.tvRating.text = it[currentPosition].rating
-            fragmentDetailBinding.tvOverview.text = it[currentPosition].desription
+            fragmentDetailBinding.tvOverview.text = it[currentPosition].description
             fragmentDetailBinding.ivDetail.setImageResource(it[currentPosition].image)
         }
     }
