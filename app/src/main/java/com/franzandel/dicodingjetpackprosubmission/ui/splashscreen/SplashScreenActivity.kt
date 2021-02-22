@@ -1,17 +1,16 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.splashscreen
 
 import android.content.Intent
-import android.os.Bundle
 import android.os.Handler
-import androidx.appcompat.app.AppCompatActivity
 import com.franzandel.dicodingjetpackprosubmission.R
+import com.franzandel.dicodingjetpackprosubmission.base.BaseActivity
 import com.franzandel.dicodingjetpackprosubmission.ui.dashboard.DashboardActivity
 
-class SplashScreenActivity : AppCompatActivity() {
+class SplashScreenActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash_screen)
+    override fun getLayoutId(): Int = R.layout.activity_splash_screen
+
+    override fun onActivityCreated() {
         delayOneSecond()
     }
 

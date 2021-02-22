@@ -3,7 +3,7 @@ package com.franzandel.dicodingjetpackprosubmission.ui.movies
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
+import com.franzandel.dicodingjetpackprosubmission.base.BaseAdapter
 import com.franzandel.dicodingjetpackprosubmission.data.entity.Movie
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDashboardBinding
 
@@ -13,13 +13,12 @@ import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDashboardBind
  */
 
 class MoviesAdapter(private val context: Context) :
-    ListAdapter<Movie, MoviesVH>(MoviesDiffCallback()) {
+    BaseAdapter<Movie, MoviesVH, ItemDashboardBinding>(MoviesDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesVH {
-        val itemDashboardBinding =
-            ItemDashboardBinding.inflate(LayoutInflater.from(context), parent, false)
-        return MoviesVH(itemDashboardBinding)
-    }
+    override fun getViewBinding(parent: ViewGroup): ItemDashboardBinding =
+        ItemDashboardBinding.inflate(LayoutInflater.from(context), parent, false)
+
+    override fun getViewHolder(viewBinding: ItemDashboardBinding): MoviesVH = MoviesVH(viewBinding)
 
     override fun onBindViewHolder(holder: MoviesVH, position: Int) {
         holder.bind(currentList)

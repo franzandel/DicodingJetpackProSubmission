@@ -1,44 +1,36 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.tvshows
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.franzandel.dicodingjetpackprosubmission.R
+import com.franzandel.dicodingjetpackprosubmission.base.BaseFragment
 import com.franzandel.dicodingjetpackprosubmission.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentTvShowsBinding
 import com.franzandel.dicodingjetpackprosubmission.external.showShareMessage
 
-class TvShowsFragment : Fragment() {
+class TvShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
 
     companion object {
         private const val GRID_SPAN_COUNT = 2
     }
 
-    private lateinit var tvShowsViewModel: TvShowsViewModel
-    private lateinit var fragmentTvShowsBinding: FragmentTvShowsBinding
+    private val tvShowsViewModel by lazy {
+        ViewModelProvider(this).get(TvShowsViewModel::class.java)
+    }
 
     private val adapter by lazy {
         TvShowsAdapter(requireContext())
     }
 
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        tvShowsViewModel =
-            ViewModelProvider(this).get(TvShowsViewModel::class.java)
-        fragmentTvShowsBinding = FragmentTvShowsBinding.inflate(inflater, container, false)
-        return fragmentTvShowsBinding.root
-    }
+        container: ViewGroup?
+    ): FragmentTvShowsBinding = FragmentTvShowsBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onFragmentCreated() {
         setupObservers()
         setupListeners()
         tvShowsViewModel.getTvShows()
@@ -51,7 +43,7 @@ class TvShowsFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        fragmentTvShowsBinding.mtbTvShows.setOnMenuItemClickListener { menuItem ->
+        viewBinding.mtbTvShows.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_share -> {
                     requireActivity().showShareMessage()
@@ -63,9 +55,8 @@ class TvShowsFragment : Fragment() {
     }
 
     private fun setupRV(tvShows: List<TvShow>) {
-        fragmentTvShowsBinding.rvTvShows.layoutManager =
-            GridLayoutManager(requireContext(), GRID_SPAN_COUNT)
-        fragmentTvShowsBinding.rvTvShows.adapter = adapter
+        viewBinding.rvTvShows.layoutManager = GridLayoutManager(requireContext(), GRID_SPAN_COUNT)
+        viewBinding.rvTvShows.adapter = adapter
         adapter.submitList(tvShows)
     }
 }

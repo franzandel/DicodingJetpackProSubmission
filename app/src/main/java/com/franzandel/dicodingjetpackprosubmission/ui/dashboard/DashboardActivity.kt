@@ -1,26 +1,20 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.dashboard
 
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.franzandel.dicodingjetpackprosubmission.R
+import com.franzandel.dicodingjetpackprosubmission.base.BaseActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class DashboardActivity : AppCompatActivity() {
+class DashboardActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dashboard)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+    override fun getLayoutId(): Int = R.layout.activity_dashboard
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
-        navView.setupWithNavController(navController)
+    override fun onActivityCreated() {
+        setupBottomNavigation()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -41,5 +35,14 @@ class DashboardActivity : AppCompatActivity() {
             }
         }
         return true
+    }
+
+    private fun setupBottomNavigation() {
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        navView.setupWithNavController(navController)
     }
 }
