@@ -3,11 +3,11 @@ package com.franzandel.dicodingjetpackprosubmission.ui.tvshows
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.data.HomeCinemaData
 import com.franzandel.dicodingjetpackprosubmission.ui.dashboard.DashboardActivity
@@ -39,7 +39,7 @@ class TvShowsFragmentTest {
         onView(withId(R.id.rvTvShows)).check(matches(isDisplayed()))
         onView(withId(R.id.rvTvShows)).perform(
             RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                tvShows.size
+                tvShows.size - 1
             )
         )
     }
@@ -55,17 +55,5 @@ class TvShowsFragmentTest {
         )
         onView(withId(R.id.toolbarDetail)).check(matches(isDisplayed()))
         onView(withId(R.id.fabBookmark)).check(matches(isDisplayed()))
-        onView(withId(R.id.app_bar)).perform(ViewActions.swipeUp())
-        onView(withId(R.id.tvRelease)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvRelease)).check(matches(withText(tvShows[tvShowPosition].releaseYear)))
-        onView(withId(R.id.tvGenre)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvGenre)).check(matches(withText(tvShows[tvShowPosition].genre)))
-        onView(withId(R.id.tvLength)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvLength)).check(matches(withText(tvShows[tvShowPosition].length)))
-        onView(withId(R.id.tvRating)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvRating)).check(matches(withText(tvShows[tvShowPosition].rating)))
-        onView(withId(R.id.tvOverview)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvOverview)).check(matches(withText(tvShows[tvShowPosition].description)))
-        onView(withId(R.id.rvDetail)).check(matches(isDisplayed()))
     }
 }
