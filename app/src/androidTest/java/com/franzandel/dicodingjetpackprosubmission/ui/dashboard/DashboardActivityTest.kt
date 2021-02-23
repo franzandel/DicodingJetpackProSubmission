@@ -23,6 +23,6 @@ class DashboardActivityTest {
 
     @Test
     fun checkIfBottomNavShown() {
-        onView(withId(R.id.nav_view)).check(matches(isDisplayed()))
+        onView(withId(R.id.navView)).check(matches(isDisplayed()))
     }
 }
