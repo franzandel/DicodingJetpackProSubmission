@@ -29,7 +29,7 @@ class TvShowsFragmentTest {
     fun setup() {
         val activityScenario = ActivityScenario.launch(DashboardActivity::class.java)
         activityScenario.onActivity { dashboardActivity ->
-            bottomNavigation = dashboardActivity.findViewById(R.id.nav_view)
+            bottomNavigation = dashboardActivity.findViewById(R.id.navView)
             bottomNavigation.selectedItemId = R.id.navigation_tv_shows
         }
     }
