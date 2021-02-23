@@ -26,7 +26,7 @@ class SplashScreenActivityTest {
     }
 
     @Test
-    fun checkIfBottomNavShown() {
+    fun checkIfNavigatedToDashboard() {
         onView(withId(R.id.layoutDashboard)).check(matches(isDisplayed()))
     }
 
