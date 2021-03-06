@@ -1,4 +1,4 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation
+package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.diffcallback
 
 import androidx.recyclerview.widget.DiffUtil
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow

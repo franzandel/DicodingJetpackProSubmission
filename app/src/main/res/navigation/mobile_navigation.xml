@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_movies"
-        android:name="com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.MoviesFragment"
+        android:name="com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.fragment.MoviesFragment"
         android:label="@string/title_movies"
         tools:layout="@layout/fragment_movies">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/navigation_tv_shows"
-        android:name="com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.TvShowsFragment"
+        android:name="com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.fragment.TvShowsFragment"
         android:label="@string/title_tv_shows"
         tools:layout="@layout/fragment_tv_shows">
         <action
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.franzandel.dicodingjetpackprosubmission.ui.detail.DetailFragment"
+        android:name="com.franzandel.dicodingjetpackprosubmission.ui.detail.fragment.DetailFragment"
         android:label="DetailFragment"
         tools:layout="@layout/fragment_detail">
         <argument

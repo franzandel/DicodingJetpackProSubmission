@@ -1,4 +1,4 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation
+package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.fragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,6 +12,8 @@ import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.mapper.TvShowsResponseDTOMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.remote.TvShowsNetworkService
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.repository.TvShowsRepositoryImpl
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.adapter.TvShowsAdapter
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.viewmodel.TvShowsViewModel
 import com.google.gson.Gson
 
 class TvShowsFragment : BaseFragment<FragmentTvShowsBinding>() {

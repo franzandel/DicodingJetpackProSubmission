@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.franzandel.dicodingjetpackprosubmission.base.BaseAdapter
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDetailBinding
-import com.franzandel.dicodingjetpackprosubmission.ui.detail.vh.DetailTvShowVH
+import com.franzandel.dicodingjetpackprosubmission.ui.detail.viewholder.DetailTvShowVH
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
-import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.TvShowsDiffCallback
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.diffcallback.TvShowsDiffCallback
 
 /**
  * Created by Franz Andel on 12/02/21.

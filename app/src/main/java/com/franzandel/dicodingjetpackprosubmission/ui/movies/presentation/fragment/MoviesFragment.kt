@@ -1,4 +1,4 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation
+package com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.fragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,6 +12,8 @@ import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.mapper.MoviesResponseDTOMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.remote.MoviesNetworkService
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.repository.MoviesRepositoryImpl
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.adapter.MoviesAdapter
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.viewmodel.MoviesViewModel
 import com.google.gson.Gson
 
 class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {

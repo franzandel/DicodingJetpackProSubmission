@@ -1,12 +1,13 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation
+package com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.viewholder
 
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.franzandel.dicodingjetpackprosubmission.R
-import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
+import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDashboardBinding
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.fragment.MoviesFragmentDirections
 
 /**
  * Created by Franz Andel on 12/02/21.
@@ -18,7 +19,7 @@ class MoviesVH(private val itemDashboardBinding: ItemDashboardBinding) :
 
     fun bind(movies: List<Movie>) {
         with(itemDashboardBinding) {
-            val imageUrl = AppConsts.baseUrlImage + movies[adapterPosition].posterPath
+            val imageUrl = ApiConsts.baseUrlImage + movies[adapterPosition].posterPath
 
             Glide.with(itemView.context)
                 .load(imageUrl)
