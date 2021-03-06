@@ -7,7 +7,7 @@ import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDashboardBinding
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
-import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.TvShowsFragmentDirections
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.fragment.TvShowsFragmentDirections
 
 /**
  * Created by Franz Andel on 12/02/21.

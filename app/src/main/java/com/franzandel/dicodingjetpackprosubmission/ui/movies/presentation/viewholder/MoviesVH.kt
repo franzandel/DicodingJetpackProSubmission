@@ -7,7 +7,7 @@ import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDashboardBinding
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.MoviesFragmentDirections
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.fragment.MoviesFragmentDirections
 
 /**
  * Created by Franz Andel on 12/02/21.

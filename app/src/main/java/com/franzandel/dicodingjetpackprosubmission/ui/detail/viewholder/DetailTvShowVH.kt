@@ -6,7 +6,7 @@ import com.bumptech.glide.Glide
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDetailBinding
-import com.franzandel.dicodingjetpackprosubmission.ui.detail.DetailFragmentDirections
+import com.franzandel.dicodingjetpackprosubmission.ui.detail.fragment.DetailFragmentDirections
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 
 /**

@@ -10,7 +10,6 @@ import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragment
 import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentDetailBinding
-import com.franzandel.dicodingjetpackprosubmission.ui.detail.DetailFragmentArgs
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.adapter.DetailMovieAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.adapter.DetailTvShowAdapter
 import com.google.android.material.snackbar.Snackbar
