@@ -7,7 +7,7 @@ import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
 import com.franzandel.dicodingjetpackprosubmission.external.ErrorCodeData
 import com.franzandel.dicodingjetpackprosubmission.external.Resource
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MoviesResponseDTO
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.TmdbErrorResponse
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.TmdbErrorResponseDTO
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.remote.MoviesNetwork
 import com.google.gson.Gson
 
@@ -23,8 +23,8 @@ class MoviesRepositoryImpl(private val moviesNetwork: MoviesNetwork, gson: Gson)
                     moviesResponse.postValue(Resource.success(body()))
                 } else {
                     val movieErrorResponse =
-                        getParsedErrorModel(errorBody(), TmdbErrorResponse::class.java)
-                    val errorMessage = movieErrorResponse.status_message
+                        getParsedErrorModel(errorBody(), TmdbErrorResponseDTO::class.java)
+                    val errorMessage = movieErrorResponse.statusMessage
                     val errorCodeData = ErrorCodeData(code(), errorMessage)
                     moviesResponse.postValue(Resource.error(null, errorCodeData))
                 }
