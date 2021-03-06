@@ -2,7 +2,7 @@ package com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation
 
 import androidx.lifecycle.*
 import com.franzandel.dicodingjetpackprosubmission.external.Resource
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MoviesResponseDTO
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.repository.MoviesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -10,9 +10,9 @@ import kotlinx.coroutines.withContext
 
 class MoviesViewModel(private val moviesRepository: MoviesRepository) : ViewModel() {
 
-    private var _moviesSource: LiveData<Resource<MoviesResponseDTO>> = MutableLiveData()
-    private val _moviesResult = MediatorLiveData<MoviesResponseDTO>()
-    val moviesResult: LiveData<MoviesResponseDTO> = _moviesResult
+    private var _moviesSource: LiveData<Resource<List<Movie>>> = MutableLiveData()
+    private val _moviesResult = MediatorLiveData<List<Movie>>()
+    val moviesResult: LiveData<List<Movie>> = _moviesResult
 
     private val _moviesErrorResult = MediatorLiveData<String>()
     val moviesErrorResult: LiveData<String> = _moviesErrorResult

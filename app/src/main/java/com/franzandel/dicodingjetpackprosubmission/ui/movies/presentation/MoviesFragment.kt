@@ -8,7 +8,8 @@ import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragment
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentMoviesBinding
 import com.franzandel.dicodingjetpackprosubmission.external.showShareMessage
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MovieDTO
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.mapper.MoviesResponseDTOMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.remote.MoviesNetworkService
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.repository.MoviesRepositoryImpl
 import com.google.gson.Gson
@@ -24,6 +25,7 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
         MoviesViewModel(
             MoviesRepositoryImpl(
                 MoviesNetworkService.getMoviesNetwork(),
+                MoviesResponseDTOMapper(),
                 Gson()
             )
         )
@@ -48,11 +50,11 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
 
     private fun setupObservers() {
         moviesViewModel.moviesResult.observe(viewLifecycleOwner, Observer { movies ->
-            setupRV(movies.movies)
+            setupRV(movies)
         })
     }
 
-    private fun setupRV(movies: List<MovieDTO>) {
+    private fun setupRV(movies: List<Movie>) {
         viewBinding.rvMovies.layoutManager = GridLayoutManager(
             requireContext(),
             GRID_SPAN_COUNT
