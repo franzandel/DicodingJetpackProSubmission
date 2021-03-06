@@ -1,8 +1,6 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.movies.data.remote
 
-import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.franzandel.dicodingjetpackprosubmission.data.remote.NetworkService
 
 /**
  * Created by Franz Andel on 28/02/21.
@@ -10,12 +8,6 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 
 object MoviesNetworkService {
-    fun getMoviesNetwork(): MoviesNetwork {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(AppConsts.baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        return retrofit.create(MoviesNetwork::class.java)
-    }
+    fun getMoviesNetwork(): MoviesNetwork =
+        NetworkService.getRetrofit().create(MoviesNetwork::class.java)
 }

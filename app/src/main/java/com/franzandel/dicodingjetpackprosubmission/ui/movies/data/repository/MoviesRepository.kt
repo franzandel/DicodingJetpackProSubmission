@@ -1,4 +1,4 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.movies.data
+package com.franzandel.dicodingjetpackprosubmission.ui.movies.data.repository
 
 import androidx.lifecycle.LiveData
 import com.franzandel.dicodingjetpackprosubmission.external.Resource

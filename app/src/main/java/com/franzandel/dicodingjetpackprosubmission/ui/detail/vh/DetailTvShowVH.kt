@@ -2,9 +2,12 @@ package com.franzandel.dicodingjetpackprosubmission.ui.detail.vh
 
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.franzandel.dicodingjetpackprosubmission.data.entity.TvShow
+import com.bumptech.glide.Glide
+import com.franzandel.dicodingjetpackprosubmission.R
+import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDetailBinding
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.DetailFragmentDirections
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.Result
 
 /**
  * Created by Franz Andel on 12/02/21.
@@ -14,12 +17,17 @@ import com.franzandel.dicodingjetpackprosubmission.ui.detail.DetailFragmentDirec
 class DetailTvShowVH(private val itemDetailBinding: ItemDetailBinding) :
     RecyclerView.ViewHolder(itemDetailBinding.root) {
 
-    fun bind(tvShows: List<TvShow>) {
+    fun bind(tvShows: List<Result>) {
         with(itemDetailBinding) {
-            val movie = tvShows[adapterPosition]
-            ivItemDetailMovie.setImageResource(movie.image)
-            tvItemDetailTitle.text = movie.title
-            tvItemDetailGenre.text = movie.genre
+            val tvShow = tvShows[adapterPosition]
+            val imageUrl = AppConsts.baseUrlImage + tvShow.poster_path
+            Glide.with(itemView.context)
+                .load(imageUrl)
+                .placeholder(R.drawable.ic_image_not_found)
+                .into(ivItemDetailMovie)
+
+            tvItemDetailTitle.text = tvShow.name
+            tvItemDetailGenre.text = tvShow.vote_count.toString()
 
             cvItemMovie.setOnClickListener {
                 val navDirections =

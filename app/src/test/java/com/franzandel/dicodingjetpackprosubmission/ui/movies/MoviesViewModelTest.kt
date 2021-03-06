@@ -2,6 +2,7 @@ package com.franzandel.dicodingjetpackprosubmission.ui.movies
 
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.MoviesViewModel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.spekframework.spek2.Spek

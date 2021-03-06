@@ -1,15 +1,17 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.tvshows
+package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragment
-import com.franzandel.dicodingjetpackprosubmission.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentTvShowsBinding
 import com.franzandel.dicodingjetpackprosubmission.external.showShareMessage
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.Result
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.remote.TvShowsNetworkService
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.repository.TvShowsRepositoryImpl
+import com.google.gson.Gson
 
 class TvShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
 
@@ -18,11 +20,19 @@ class TvShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
     }
 
     private val tvShowsViewModel by lazy {
-        ViewModelProvider(this).get(TvShowsViewModel::class.java)
+//        ViewModelProvider(this).get(TvShowsViewModel::class.java)
+        TvShowsViewModel(
+            TvShowsRepositoryImpl(
+                TvShowsNetworkService.getTvShowsNetwork(),
+                Gson()
+            )
+        )
     }
 
     private val adapter by lazy {
-        TvShowsAdapter(requireContext())
+        TvShowsAdapter(
+            requireContext()
+        )
     }
 
     override fun getViewBinding(
@@ -37,8 +47,8 @@ class TvShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
     }
 
     private fun setupObservers() {
-        tvShowsViewModel.tvShows.observe(viewLifecycleOwner, Observer { movies ->
-            setupRV(movies)
+        tvShowsViewModel.tvShowsResult.observe(viewLifecycleOwner, Observer { tvShows ->
+            setupRV(tvShows.results)
         })
     }
 
@@ -54,8 +64,11 @@ class TvShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
         }
     }
 
-    private fun setupRV(tvShows: List<TvShow>) {
-        viewBinding.rvTvShows.layoutManager = GridLayoutManager(requireContext(), GRID_SPAN_COUNT)
+    private fun setupRV(tvShows: List<Result>) {
+        viewBinding.rvTvShows.layoutManager = GridLayoutManager(
+            requireContext(),
+            GRID_SPAN_COUNT
+        )
         viewBinding.rvTvShows.adapter = adapter
         adapter.submitList(tvShows)
     }

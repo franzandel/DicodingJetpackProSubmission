@@ -1,14 +1,14 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.movies
+package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation
 
 import androidx.recyclerview.widget.DiffUtil
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Result
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.Result
 
 /**
  * Created by Franz Andel on 12/02/21.
  * Android Engineer
  */
 
-class MoviesDiffCallback : DiffUtil.ItemCallback<Result>() {
+class TvShowsDiffCallback : DiffUtil.ItemCallback<Result>() {
 
     override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean =
         oldItem.id == newItem.id

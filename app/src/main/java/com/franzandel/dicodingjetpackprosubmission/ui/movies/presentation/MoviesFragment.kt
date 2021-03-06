@@ -1,4 +1,4 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.movies
+package com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,9 +8,9 @@ import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragment
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentMoviesBinding
 import com.franzandel.dicodingjetpackprosubmission.external.showShareMessage
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.MoviesRepositoryImpl
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Result
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.remote.MoviesNetworkService
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.repository.MoviesRepositoryImpl
 import com.google.gson.Gson
 
 class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
@@ -21,11 +21,18 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
 
     private val moviesViewModel by lazy {
 //        ViewModelProvider(this).get(MoviesViewModel::class.java)
-        MoviesViewModel(MoviesRepositoryImpl(MoviesNetworkService.getMoviesNetwork(), Gson()))
+        MoviesViewModel(
+            MoviesRepositoryImpl(
+                MoviesNetworkService.getMoviesNetwork(),
+                Gson()
+            )
+        )
     }
 
     private val adapter by lazy {
-        MoviesAdapter(requireContext())
+        MoviesAdapter(
+            requireContext()
+        )
     }
 
     override fun getViewBinding(
@@ -46,7 +53,10 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
     }
 
     private fun setupRV(movies: List<Result>) {
-        viewBinding.rvMovies.layoutManager = GridLayoutManager(requireContext(), GRID_SPAN_COUNT)
+        viewBinding.rvMovies.layoutManager = GridLayoutManager(
+            requireContext(),
+            GRID_SPAN_COUNT
+        )
         viewBinding.rvMovies.adapter = adapter
         adapter.submitList(movies)
     }
