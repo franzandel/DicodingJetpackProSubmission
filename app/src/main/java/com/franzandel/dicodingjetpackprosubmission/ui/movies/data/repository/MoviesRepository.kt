@@ -2,7 +2,7 @@ package com.franzandel.dicodingjetpackprosubmission.ui.movies.data.repository
 
 import androidx.lifecycle.LiveData
 import com.franzandel.dicodingjetpackprosubmission.external.Resource
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MoviesResponseDTO
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 
 /**
  * Created by Franz Andel on 28/02/21.
@@ -10,5 +10,5 @@ import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MoviesR
  */
 
 interface MoviesRepository {
-    suspend fun getMovies(): LiveData<Resource<MoviesResponseDTO>>
+    suspend fun getMovies(): LiveData<Resource<List<Movie>>>
 }

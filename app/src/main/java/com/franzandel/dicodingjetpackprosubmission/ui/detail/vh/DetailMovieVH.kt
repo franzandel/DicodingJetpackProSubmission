@@ -7,7 +7,7 @@ import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDetailBinding
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.DetailFragmentDirections
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MovieDTO
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 
 /**
  * Created by Franz Andel on 12/02/21.
@@ -17,7 +17,7 @@ import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MovieDT
 class DetailMovieVH(private val itemDetailBinding: ItemDetailBinding) :
     RecyclerView.ViewHolder(itemDetailBinding.root) {
 
-    fun bind(movies: List<MovieDTO>) {
+    fun bind(movies: List<Movie>) {
         with(itemDetailBinding) {
             val movie = movies[adapterPosition]
 

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.franzandel.dicodingjetpackprosubmission.base.BaseAdapter
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDashboardBinding
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MovieDTO
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 
 /**
  * Created by Franz Andel on 12/02/21.
@@ -13,9 +13,7 @@ import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MovieDT
  */
 
 class MoviesAdapter(private val context: Context) :
-    BaseAdapter<MovieDTO, MoviesVH, ItemDashboardBinding>(
-        MoviesDiffCallback()
-    ) {
+    BaseAdapter<Movie, MoviesVH, ItemDashboardBinding>(MoviesDiffCallback()) {
 
     override fun getViewBinding(parent: ViewGroup): ItemDashboardBinding =
         ItemDashboardBinding.inflate(LayoutInflater.from(context), parent, false)
