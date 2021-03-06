@@ -1,17 +1,39 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.movies
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.franzandel.dicodingjetpackprosubmission.data.HomeCinemaData
-import com.franzandel.dicodingjetpackprosubmission.data.entity.Movie
+import androidx.lifecycle.*
+import com.franzandel.dicodingjetpackprosubmission.external.Resource
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.MoviesRepository
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MovieAPI
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class MoviesViewModel : ViewModel() {
+class MoviesViewModel(private val moviesRepository: MoviesRepository) : ViewModel() {
 
-    private val _movies = MutableLiveData<List<Movie>>()
-    val movies: LiveData<List<Movie>> = _movies
+    private var _moviesSource: LiveData<Resource<MovieAPI>> = MutableLiveData()
+    private val _moviesResult = MediatorLiveData<MovieAPI>()
+    val moviesResult: LiveData<MovieAPI> = _moviesResult
+
+    private val _moviesErrorResult = MediatorLiveData<String>()
+    val moviesErrorResult: LiveData<String> = _moviesErrorResult
+
+    private val _moviesLoadingResult = MediatorLiveData<Boolean>()
+    val moviesLoadingResult: LiveData<Boolean> = _moviesLoadingResult
 
     fun getMovies() {
-        _movies.value = HomeCinemaData.getAllMovies()
+        viewModelScope.launch(Dispatchers.Main) {
+            _moviesLoadingResult.value = true
+            withContext(Dispatchers.IO) {
+                _moviesSource = moviesRepository.getMovies()
+            }
+
+            _moviesResult.addSource(_moviesSource) {
+                when (it.status) {
+                    Resource.Status.SUCCESS -> _moviesResult.postValue(it.data!!)
+                    Resource.Status.ERROR -> _moviesErrorResult.postValue(it.errorCodeData?.message!!)
+                    Resource.Status.LOADING -> _moviesLoadingResult.postValue(false)
+                }
+            }
+        }
     }
 }

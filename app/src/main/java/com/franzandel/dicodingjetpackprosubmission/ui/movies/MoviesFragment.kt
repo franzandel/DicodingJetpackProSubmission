@@ -3,13 +3,15 @@ package com.franzandel.dicodingjetpackprosubmission.ui.movies
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragment
-import com.franzandel.dicodingjetpackprosubmission.data.entity.Movie
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentMoviesBinding
 import com.franzandel.dicodingjetpackprosubmission.external.showShareMessage
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.MoviesRepositoryImpl
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Result
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.remote.MoviesNetworkService
+import com.google.gson.Gson
 
 class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
 
@@ -18,7 +20,8 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
     }
 
     private val moviesViewModel by lazy {
-        ViewModelProvider(this).get(MoviesViewModel::class.java)
+//        ViewModelProvider(this).get(MoviesViewModel::class.java)
+        MoviesViewModel(MoviesRepositoryImpl(MoviesNetworkService.getMoviesNetwork(), Gson()))
     }
 
     private val adapter by lazy {
@@ -37,12 +40,12 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
     }
 
     private fun setupObservers() {
-        moviesViewModel.movies.observe(viewLifecycleOwner, Observer { movies ->
-            setupRV(movies)
+        moviesViewModel.moviesResult.observe(viewLifecycleOwner, Observer { movies ->
+            setupRV(movies.results)
         })
     }
 
-    private fun setupRV(movies: List<Movie>) {
+    private fun setupRV(movies: List<Result>) {
         viewBinding.rvMovies.layoutManager = GridLayoutManager(requireContext(), GRID_SPAN_COUNT)
         viewBinding.rvMovies.adapter = adapter
         adapter.submitList(movies)

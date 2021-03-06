@@ -5,8 +5,10 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragment
+import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentDetailBinding
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.adapter.DetailMovieAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.adapter.DetailTvShowAdapter
@@ -30,15 +32,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     }
 
     private val detailMovieAdapter by lazy {
-        DetailMovieAdapter(
-            requireContext()
-        )
+        DetailMovieAdapter(requireContext())
     }
 
     private val detailTvShowAdapter by lazy {
-        DetailTvShowAdapter(
-            requireContext()
-        )
+        DetailTvShowAdapter(requireContext())
     }
 
     override fun getViewBinding(
@@ -57,12 +55,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         movies?.let {
             viewBinding.apply {
                 toolbarDetail.title = it[currentPosition].title
-                tvRelease.text = it[currentPosition].releaseDate
-                tvGenre.text = it[currentPosition].genre
-                tvLength.text = it[currentPosition].length
-                tvRating.text = it[currentPosition].rating
-                tvOverview.text = it[currentPosition].description
-                ivDetail.setImageResource(it[currentPosition].image)
+                tvRelease.text = it[currentPosition].release_date
+                tvGenre.text = it[currentPosition].popularity.toString()
+                tvLength.text = it[currentPosition].vote_count.toString()
+                tvRating.text = it[currentPosition].vote_average.toString()
+                tvOverview.text = it[currentPosition].overview
+
+                val imageUrl = AppConsts.baseUrlImage + it[currentPosition].poster_path
+                Glide.with(requireContext())
+                    .load(imageUrl)
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_image_not_found)
+                    .into(ivDetail)
             }
         }
     }
