@@ -74,13 +74,20 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private fun setupTvShowsUI() {
         tvShows?.let {
             viewBinding.apply {
-                toolbarDetail.title = it[currentPosition].title
-                tvRelease.text = it[currentPosition].releaseYear
-                tvGenre.text = it[currentPosition].genre
-                tvLength.text = it[currentPosition].length
-                tvRating.text = it[currentPosition].rating
-                tvOverview.text = it[currentPosition].description
-                ivDetail.setImageResource(it[currentPosition].image)
+                toolbarDetail.title = it[currentPosition].name
+                tvRelease.text = it[currentPosition].first_air_date
+                tvGenre.text = it[currentPosition].popularity.toString()
+                tvLength.text = it[currentPosition].vote_count.toString()
+                tvRating.text = it[currentPosition].vote_average.toString()
+                tvOverview.text = it[currentPosition].overview
+//                ivDetail.setImageResource(it[currentPosition].image)
+
+                val imageUrl = AppConsts.baseUrlImage + it[currentPosition].poster_path
+                Glide.with(requireContext())
+                    .load(imageUrl)
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_image_not_found)
+                    .into(ivDetail)
             }
         }
     }

@@ -1,9 +1,9 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.movies
+package com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation
 
 import androidx.lifecycle.*
 import com.franzandel.dicodingjetpackprosubmission.external.Resource
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.MoviesRepository
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MovieAPI
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.repository.MoviesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

@@ -1,4 +1,4 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.movies
+package com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -13,12 +13,17 @@ import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Result
  */
 
 class MoviesAdapter(private val context: Context) :
-    BaseAdapter<Result, MoviesVH, ItemDashboardBinding>(MoviesDiffCallback()) {
+    BaseAdapter<Result, MoviesVH, ItemDashboardBinding>(
+        MoviesDiffCallback()
+    ) {
 
     override fun getViewBinding(parent: ViewGroup): ItemDashboardBinding =
         ItemDashboardBinding.inflate(LayoutInflater.from(context), parent, false)
 
-    override fun getViewHolder(viewBinding: ItemDashboardBinding): MoviesVH = MoviesVH(viewBinding)
+    override fun getViewHolder(viewBinding: ItemDashboardBinding): MoviesVH =
+        MoviesVH(
+            viewBinding
+        )
 
     override fun onBindViewHolder(holder: MoviesVH, position: Int) {
         holder.bind(currentList)
