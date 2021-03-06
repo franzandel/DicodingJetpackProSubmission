@@ -2,7 +2,7 @@ package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation
 
 import androidx.lifecycle.*
 import com.franzandel.dicodingjetpackprosubmission.external.Resource
-import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShowsResponseDTO
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.repository.TvShowsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -10,9 +10,9 @@ import kotlinx.coroutines.withContext
 
 class TvShowsViewModel(private val tvShowsRepository: TvShowsRepository) : ViewModel() {
 
-    private var _tvShowsSource: LiveData<Resource<TvShowsResponseDTO>> = MutableLiveData()
-    private val _tvShowsResult = MediatorLiveData<TvShowsResponseDTO>()
-    val tvShowsResult: LiveData<TvShowsResponseDTO> = _tvShowsResult
+    private var _tvShowsSource: LiveData<Resource<List<TvShow>>> = MutableLiveData()
+    private val _tvShowsResult = MediatorLiveData<List<TvShow>>()
+    val tvShowsResult: LiveData<List<TvShow>> = _tvShowsResult
 
     private val _tvShowsErrorResult = MediatorLiveData<String>()
     val tvShowsErrorResult: LiveData<String> = _tvShowsErrorResult

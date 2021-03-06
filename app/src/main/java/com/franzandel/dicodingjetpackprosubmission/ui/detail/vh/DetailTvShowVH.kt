@@ -7,7 +7,7 @@ import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDetailBinding
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.DetailFragmentDirections
-import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShowDTO
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 
 /**
  * Created by Franz Andel on 12/02/21.
@@ -17,7 +17,7 @@ import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 class DetailTvShowVH(private val itemDetailBinding: ItemDetailBinding) :
     RecyclerView.ViewHolder(itemDetailBinding.root) {
 
-    fun bind(tvShows: List<TvShowDTO>) {
+    fun bind(tvShows: List<TvShow>) {
         with(itemDetailBinding) {
             val tvShow = tvShows[adapterPosition]
             val imageUrl = AppConsts.baseUrlImage + tvShow.posterPath
