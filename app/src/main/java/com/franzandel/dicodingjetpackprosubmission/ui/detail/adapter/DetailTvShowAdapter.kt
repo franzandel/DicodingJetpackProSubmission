@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import com.franzandel.dicodingjetpackprosubmission.base.BaseAdapter
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDetailBinding
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.vh.DetailTvShowVH
-import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShowDTO
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.TvShowsDiffCallback
 
 /**
@@ -15,7 +15,7 @@ import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.TvSho
  */
 
 class DetailTvShowAdapter(private val context: Context) :
-    BaseAdapter<TvShowDTO, DetailTvShowVH, ItemDetailBinding>(TvShowsDiffCallback()) {
+    BaseAdapter<TvShow, DetailTvShowVH, ItemDetailBinding>(TvShowsDiffCallback()) {
 
     override fun getViewBinding(parent: ViewGroup): ItemDetailBinding =
         ItemDetailBinding.inflate(LayoutInflater.from(context), parent, false)

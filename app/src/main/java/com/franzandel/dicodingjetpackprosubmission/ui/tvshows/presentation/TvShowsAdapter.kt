@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.franzandel.dicodingjetpackprosubmission.base.BaseAdapter
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDashboardBinding
-import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShowDTO
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 
 /**
  * Created by Franz Andel on 12/02/21.
@@ -13,9 +13,7 @@ import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
  */
 
 class TvShowsAdapter(private val context: Context) :
-    BaseAdapter<TvShowDTO, TvShowsVH, ItemDashboardBinding>(
-        TvShowsDiffCallback()
-    ) {
+    BaseAdapter<TvShow, TvShowsVH, ItemDashboardBinding>(TvShowsDiffCallback()) {
 
     override fun getViewBinding(parent: ViewGroup): ItemDashboardBinding =
         ItemDashboardBinding.inflate(LayoutInflater.from(context), parent, false)
