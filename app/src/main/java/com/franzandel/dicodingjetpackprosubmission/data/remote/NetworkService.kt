@@ -1,6 +1,6 @@
 package com.franzandel.dicodingjetpackprosubmission.data.remote
 
-import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
+import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkService {
     fun getRetrofit(): Retrofit = Retrofit.Builder()
-        .baseUrl(AppConsts.baseUrl)
+        .baseUrl(ApiConsts.baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 }

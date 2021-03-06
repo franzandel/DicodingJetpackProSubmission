@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.franzandel.dicodingjetpackprosubmission.base.BaseAdapter
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDetailBinding
-import com.franzandel.dicodingjetpackprosubmission.ui.detail.vh.DetailMovieVH
+import com.franzandel.dicodingjetpackprosubmission.ui.detail.viewholder.DetailMovieVH
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.MoviesDiffCallback
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.diffcallback.MoviesDiffCallback
 
 /**
  * Created by Franz Andel on 12/02/21.

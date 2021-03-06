@@ -1,4 +1,4 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.detail
+package com.franzandel.dicodingjetpackprosubmission.ui.detail.fragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragment
-import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
+import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentDetailBinding
+import com.franzandel.dicodingjetpackprosubmission.ui.detail.DetailFragmentArgs
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.adapter.DetailMovieAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.adapter.DetailTvShowAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -61,7 +62,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 tvRating.text = it[currentPosition].voteAverage.toString()
                 tvOverview.text = it[currentPosition].overview
 
-                val imageUrl = AppConsts.baseUrlImage + it[currentPosition].posterPath
+                val imageUrl = ApiConsts.baseUrlImage + it[currentPosition].posterPath
                 Glide.with(requireContext())
                     .load(imageUrl)
                     .centerCrop()
@@ -81,7 +82,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
                 tvRating.text = it[currentPosition].voteAverage.toString()
                 tvOverview.text = it[currentPosition].overview
 
-                val imageUrl = AppConsts.baseUrlImage + it[currentPosition].posterPath
+                val imageUrl = ApiConsts.baseUrlImage + it[currentPosition].posterPath
                 Glide.with(requireContext())
                     .load(imageUrl)
                     .centerCrop()

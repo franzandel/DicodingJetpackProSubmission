@@ -1,10 +1,10 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.detail.vh
+package com.franzandel.dicodingjetpackprosubmission.ui.detail.viewholder
 
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.franzandel.dicodingjetpackprosubmission.R
-import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
+import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDetailBinding
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.DetailFragmentDirections
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
@@ -21,7 +21,7 @@ class DetailMovieVH(private val itemDetailBinding: ItemDetailBinding) :
         with(itemDetailBinding) {
             val movie = movies[adapterPosition]
 
-            val imageUrl = AppConsts.baseUrlImage + movies[adapterPosition].posterPath
+            val imageUrl = ApiConsts.baseUrlImage + movies[adapterPosition].posterPath
             Glide.with(itemView.context)
                 .load(imageUrl)
                 .placeholder(R.drawable.ic_image_not_found)

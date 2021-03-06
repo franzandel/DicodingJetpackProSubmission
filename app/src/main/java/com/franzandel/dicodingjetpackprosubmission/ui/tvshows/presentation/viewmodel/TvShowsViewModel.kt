@@ -1,4 +1,4 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation
+package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.viewmodel
 
 import androidx.lifecycle.*
 import com.franzandel.dicodingjetpackprosubmission.external.Resource

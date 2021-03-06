@@ -1,24 +1,25 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation
+package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.viewholder
 
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.franzandel.dicodingjetpackprosubmission.R
-import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
+import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDashboardBinding
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.TvShowsFragmentDirections
 
 /**
  * Created by Franz Andel on 12/02/21.
  * Android Engineer
  */
 
-class MoviesVH(private val itemDashboardBinding: ItemDashboardBinding) :
+class TvShowsVH(private val itemDashboardBinding: ItemDashboardBinding) :
     RecyclerView.ViewHolder(itemDashboardBinding.root) {
 
-    fun bind(movies: List<Movie>) {
+    fun bind(tvShows: List<TvShow>) {
         with(itemDashboardBinding) {
-            val imageUrl = AppConsts.baseUrlImage + movies[adapterPosition].posterPath
+            val imageUrl = ApiConsts.baseUrlImage + tvShows[adapterPosition].posterPath
 
             Glide.with(itemView.context)
                 .load(imageUrl)
@@ -28,8 +29,8 @@ class MoviesVH(private val itemDashboardBinding: ItemDashboardBinding) :
 
             cvItemMovie.setOnClickListener {
                 val navDirections =
-                    MoviesFragmentDirections.actionNavigationMoviesToDetailFragment()
-                navDirections.movies = movies.toTypedArray()
+                    TvShowsFragmentDirections.actionNavigationTvShowsToDetailFragment()
+                navDirections.tvShows = tvShows.toTypedArray()
                 navDirections.currentPosition = adapterPosition
                 findNavController(root).navigate(navDirections)
             }

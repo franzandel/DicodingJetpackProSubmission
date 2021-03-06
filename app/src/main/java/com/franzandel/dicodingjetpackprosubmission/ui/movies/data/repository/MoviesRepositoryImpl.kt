@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.base.BaseNetworkRepository
-import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
+import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import com.franzandel.dicodingjetpackprosubmission.external.ErrorCodeData
 import com.franzandel.dicodingjetpackprosubmission.external.Resource
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
@@ -23,7 +23,7 @@ class MoviesRepositoryImpl(
         val moviesResponse = MutableLiveData<Resource<List<Movie>>>()
 
         return withTryCatch(moviesResponse) {
-            moviesNetwork.getMoviesFromAPI(AppConsts.apiKey).apply {
+            moviesNetwork.getMoviesFromAPI(ApiConsts.apiKey).apply {
                 if (isSuccessful) {
                     val movies = mapper.map(body()!!)
                     moviesResponse.postValue(Resource.success(movies))
