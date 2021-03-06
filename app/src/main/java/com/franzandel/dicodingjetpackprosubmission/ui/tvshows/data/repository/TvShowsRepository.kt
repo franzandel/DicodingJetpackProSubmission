@@ -2,7 +2,7 @@ package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.repository
 
 import androidx.lifecycle.LiveData
 import com.franzandel.dicodingjetpackprosubmission.external.Resource
-import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShowsAPI
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShowsResponseDTO
 
 /**
  * Created by Franz Andel on 06/03/21.
@@ -10,5 +10,5 @@ import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
  */
 
 interface TvShowsRepository {
-    suspend fun getTvShows(): LiveData<Resource<TvShowsAPI>>
+    suspend fun getTvShows(): LiveData<Resource<TvShowsResponseDTO>>
 }

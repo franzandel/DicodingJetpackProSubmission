@@ -6,7 +6,7 @@ import com.franzandel.dicodingjetpackprosubmission.base.BaseNetworkRepository
 import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
 import com.franzandel.dicodingjetpackprosubmission.external.ErrorCodeData
 import com.franzandel.dicodingjetpackprosubmission.external.Resource
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MovieAPI
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MoviesResponseDTO
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.TmdbErrorResponse
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.remote.MoviesNetwork
 import com.google.gson.Gson
@@ -14,8 +14,8 @@ import com.google.gson.Gson
 class MoviesRepositoryImpl(private val moviesNetwork: MoviesNetwork, gson: Gson) :
     BaseNetworkRepository(gson), MoviesRepository {
 
-    override suspend fun getMovies(): LiveData<Resource<MovieAPI>> {
-        val moviesResponse = MutableLiveData<Resource<MovieAPI>>()
+    override suspend fun getMovies(): LiveData<Resource<MoviesResponseDTO>> {
+        val moviesResponse = MutableLiveData<Resource<MoviesResponseDTO>>()
 
         return withTryCatch(moviesResponse) {
             moviesNetwork.getMoviesFromAPI(AppConsts.apiKey).apply {
