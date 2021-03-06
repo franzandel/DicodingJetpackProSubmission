@@ -8,7 +8,7 @@ import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragment
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentTvShowsBinding
 import com.franzandel.dicodingjetpackprosubmission.external.showShareMessage
-import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.Result
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShowDTO
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.remote.TvShowsNetworkService
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.repository.TvShowsRepositoryImpl
 import com.google.gson.Gson
@@ -48,7 +48,7 @@ class TvShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
 
     private fun setupObservers() {
         tvShowsViewModel.tvShowsResult.observe(viewLifecycleOwner, Observer { tvShows ->
-            setupRV(tvShows.results)
+            setupRV(tvShows.tvShows)
         })
     }
 
@@ -64,7 +64,7 @@ class TvShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
         }
     }
 
-    private fun setupRV(tvShows: List<Result>) {
+    private fun setupRV(tvShows: List<TvShowDTO>) {
         viewBinding.rvTvShows.layoutManager = GridLayoutManager(
             requireContext(),
             GRID_SPAN_COUNT

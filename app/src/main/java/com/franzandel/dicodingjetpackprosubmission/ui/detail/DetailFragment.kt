@@ -55,13 +55,13 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         movies?.let {
             viewBinding.apply {
                 toolbarDetail.title = it[currentPosition].title
-                tvRelease.text = it[currentPosition].release_date
+                tvRelease.text = it[currentPosition].releaseDate
                 tvGenre.text = it[currentPosition].popularity.toString()
-                tvLength.text = it[currentPosition].vote_count.toString()
-                tvRating.text = it[currentPosition].vote_average.toString()
+                tvLength.text = it[currentPosition].voteCount.toString()
+                tvRating.text = it[currentPosition].voteAverage.toString()
                 tvOverview.text = it[currentPosition].overview
 
-                val imageUrl = AppConsts.baseUrlImage + it[currentPosition].poster_path
+                val imageUrl = AppConsts.baseUrlImage + it[currentPosition].posterPath
                 Glide.with(requireContext())
                     .load(imageUrl)
                     .centerCrop()
@@ -75,14 +75,13 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         tvShows?.let {
             viewBinding.apply {
                 toolbarDetail.title = it[currentPosition].name
-                tvRelease.text = it[currentPosition].first_air_date
+                tvRelease.text = it[currentPosition].firstAirDate
                 tvGenre.text = it[currentPosition].popularity.toString()
-                tvLength.text = it[currentPosition].vote_count.toString()
-                tvRating.text = it[currentPosition].vote_average.toString()
+                tvLength.text = it[currentPosition].voteCount.toString()
+                tvRating.text = it[currentPosition].voteAverage.toString()
                 tvOverview.text = it[currentPosition].overview
-//                ivDetail.setImageResource(it[currentPosition].image)
 
-                val imageUrl = AppConsts.baseUrlImage + it[currentPosition].poster_path
+                val imageUrl = AppConsts.baseUrlImage + it[currentPosition].posterPath
                 Glide.with(requireContext())
                     .load(imageUrl)
                     .centerCrop()

@@ -1,6 +1,6 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.movies.data.remote
 
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MovieAPI
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MoviesResponseDTO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -12,5 +12,5 @@ import retrofit2.http.Query
 
 interface MoviesNetwork {
     @GET("discover/movie")
-    suspend fun getMoviesFromAPI(@Query("api_key") apiKey: String): Response<MovieAPI>
+    suspend fun getMoviesFromAPI(@Query("api_key") apiKey: String): Response<MoviesResponseDTO>
 }

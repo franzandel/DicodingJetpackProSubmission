@@ -7,7 +7,7 @@ import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDetailBinding
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.DetailFragmentDirections
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Result
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MovieDTO
 
 /**
  * Created by Franz Andel on 12/02/21.
@@ -17,18 +17,18 @@ import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Result
 class DetailMovieVH(private val itemDetailBinding: ItemDetailBinding) :
     RecyclerView.ViewHolder(itemDetailBinding.root) {
 
-    fun bind(movies: List<Result>) {
+    fun bind(movies: List<MovieDTO>) {
         with(itemDetailBinding) {
             val movie = movies[adapterPosition]
 
-            val imageUrl = AppConsts.baseUrlImage + movies[adapterPosition].poster_path
+            val imageUrl = AppConsts.baseUrlImage + movies[adapterPosition].posterPath
             Glide.with(itemView.context)
                 .load(imageUrl)
                 .placeholder(R.drawable.ic_image_not_found)
                 .into(ivItemDetailMovie)
 
             tvItemDetailTitle.text = movie.title
-            tvItemDetailGenre.text = movie.vote_count.toString()
+            tvItemDetailGenre.text = movie.voteCount.toString()
 
             cvItemMovie.setOnClickListener {
                 val navDirections =

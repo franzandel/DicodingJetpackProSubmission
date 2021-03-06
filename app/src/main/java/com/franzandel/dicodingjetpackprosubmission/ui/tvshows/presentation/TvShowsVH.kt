@@ -6,7 +6,7 @@ import com.bumptech.glide.Glide
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDashboardBinding
-import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.Result
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShowDTO
 
 /**
  * Created by Franz Andel on 12/02/21.
@@ -16,9 +16,9 @@ import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.Result
 class TvShowsVH(private val itemDashboardBinding: ItemDashboardBinding) :
     RecyclerView.ViewHolder(itemDashboardBinding.root) {
 
-    fun bind(tvShows: List<Result>) {
+    fun bind(tvShows: List<TvShowDTO>) {
         with(itemDashboardBinding) {
-            val imageUrl = AppConsts.baseUrlImage + tvShows[adapterPosition].poster_path
+            val imageUrl = AppConsts.baseUrlImage + tvShows[adapterPosition].posterPath
 
             Glide.with(itemView.context)
                 .load(imageUrl)

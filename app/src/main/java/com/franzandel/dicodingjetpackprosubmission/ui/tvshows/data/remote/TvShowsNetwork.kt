@@ -1,6 +1,6 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.remote
 
-import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShowsAPI
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShowsResponseDTO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -12,5 +12,5 @@ import retrofit2.http.Query
 
 interface TvShowsNetwork {
     @GET("discover/tv")
-    suspend fun getTvShowsFromAPI(@Query("api_key") apiKey: String): Response<TvShowsAPI>
+    suspend fun getTvShowsFromAPI(@Query("api_key") apiKey: String): Response<TvShowsResponseDTO>
 }

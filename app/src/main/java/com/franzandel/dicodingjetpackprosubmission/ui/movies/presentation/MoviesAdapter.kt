@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.franzandel.dicodingjetpackprosubmission.base.BaseAdapter
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDashboardBinding
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Result
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MovieDTO
 
 /**
  * Created by Franz Andel on 12/02/21.
@@ -13,7 +13,7 @@ import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Result
  */
 
 class MoviesAdapter(private val context: Context) :
-    BaseAdapter<Result, MoviesVH, ItemDashboardBinding>(
+    BaseAdapter<MovieDTO, MoviesVH, ItemDashboardBinding>(
         MoviesDiffCallback()
     ) {
 

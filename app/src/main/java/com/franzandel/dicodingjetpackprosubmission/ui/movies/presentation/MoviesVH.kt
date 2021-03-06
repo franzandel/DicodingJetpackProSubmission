@@ -6,7 +6,7 @@ import com.bumptech.glide.Glide
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.data.AppConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDashboardBinding
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Result
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MovieDTO
 
 /**
  * Created by Franz Andel on 12/02/21.
@@ -16,9 +16,9 @@ import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Result
 class MoviesVH(private val itemDashboardBinding: ItemDashboardBinding) :
     RecyclerView.ViewHolder(itemDashboardBinding.root) {
 
-    fun bind(movies: List<Result>) {
+    fun bind(movies: List<MovieDTO>) {
         with(itemDashboardBinding) {
-            val imageUrl = AppConsts.baseUrlImage + movies[adapterPosition].poster_path
+            val imageUrl = AppConsts.baseUrlImage + movies[adapterPosition].posterPath
 
             Glide.with(itemView.context)
                 .load(imageUrl)
