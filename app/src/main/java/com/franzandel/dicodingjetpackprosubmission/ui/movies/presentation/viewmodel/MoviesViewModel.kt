@@ -7,8 +7,10 @@ import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.repository.Mov
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class MoviesViewModel(private val moviesRepository: MoviesRepository) : ViewModel() {
+class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRepository) :
+    ViewModel() {
 
     private var _moviesSource: LiveData<Resource<List<Movie>>> = MutableLiveData()
     private val _moviesResult = MediatorLiveData<List<Movie>>()

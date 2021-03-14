@@ -12,8 +12,11 @@ import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MoviesR
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.TmdbErrorResponseDTO
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.remote.MoviesNetwork
 import com.google.gson.Gson
+import dagger.hilt.android.scopes.ActivityScoped
+import javax.inject.Inject
 
-class MoviesRepositoryImpl(
+@ActivityScoped
+class MoviesRepositoryImpl @Inject constructor(
     private val moviesNetwork: MoviesNetwork,
     private val mapper: BaseMapper<MoviesResponseDTO, List<Movie>>,
     gson: Gson

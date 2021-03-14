@@ -8,7 +8,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DashboardActivity : BaseActivity() {
 
     override fun getLayoutId(): Int = R.layout.activity_dashboard
