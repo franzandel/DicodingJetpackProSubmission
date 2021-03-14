@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragmentVM
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentTvShowsBinding
+import com.franzandel.dicodingjetpackprosubmission.databinding.LayoutErrorBinding
+import com.franzandel.dicodingjetpackprosubmission.external.hide
+import com.franzandel.dicodingjetpackprosubmission.external.show
 import com.franzandel.dicodingjetpackprosubmission.external.showShareMessage
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.adapter.TvShowsAdapter
@@ -24,6 +27,8 @@ class TvShowsFragment : BaseFragmentVM<TvShowsViewModel, FragmentTvShowsBinding>
     @Inject
     lateinit var tvShowsViewModel: TvShowsViewModel
 
+    private lateinit var errorViewBinding: LayoutErrorBinding
+
     private val adapter by lazy {
         TvShowsAdapter(requireContext())
     }
@@ -34,6 +39,7 @@ class TvShowsFragment : BaseFragmentVM<TvShowsViewModel, FragmentTvShowsBinding>
     ): FragmentTvShowsBinding = FragmentTvShowsBinding.inflate(inflater, container, false)
 
     override fun onFragmentCreated() {
+        errorViewBinding = viewBinding.layoutError
         setupObservers()
         setupListeners()
         tvShowsViewModel.getTvShows()
@@ -41,7 +47,16 @@ class TvShowsFragment : BaseFragmentVM<TvShowsViewModel, FragmentTvShowsBinding>
 
     private fun setupObservers() {
         tvShowsViewModel.result.observe(viewLifecycleOwner, Observer { tvShows ->
+            viewBinding.layoutError.root.hide()
+            viewBinding.ablTvShows.show()
+            viewBinding.rvTvShows.show()
             setupRV(tvShows)
+        })
+
+        tvShowsViewModel.errorResult.observe(viewLifecycleOwner, Observer {
+            viewBinding.layoutError.root.show()
+            viewBinding.ablTvShows.hide()
+            viewBinding.rvTvShows.hide()
         })
     }
 
@@ -54,6 +69,10 @@ class TvShowsFragment : BaseFragmentVM<TvShowsViewModel, FragmentTvShowsBinding>
                 }
                 else -> false
             }
+        }
+
+        errorViewBinding.btnTryAgain.setOnClickListener {
+            tvShowsViewModel.getTvShows()
         }
     }
 

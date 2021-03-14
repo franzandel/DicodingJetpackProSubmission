@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragmentVM
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentMoviesBinding
+import com.franzandel.dicodingjetpackprosubmission.databinding.LayoutErrorBinding
+import com.franzandel.dicodingjetpackprosubmission.external.hide
+import com.franzandel.dicodingjetpackprosubmission.external.show
 import com.franzandel.dicodingjetpackprosubmission.external.showShareMessage
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.adapter.MoviesAdapter
@@ -24,6 +27,8 @@ class MoviesFragment : BaseFragmentVM<MoviesViewModel, FragmentMoviesBinding>() 
     @Inject
     lateinit var moviesViewModel: MoviesViewModel
 
+    private lateinit var errorViewBinding: LayoutErrorBinding
+
     private val adapter by lazy {
         MoviesAdapter(requireContext())
     }
@@ -34,6 +39,7 @@ class MoviesFragment : BaseFragmentVM<MoviesViewModel, FragmentMoviesBinding>() 
     ): FragmentMoviesBinding = FragmentMoviesBinding.inflate(inflater, container, false)
 
     override fun onFragmentCreated() {
+        errorViewBinding = viewBinding.layoutError
         setupObservers()
         setupListeners()
         moviesViewModel.getMovies()
@@ -41,7 +47,16 @@ class MoviesFragment : BaseFragmentVM<MoviesViewModel, FragmentMoviesBinding>() 
 
     private fun setupObservers() {
         moviesViewModel.result.observe(viewLifecycleOwner, Observer { movies ->
+            viewBinding.layoutError.root.hide()
+            viewBinding.ablMovies.show()
+            viewBinding.rvMovies.show()
             setupRV(movies)
+        })
+
+        moviesViewModel.errorResult.observe(viewLifecycleOwner, Observer {
+            viewBinding.layoutError.root.show()
+            viewBinding.ablMovies.hide()
+            viewBinding.rvMovies.hide()
         })
     }
 
@@ -63,6 +78,10 @@ class MoviesFragment : BaseFragmentVM<MoviesViewModel, FragmentMoviesBinding>() 
                 }
                 else -> false
             }
+        }
+
+        errorViewBinding.btnTryAgain.setOnClickListener {
+            moviesViewModel.getMovies()
         }
     }
 

@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.movies.presentation.fragment.MoviesFragment">
 
+    <include
+        android:id="@+id/layoutError"
+        layout="@layout/layout_error"
+        android:visibility="gone" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/ablMovies"
         android:layout_width="match_parent"
