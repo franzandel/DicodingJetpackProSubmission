@@ -4,17 +4,19 @@ plugins {
     id 'androidx.navigation.safeargs'
     id 'kotlin-parcelize'
     id "de.mannodermaus.android-junit5"
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 apply from: "$rootDir/app/dependencies.gradle"
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.franzandel.dicodingjetpackprosubmission"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -27,10 +29,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }

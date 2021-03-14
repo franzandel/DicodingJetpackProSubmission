@@ -15,7 +15,9 @@ import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.repository.Tv
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.adapter.TvShowsAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.viewmodel.TvShowsViewModel
 import com.google.gson.Gson
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TvShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
 
     companion object {

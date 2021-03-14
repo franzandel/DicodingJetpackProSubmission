@@ -9,29 +9,20 @@ import com.franzandel.dicodingjetpackprosubmission.base.BaseFragment
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentMoviesBinding
 import com.franzandel.dicodingjetpackprosubmission.external.showShareMessage
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.mapper.MoviesResponseDTOMapper
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.remote.MoviesNetworkService
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.repository.MoviesRepositoryImpl
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.adapter.MoviesAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.viewmodel.MoviesViewModel
-import com.google.gson.Gson
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
 
     companion object {
         private const val GRID_SPAN_COUNT = 2
     }
 
-    private val moviesViewModel by lazy {
-//        ViewModelProvider(this).get(MoviesViewModel::class.java)
-        MoviesViewModel(
-            MoviesRepositoryImpl(
-                MoviesNetworkService.getMoviesNetwork(),
-                MoviesResponseDTOMapper(),
-                Gson()
-            )
-        )
-    }
+    @Inject
+    lateinit var moviesViewModel: MoviesViewModel
 
     private val adapter by lazy {
         MoviesAdapter(

@@ -3,13 +3,16 @@ package com.franzandel.dicodingjetpackprosubmission.ui.movies.data.mapper
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MoviesResponseDTO
+import dagger.hilt.android.scopes.ActivityScoped
+import javax.inject.Inject
 
 /**
  * Created by Franz Andel on 06/03/21.
  * Android Engineer
  */
 
-class MoviesResponseDTOMapper : BaseMapper<MoviesResponseDTO, List<Movie>>() {
+@ActivityScoped
+class MoviesResponseDTOMapper @Inject constructor() : BaseMapper<MoviesResponseDTO, List<Movie>>() {
 
     override fun map(dataModel: MoviesResponseDTO): List<Movie> = dataModel.movies.map {
         Movie(
