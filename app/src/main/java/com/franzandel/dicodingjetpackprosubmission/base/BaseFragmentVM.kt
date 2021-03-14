@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 import com.franzandel.dicodingjetpackprosubmission.ui.loading.LoadingDialog
-import com.google.android.material.snackbar.Snackbar
 import java.lang.ref.WeakReference
 
 /**
@@ -26,10 +25,6 @@ abstract class BaseFragmentVM<VM : ViewModel, VB : ViewBinding> : BaseFragment<V
     }
 
     private fun setupObserver(viewModel: BaseViewModel) {
-        viewModel.errorResult.observe(viewLifecycleOwner, Observer {
-            Snackbar.make(requireView(), it, Snackbar.LENGTH_SHORT).show()
-        })
-
         viewModel.loadingResult.observe(viewLifecycleOwner, Observer {
             if (it)
                 loadingDialog.get()?.show(requireActivity().supportFragmentManager)
