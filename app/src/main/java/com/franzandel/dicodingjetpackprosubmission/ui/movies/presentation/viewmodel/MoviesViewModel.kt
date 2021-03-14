@@ -1,6 +1,10 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.franzandel.dicodingjetpackprosubmission.base.BaseViewModel
 import com.franzandel.dicodingjetpackprosubmission.external.Resource
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.repository.MoviesRepository
@@ -10,31 +14,25 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRepository) :
-    ViewModel() {
+    BaseViewModel() {
 
-    private var _moviesSource: LiveData<Resource<List<Movie>>> = MutableLiveData()
-    private val _moviesResult = MediatorLiveData<List<Movie>>()
-    val moviesResult: LiveData<List<Movie>> = _moviesResult
-
-    private val _moviesErrorResult = MediatorLiveData<String>()
-    val moviesErrorResult: LiveData<String> = _moviesErrorResult
-
-    private val _moviesLoadingResult = MediatorLiveData<Boolean>()
-    val moviesLoadingResult: LiveData<Boolean> = _moviesLoadingResult
+    private var _source: LiveData<Resource<List<Movie>>> = MutableLiveData()
+    private val _result = MediatorLiveData<List<Movie>>()
+    val result: LiveData<List<Movie>> = _result
 
     fun getMovies() {
         viewModelScope.launch(Dispatchers.Main) {
-            _moviesLoadingResult.value = true
+            _loadingResult.value = true
             withContext(Dispatchers.IO) {
-                _moviesSource = moviesRepository.getMovies()
+                _source = moviesRepository.getMovies()
             }
 
-            _moviesResult.addSource(_moviesSource) {
+            _result.addSource(_source) {
                 when (it.status) {
-                    Resource.Status.SUCCESS -> _moviesResult.postValue(it.data!!)
-                    Resource.Status.ERROR -> _moviesErrorResult.postValue(it.errorCodeData?.message!!)
-                    Resource.Status.LOADING -> _moviesLoadingResult.postValue(false)
+                    Resource.Status.SUCCESS -> _result.postValue(it.data!!)
+                    Resource.Status.ERROR -> _errorResult.postValue(it.errorCodeData?.message!!)
                 }
+                _loadingResult.postValue(false)
             }
         }
     }
