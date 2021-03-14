@@ -3,13 +3,17 @@ package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.mapper
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShowsResponseDTO
+import dagger.hilt.android.scopes.ActivityScoped
+import javax.inject.Inject
 
 /**
  * Created by Franz Andel on 06/03/21.
  * Android Engineer
  */
 
-class TvShowsResponseDTOMapper : BaseMapper<TvShowsResponseDTO, List<TvShow>>() {
+@ActivityScoped
+class TvShowsResponseDTOMapper @Inject constructor() :
+    BaseMapper<TvShowsResponseDTO, List<TvShow>>() {
 
     override fun map(dataModel: TvShowsResponseDTO): List<TvShow> = dataModel.tvShows.map {
         TvShow(

@@ -9,13 +9,10 @@ import com.franzandel.dicodingjetpackprosubmission.base.BaseFragment
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentTvShowsBinding
 import com.franzandel.dicodingjetpackprosubmission.external.showShareMessage
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
-import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.mapper.TvShowsResponseDTOMapper
-import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.remote.TvShowsNetworkService
-import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.repository.TvShowsRepositoryImpl
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.adapter.TvShowsAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.viewmodel.TvShowsViewModel
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TvShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
@@ -24,16 +21,8 @@ class TvShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
         private const val GRID_SPAN_COUNT = 2
     }
 
-    private val tvShowsViewModel by lazy {
-//        ViewModelProvider(this).get(TvShowsViewModel::class.java)
-        TvShowsViewModel(
-            TvShowsRepositoryImpl(
-                TvShowsNetworkService.getTvShowsNetwork(),
-                TvShowsResponseDTOMapper(),
-                Gson()
-            )
-        )
-    }
+    @Inject
+    lateinit var tvShowsViewModel: TvShowsViewModel
 
     private val adapter by lazy {
         TvShowsAdapter(

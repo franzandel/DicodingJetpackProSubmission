@@ -13,9 +13,7 @@ import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentDetailBin
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.adapter.DetailMovieAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.adapter.DetailTvShowAdapter
 import com.google.android.material.snackbar.Snackbar
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     private var isBookmarked = false

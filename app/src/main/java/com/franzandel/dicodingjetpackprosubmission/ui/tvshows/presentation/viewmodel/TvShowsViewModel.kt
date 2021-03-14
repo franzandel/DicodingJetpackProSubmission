@@ -7,8 +7,10 @@ import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.repository.Tv
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class TvShowsViewModel(private val tvShowsRepository: TvShowsRepository) : ViewModel() {
+class TvShowsViewModel @Inject constructor(private val tvShowsRepository: TvShowsRepository) :
+    ViewModel() {
 
     private var _tvShowsSource: LiveData<Resource<List<TvShow>>> = MutableLiveData()
     private val _tvShowsResult = MediatorLiveData<List<TvShow>>()
