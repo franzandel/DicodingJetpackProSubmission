@@ -12,8 +12,11 @@ import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShowsResponseDTO
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.remote.TvShowsNetwork
 import com.google.gson.Gson
+import dagger.hilt.android.scopes.ActivityScoped
+import javax.inject.Inject
 
-class TvShowsRepositoryImpl(
+@ActivityScoped
+class TvShowsRepositoryImpl @Inject constructor(
     private val network: TvShowsNetwork,
     private val mapper: BaseMapper<TvShowsResponseDTO, List<TvShow>>,
     gson: Gson
