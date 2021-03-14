@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.franzandel.dicodingjetpackprosubmission.R
-import com.franzandel.dicodingjetpackprosubmission.base.BaseFragment
+import com.franzandel.dicodingjetpackprosubmission.base.BaseFragmentVM
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentTvShowsBinding
 import com.franzandel.dicodingjetpackprosubmission.external.showShareMessage
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TvShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
+class TvShowsFragment : BaseFragmentVM<TvShowsViewModel, FragmentTvShowsBinding>() {
 
     companion object {
         private const val GRID_SPAN_COUNT = 2
@@ -25,9 +25,7 @@ class TvShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
     lateinit var tvShowsViewModel: TvShowsViewModel
 
     private val adapter by lazy {
-        TvShowsAdapter(
-            requireContext()
-        )
+        TvShowsAdapter(requireContext())
     }
 
     override fun getViewBinding(
@@ -42,7 +40,7 @@ class TvShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
     }
 
     private fun setupObservers() {
-        tvShowsViewModel.tvShowsResult.observe(viewLifecycleOwner, Observer { tvShows ->
+        tvShowsViewModel.result.observe(viewLifecycleOwner, Observer { tvShows ->
             setupRV(tvShows)
         })
     }
@@ -67,4 +65,6 @@ class TvShowsFragment : BaseFragment<FragmentTvShowsBinding>() {
         viewBinding.rvTvShows.adapter = adapter
         adapter.submitList(tvShows)
     }
+
+    override fun getVM(): TvShowsViewModel = tvShowsViewModel
 }

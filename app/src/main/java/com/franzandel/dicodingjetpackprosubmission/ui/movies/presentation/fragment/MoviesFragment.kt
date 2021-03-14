@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.franzandel.dicodingjetpackprosubmission.R
-import com.franzandel.dicodingjetpackprosubmission.base.BaseFragment
+import com.franzandel.dicodingjetpackprosubmission.base.BaseFragmentVM
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentMoviesBinding
 import com.franzandel.dicodingjetpackprosubmission.external.showShareMessage
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
+class MoviesFragment : BaseFragmentVM<MoviesViewModel, FragmentMoviesBinding>() {
 
     companion object {
         private const val GRID_SPAN_COUNT = 2
@@ -25,9 +25,7 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
     lateinit var moviesViewModel: MoviesViewModel
 
     private val adapter by lazy {
-        MoviesAdapter(
-            requireContext()
-        )
+        MoviesAdapter(requireContext())
     }
 
     override fun getViewBinding(
@@ -42,7 +40,7 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
     }
 
     private fun setupObservers() {
-        moviesViewModel.moviesResult.observe(viewLifecycleOwner, Observer { movies ->
+        moviesViewModel.result.observe(viewLifecycleOwner, Observer { movies ->
             setupRV(movies)
         })
     }
@@ -67,4 +65,6 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>() {
             }
         }
     }
+
+    override fun getVM(): MoviesViewModel = moviesViewModel
 }

@@ -1,6 +1,10 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.franzandel.dicodingjetpackprosubmission.base.BaseViewModel
 import com.franzandel.dicodingjetpackprosubmission.external.Resource
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.repository.TvShowsRepository
@@ -10,31 +14,25 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class TvShowsViewModel @Inject constructor(private val tvShowsRepository: TvShowsRepository) :
-    ViewModel() {
+    BaseViewModel() {
 
-    private var _tvShowsSource: LiveData<Resource<List<TvShow>>> = MutableLiveData()
-    private val _tvShowsResult = MediatorLiveData<List<TvShow>>()
-    val tvShowsResult: LiveData<List<TvShow>> = _tvShowsResult
-
-    private val _tvShowsErrorResult = MediatorLiveData<String>()
-    val tvShowsErrorResult: LiveData<String> = _tvShowsErrorResult
-
-    private val _tvShowsLoadingResult = MediatorLiveData<Boolean>()
-    val tvShowsLoadingResult: LiveData<Boolean> = _tvShowsLoadingResult
+    private var _source: LiveData<Resource<List<TvShow>>> = MutableLiveData()
+    private val _result = MediatorLiveData<List<TvShow>>()
+    val result: LiveData<List<TvShow>> = _result
 
     fun getTvShows() {
         viewModelScope.launch(Dispatchers.Main) {
-            _tvShowsLoadingResult.value = true
+            _loadingResult.value = true
             withContext(Dispatchers.IO) {
-                _tvShowsSource = tvShowsRepository.getTvShows()
+                _source = tvShowsRepository.getTvShows()
             }
 
-            _tvShowsResult.addSource(_tvShowsSource) {
+            _result.addSource(_source) {
                 when (it.status) {
-                    Resource.Status.SUCCESS -> _tvShowsResult.postValue(it.data!!)
-                    Resource.Status.ERROR -> _tvShowsErrorResult.postValue(it.errorCodeData?.message!!)
-                    Resource.Status.LOADING -> _tvShowsLoadingResult.postValue(false)
+                    Resource.Status.SUCCESS -> _result.postValue(it.data!!)
+                    Resource.Status.ERROR -> _errorResult.postValue(it.errorCodeData?.message!!)
                 }
+                _loadingResult.postValue(false)
             }
         }
     }

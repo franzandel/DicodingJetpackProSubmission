@@ -34,19 +34,10 @@ data class Resource<T>(
                 errorCode
             )
         }
-
-        fun <T> loading(data: T?): Resource<T> {
-            return Resource(
-                Status.LOADING,
-                data,
-                null
-            )
-        }
     }
 
     enum class Status {
         SUCCESS,
-        ERROR,
-        LOADING
+        ERROR
     }
 }
