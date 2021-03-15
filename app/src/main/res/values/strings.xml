@@ -12,4 +12,6 @@
     <string name="detail_overview_title">Overview</string>
     <string name="detail_bookmark_added">Bookmark added!</string>
     <string name="detail_bookmark_removed">Bookmark removed!</string>
+
+    <string name="error_button">Try again</string>
 </resources>
