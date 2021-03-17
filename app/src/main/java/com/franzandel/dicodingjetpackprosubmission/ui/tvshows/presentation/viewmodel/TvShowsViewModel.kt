@@ -6,24 +6,26 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.franzandel.dicodingjetpackprosubmission.base.BaseViewModel
 import com.franzandel.dicodingjetpackprosubmission.external.Resource
+import com.franzandel.dicodingjetpackprosubmission.external.coroutine.CoroutineProvider
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.repository.TvShowsRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class TvShowsViewModel @Inject constructor(private val tvShowsRepository: TvShowsRepository) :
-    BaseViewModel() {
+class TvShowsViewModel @Inject constructor(
+    private val tvShowsRepository: TvShowsRepository,
+    private val coroutineProvider: CoroutineProvider
+) : BaseViewModel() {
 
     private var _source: LiveData<Resource<List<TvShow>>> = MutableLiveData()
     private val _result = MediatorLiveData<List<TvShow>>()
     val result: LiveData<List<TvShow>> = _result
 
     fun getTvShows() {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(coroutineProvider.main()) {
             _loadingResult.value = true
-            withContext(Dispatchers.IO) {
+            withContext(coroutineProvider.background()) {
                 _source = tvShowsRepository.getTvShows()
             }
 
