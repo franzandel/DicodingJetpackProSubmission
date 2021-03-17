@@ -1,7 +1,7 @@
 package com.franzandel.dicodingjetpackprosubmission.base
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 /**
@@ -11,9 +11,9 @@ import androidx.lifecycle.ViewModel
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected val _errorResult = MediatorLiveData<String>()
+    protected val _errorResult = MutableLiveData<String>()
     val errorResult: LiveData<String> = _errorResult
 
-    protected val _loadingResult = MediatorLiveData<Boolean>()
+    protected val _loadingResult = MutableLiveData<Boolean>()
     val loadingResult: LiveData<Boolean> = _loadingResult
 }

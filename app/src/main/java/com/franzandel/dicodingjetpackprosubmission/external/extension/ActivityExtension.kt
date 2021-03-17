@@ -1,4 +1,4 @@
-package com.franzandel.dicodingjetpackprosubmission.external
+package com.franzandel.dicodingjetpackprosubmission.external.extension
 
 import android.app.Activity
 import androidx.core.app.ShareCompat

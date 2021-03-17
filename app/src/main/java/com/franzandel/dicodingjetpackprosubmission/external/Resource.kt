@@ -11,29 +11,26 @@ data class Resource<T>(
     val errorCodeData: ErrorCodeData?
 ) {
     companion object {
-        fun <T> success(data: T?): Resource<T> {
-            return Resource(
+        fun <T> success(data: T?): Resource<T> =
+            Resource(
                 Status.SUCCESS,
                 data,
                 null
             )
-        }
 
-        fun <T> error(errorCode: ErrorCodeData?): Resource<T> {
-            return Resource(
+        fun <T> error(errorCode: ErrorCodeData?): Resource<T> =
+            Resource(
                 Status.ERROR,
                 null,
                 errorCode
             )
-        }
 
-        fun <T> error(data: T?, errorCode: ErrorCodeData?): Resource<T> {
-            return Resource(
+        fun <T> error(data: T?, errorCode: ErrorCodeData?): Resource<T> =
+            Resource(
                 Status.ERROR,
                 data,
                 errorCode
             )
-        }
     }
 
     enum class Status {
