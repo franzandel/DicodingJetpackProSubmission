@@ -9,6 +9,10 @@ import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.mapper.MoviesR
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShowsResponseDTO
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.mapper.TvShowsResponseDTOMapper
+import okhttp3.mockwebserver.MockResponse
+import okhttp3.mockwebserver.MockWebServer
+import okio.buffer
+import okio.source
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.StringWriter
@@ -64,5 +68,24 @@ object TestingUtils {
         val mapper: BaseMapper<TvShowsResponseDTO, List<TvShow>> = TvShowsResponseDTOMapper()
 
         return mapper.map(tvShowsResponseDTO)
+    }
+
+    fun MockWebServer.enqueueResponse(
+        fileName: String,
+        headers: Map<String, String> = emptyMap(),
+        responseCode: Int = 200
+    ) {
+        val inputStream =
+            javaClass.classLoader?.getResourceAsStream(fileName)
+        val source = inputStream?.source()?.buffer()
+        val mockResponse = MockResponse()
+
+        for ((key, value) in headers) {
+            mockResponse.addHeader(key, value)
+        }
+
+        this.enqueue(
+            mockResponse.setResponseCode(responseCode).setBody(source?.readString(Charsets.UTF_8))
+        )
     }
 }
