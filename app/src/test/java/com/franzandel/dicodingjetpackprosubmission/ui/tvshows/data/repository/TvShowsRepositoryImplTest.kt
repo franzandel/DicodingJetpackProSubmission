@@ -1,13 +1,13 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.movies.data.repository
+package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.external.Resource
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.MoviesResponseDTO
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.mapper.MoviesResponseDTOMapper
-import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.remote.MoviesNetwork
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShowsResponseDTO
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.mapper.TvShowsResponseDTOMapper
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.remote.TvShowsNetwork
 import com.franzandel.dicodingjetpackprosubmission.utils.TestingUtils
 import com.franzandel.dicodingjetpackprosubmission.utils.TestingUtils.enqueueResponse
 import com.google.gson.Gson
@@ -30,33 +30,33 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
- * Created by Franz Andel on 18/03/21.
+ * Created by Franz Andel on 21/03/21.
  * Android Engineer
  */
 
 @ExperimentalCoroutinesApi
-class MoviesRepositoryImplTest {
+class TvShowsRepositoryImplTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val mockWebServer = MockWebServer()
-    private val moviesNetwork = Retrofit.Builder()
+    private val tvShowsNetwork = Retrofit.Builder()
         .baseUrl(mockWebServer.url(""))
         .addConverterFactory(GsonConverterFactory.create())
-        .build().create(MoviesNetwork::class.java)
+        .build().create(TvShowsNetwork::class.java)
     private val gson: Gson = Gson()
 
-    private val observer: Observer<Resource<List<Movie>>> = mockk(relaxed = true)
-    private val mapper: BaseMapper<MoviesResponseDTO, List<Movie>> = MoviesResponseDTOMapper()
+    private val observer: Observer<Resource<List<TvShow>>> = mockk(relaxed = true)
+    private val mapper: BaseMapper<TvShowsResponseDTO, List<TvShow>> = TvShowsResponseDTOMapper()
 
-    private lateinit var repository: MoviesRepository
+    private lateinit var repository: TvShowsRepository
 
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
     @Before
     fun setUp() {
-        repository = MoviesRepositoryImpl(moviesNetwork, mapper, gson)
+        repository = TvShowsRepositoryImpl(tvShowsNetwork, mapper, gson)
         Dispatchers.setMain(mainThreadSurrogate)
     }
 
@@ -67,25 +67,25 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun `get movies api success`() {
+    fun `get tv shows api success`() {
         runBlocking {
-            mockWebServer.enqueueResponse("movies_response.json")
-            val dummyMovies = TestingUtils.getMoviesFromJson()
+            mockWebServer.enqueueResponse("tv_shows_response.json")
+            val dummyTvShows = TestingUtils.getTvShowsFromJson()
 
-            val moviesResource = repository.getMovies()
-            moviesResource.observeForever(observer)
-            val movies = moviesResource.value?.data
+            val tvShowsResource = repository.getTvShows()
+            tvShowsResource.observeForever(observer)
+            val tvShows = tvShowsResource.value?.data
 
             verify {
-                observer.onChanged(moviesResource.value)
-                assertNotNull(movies)
-                Assert.assertEquals(dummyMovies.size, movies?.size)
+                observer.onChanged(tvShowsResource.value)
+                assertNotNull(tvShows)
+                Assert.assertEquals(dummyTvShows.size, tvShows?.size)
             }
         }
     }
 
     @Test
-    fun `get movies api error`() {
+    fun `get tv shows api error`() {
         runBlocking {
             val errorMessage = "The resource you requested could not be found."
             mockWebServer.enqueueResponse(
@@ -93,12 +93,12 @@ class MoviesRepositoryImplTest {
                 responseCode = 404
             )
 
-            val moviesResource = repository.getMovies()
-            moviesResource.observeForever(observer)
+            val tvShowsResource = repository.getTvShows()
+            tvShowsResource.observeForever(observer)
 
             verify {
-                observer.onChanged(moviesResource.value)
-                Assert.assertEquals(errorMessage, moviesResource.value?.errorCodeData?.message)
+                observer.onChanged(tvShowsResource.value)
+                Assert.assertEquals(errorMessage, tvShowsResource.value?.errorCodeData?.message)
             }
         }
     }
