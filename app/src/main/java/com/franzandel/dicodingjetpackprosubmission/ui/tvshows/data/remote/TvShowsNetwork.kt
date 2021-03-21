@@ -12,5 +12,5 @@ import retrofit2.http.Query
 
 interface TvShowsNetwork {
     @GET("discover/tv")
-    suspend fun getTvShowsFromAPI(@Query("api_key") apiKey: String): Response<TvShowsResponseDTO>
+    suspend fun getTvShows(@Query("api_key") apiKey: String): Response<TvShowsResponseDTO>
 }
