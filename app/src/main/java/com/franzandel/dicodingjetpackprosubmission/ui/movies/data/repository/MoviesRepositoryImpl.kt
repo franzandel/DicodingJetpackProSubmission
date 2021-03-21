@@ -26,7 +26,7 @@ class MoviesRepositoryImpl @Inject constructor(
         val moviesResponse = MutableLiveData<Resource<List<Movie>>>()
 
         return withTryCatch(moviesResponse) {
-            moviesNetwork.getMoviesFromAPI(ApiConsts.apiKey).apply {
+            moviesNetwork.getMovies(ApiConsts.apiKey).apply {
                 if (isSuccessful) {
                     val movies = mapper.map(body()!!)
                     moviesResponse.postValue(Resource.success(movies))
