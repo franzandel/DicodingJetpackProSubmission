@@ -26,7 +26,7 @@ class TvShowsRepositoryImpl @Inject constructor(
         val tvShowsResponse = MutableLiveData<Resource<List<TvShow>>>()
 
         return withTryCatch(tvShowsResponse) {
-            network.getTvShowsFromAPI(ApiConsts.apiKey).apply {
+            network.getTvShows(ApiConsts.apiKey).apply {
                 if (isSuccessful) {
                     val tvShows = mapper.map(body()!!)
                     tvShowsResponse.postValue(Resource.success(tvShows))

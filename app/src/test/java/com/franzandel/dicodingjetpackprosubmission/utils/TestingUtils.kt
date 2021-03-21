@@ -25,21 +25,7 @@ import java.io.StringWriter
 object TestingUtils {
 
     fun getMoviesFromJson(): List<Movie> {
-        val inputStream =
-            javaClass.classLoader?.getResourceAsStream("movies_response.json")
-
-        val writer = StringWriter()
-        val buffer = CharArray(1024)
-        inputStream.use { stream ->
-            val reader = BufferedReader(InputStreamReader(stream, "UTF-8"))
-            var n: Int
-            while (reader.read(buffer).also { n = it } != -1) {
-                writer.write(buffer, 0, n)
-            }
-        }
-
-        val jsonString = writer.toString()
-
+        val jsonString = getJsonString("movies_response.json")
         val dataInMap: Map<String, Any> = jsonString.convertStringToMap()
         val moviesResponseDTO = dataInMap.toDataClass<MoviesResponseDTO>()
         val mapper: BaseMapper<MoviesResponseDTO, List<Movie>> = MoviesResponseDTOMapper()
@@ -48,8 +34,17 @@ object TestingUtils {
     }
 
     fun getTvShowsFromJson(): List<TvShow> {
+        val jsonString = getJsonString("tv_shows_response.json")
+        val dataInMap: Map<String, Any> = jsonString.convertStringToMap()
+        val tvShowsResponseDTO = dataInMap.toDataClass<TvShowsResponseDTO>()
+        val mapper: BaseMapper<TvShowsResponseDTO, List<TvShow>> = TvShowsResponseDTOMapper()
+
+        return mapper.map(tvShowsResponseDTO)
+    }
+
+    private fun getJsonString(filePath: String): String {
         val inputStream =
-            javaClass.classLoader?.getResourceAsStream("tv_shows_response.json")
+            javaClass.classLoader?.getResourceAsStream(filePath)
 
         val writer = StringWriter()
         val buffer = CharArray(1024)
@@ -61,15 +56,10 @@ object TestingUtils {
             }
         }
 
-        val jsonString = writer.toString()
-
-        val dataInMap: Map<String, Any> = jsonString.convertStringToMap()
-        val tvShowsResponseDTO = dataInMap.toDataClass<TvShowsResponseDTO>()
-        val mapper: BaseMapper<TvShowsResponseDTO, List<TvShow>> = TvShowsResponseDTOMapper()
-
-        return mapper.map(tvShowsResponseDTO)
+        return writer.toString()
     }
 
+    // Mock API Response
     fun MockWebServer.enqueueResponse(
         fileName: String,
         headers: Map<String, String> = emptyMap(),
