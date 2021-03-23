@@ -11,6 +11,7 @@ import com.franzandel.dicodingjetpackprosubmission.databinding.LayoutErrorBindin
 import com.franzandel.dicodingjetpackprosubmission.external.extension.hide
 import com.franzandel.dicodingjetpackprosubmission.external.extension.show
 import com.franzandel.dicodingjetpackprosubmission.external.extension.showShareMessage
+import com.franzandel.dicodingjetpackprosubmission.instrumentedtest.EspressoIdlingResource
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.adapter.TvShowsAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.viewmodel.TvShowsViewModel
@@ -42,6 +43,7 @@ class TvShowsFragment : BaseFragmentVM<TvShowsViewModel, FragmentTvShowsBinding>
         errorViewBinding = viewBinding.layoutError
         setupObservers()
         setupListeners()
+        EspressoIdlingResource.increment()
         tvShowsViewModel.getTvShows()
     }
 
@@ -51,12 +53,14 @@ class TvShowsFragment : BaseFragmentVM<TvShowsViewModel, FragmentTvShowsBinding>
             viewBinding.ablTvShows.show()
             viewBinding.rvTvShows.show()
             setupRV(tvShows)
+            EspressoIdlingResource.decrement()
         })
 
         tvShowsViewModel.errorResult.observe(viewLifecycleOwner, Observer {
             viewBinding.layoutError.root.show()
             viewBinding.ablTvShows.hide()
             viewBinding.rvTvShows.hide()
+            EspressoIdlingResource.decrement()
         })
     }
 
