@@ -42,6 +42,26 @@ android {
     buildFeatures {
         viewBinding true
     }
+    sourceSets {
+        main {
+            resources {
+                srcDirs 'src/main/resources', 'src/sharedTest/resources'
+            }
+        }
+    }
+
+    // Share code between test & androidTest sourceSets
+    android.sourceSets {
+        test {
+            java.srcDirs += "$projectDir/src/sharedTest/java"
+            resources.srcDirs += "$projectDir/src/sharedTest/resources"
+        }
+
+        androidTest {
+            java.srcDirs += "$projectDir/src/sharedTest/java"
+            resources.srcDirs += "$projectDir/src/sharedTest/resources"
+        }
+    }
 
     // Spek Configuration
     // Add Kotlin source directory to all source sets
