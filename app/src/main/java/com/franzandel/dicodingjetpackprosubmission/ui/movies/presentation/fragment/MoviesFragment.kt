@@ -11,6 +11,7 @@ import com.franzandel.dicodingjetpackprosubmission.databinding.LayoutErrorBindin
 import com.franzandel.dicodingjetpackprosubmission.external.extension.hide
 import com.franzandel.dicodingjetpackprosubmission.external.extension.show
 import com.franzandel.dicodingjetpackprosubmission.external.extension.showShareMessage
+import com.franzandel.dicodingjetpackprosubmission.instrumentedtest.EspressoIdlingResource
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.adapter.MoviesAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.viewmodel.MoviesViewModel
@@ -42,6 +43,7 @@ class MoviesFragment : BaseFragmentVM<MoviesViewModel, FragmentMoviesBinding>() 
         errorViewBinding = viewBinding.layoutError
         setupObservers()
         setupListeners()
+        EspressoIdlingResource.increment()
         moviesViewModel.getMovies()
     }
 
@@ -51,12 +53,14 @@ class MoviesFragment : BaseFragmentVM<MoviesViewModel, FragmentMoviesBinding>() 
             viewBinding.ablMovies.show()
             viewBinding.rvMovies.show()
             setupRV(movies)
+            EspressoIdlingResource.decrement()
         })
 
         moviesViewModel.errorResult.observe(viewLifecycleOwner, Observer {
             viewBinding.layoutError.root.show()
             viewBinding.ablMovies.hide()
             viewBinding.rvMovies.hide()
+            EspressoIdlingResource.decrement()
         })
     }
 
