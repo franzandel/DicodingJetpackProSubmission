@@ -3,7 +3,7 @@ ext {
     appCompatVersion = '1.2.0'
     materialVersion = '1.3.0'
     constraintLayoutVersion = '2.0.4'
-    navigationVersion = '2.3.3'
+    navigationVersion = '2.3.4'
     lifecycleVersion = '2.3.0'
     legacyVersion = '1.0.0'
     junitVersion = '4.13.2'
@@ -15,61 +15,40 @@ ext {
     glideVersion = '4.12.0'
     hiltVersion = '2.33-beta'
     spinKitViewVersion = '1.4.0'
+    mockkVersion = '1.9.3'
+    mockWebServerVersion = '3.11.0'
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-
     implementation "androidx.core:core-ktx:$coreKtxVersion"
-
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
-
     implementation "com.google.android.material:material:$materialVersion"
-
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
-
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
-
     implementation "androidx.legacy:legacy-support-v4:$legacyVersion"
+    implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-compiler:$hiltVersion"
+    implementation "com.github.ybq:Android-SpinKit:$spinKitViewVersion"
+    implementation "com.squareup.okio:okio:2.10.0"
 
     testImplementation "junit:junit:$junitVersion"
     testImplementation "android.arch.core:core-testing:$coreTestingVersion"
-
-    // spek
-    testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spekVersion"
-    testImplementation "org.spekframework.spek2:spek-runner-junit5:$spekVersion"
-
-    // spek requires kotlin-reflect, omit when already in classpath
-    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3'
+    testImplementation "io.mockk:mockk:$mockkVersion"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServerVersion"
 
     androidTestImplementation "androidx.test.ext:junit:$junitExtVersion"
-
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
-    implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
-
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
-
-    implementation "com.google.dagger:hilt-android:$hiltVersion"
-    kapt "com.google.dagger:hilt-compiler:$hiltVersion"
-
-    implementation "com.github.ybq:Android-SpinKit:$spinKitViewVersion"
-
-    testImplementation "org.mockito:mockito-core:3.6.28"
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3'
-    testImplementation "io.mockk:mockk:1.9.3"
-    testImplementation "com.squareup.okhttp3:mockwebserver:3.11.0"
-    androidTestImplementation "com.squareup.okhttp3:mockwebserver:3.11.0"
-    implementation "com.squareup.okio:okio:2.10.0"
-    testImplementation "com.squareup.retrofit2:retrofit-mock:$retrofitVersion"
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServerVersion"
 }
