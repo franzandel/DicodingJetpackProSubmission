@@ -7,11 +7,11 @@ import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.instrumentedtest.EspressoIdlingResource
 import com.franzandel.dicodingjetpackprosubmission.ui.dashboard.DashboardActivity
-import com.franzandel.dicodingjetpackprosubmission.utils.TestingUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.junit.After
 import org.junit.Before
@@ -24,8 +24,6 @@ import org.junit.Test
 
 class DetailFragmentTest {
 
-    private val movies = TestingUtils.getMoviesFromJson()
-    private val tvShows = TestingUtils.getTvShowsFromJson()
     private lateinit var bottomNavigation: BottomNavigationView
     private lateinit var activityScenario: ActivityScenario<DashboardActivity>
 
@@ -53,15 +51,10 @@ class DetailFragmentTest {
         onView(withId(R.id.fabBookmark)).check(matches(isDisplayed()))
         onView(withId(R.id.app_bar)).perform(ViewActions.swipeUp())
         onView(withId(R.id.tvRelease)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvRelease)).check(matches(withText(movies[moviePosition].releaseDate)))
         onView(withId(R.id.tvGenre)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvGenre)).check(matches(withText(movies[moviePosition].popularity.toString())))
         onView(withId(R.id.tvLength)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvLength)).check(matches(withText(movies[moviePosition].voteCount.toString())))
         onView(withId(R.id.tvRating)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvRating)).check(matches(withText(movies[moviePosition].voteAverage.toString())))
         onView(withId(R.id.tvOverview)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvOverview)).check(matches(withText(movies[moviePosition].overview)))
         onView(withId(R.id.rvDetail)).check(matches(isDisplayed()))
     }
 
@@ -84,15 +77,10 @@ class DetailFragmentTest {
         onView(withId(R.id.fabBookmark)).check(matches(isDisplayed()))
         onView(withId(R.id.app_bar)).perform(ViewActions.swipeUp())
         onView(withId(R.id.tvRelease)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvRelease)).check(matches(withText(tvShows[tvShowPosition].firstAirDate)))
         onView(withId(R.id.tvGenre)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvGenre)).check(matches(withText(tvShows[tvShowPosition].popularity.toString())))
         onView(withId(R.id.tvLength)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvLength)).check(matches(withText(tvShows[tvShowPosition].voteCount.toString())))
         onView(withId(R.id.tvRating)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvRating)).check(matches(withText(tvShows[tvShowPosition].voteAverage.toString())))
         onView(withId(R.id.tvOverview)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvOverview)).check(matches(withText(tvShows[tvShowPosition].overview)))
         onView(withId(R.id.rvDetail)).check(matches(isDisplayed()))
     }
 }
