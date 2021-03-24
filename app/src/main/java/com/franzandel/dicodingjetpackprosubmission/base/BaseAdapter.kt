@@ -14,8 +14,6 @@ import androidx.viewbinding.ViewBinding
 abstract class BaseAdapter<Type, VH : RecyclerView.ViewHolder, VB : ViewBinding>(diffCallback: DiffUtil.ItemCallback<Type>) :
     ListAdapter<Type, VH>(diffCallback) {
 
-//    protected lateinit var viewBinding: VB
-
     abstract fun getViewBinding(parent: ViewGroup): VB
 
     abstract fun getViewHolder(viewBinding: VB): VH
