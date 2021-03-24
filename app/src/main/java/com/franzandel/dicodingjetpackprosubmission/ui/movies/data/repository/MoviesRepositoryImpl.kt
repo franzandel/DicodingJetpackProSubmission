@@ -2,9 +2,9 @@ package com.franzandel.dicodingjetpackprosubmission.ui.movies.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.franzandel.dicodingjetpackprosubmission.BuildConfig
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.base.BaseNetworkRepository
-import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import com.franzandel.dicodingjetpackprosubmission.external.ErrorCodeData
 import com.franzandel.dicodingjetpackprosubmission.external.Resource
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
@@ -26,7 +26,7 @@ class MoviesRepositoryImpl @Inject constructor(
         val moviesResponse = MutableLiveData<Resource<List<Movie>>>()
 
         return withTryCatch(moviesResponse) {
-            moviesNetwork.getMovies(ApiConsts.apiKey).apply {
+            moviesNetwork.getMovies(BuildConfig.API_KEY).apply {
                 if (isSuccessful) {
                     val movies = mapper.map(body()!!)
                     moviesResponse.postValue(Resource.success(movies))

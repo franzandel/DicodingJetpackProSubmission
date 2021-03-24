@@ -2,9 +2,9 @@ package com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.franzandel.dicodingjetpackprosubmission.BuildConfig
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.base.BaseNetworkRepository
-import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import com.franzandel.dicodingjetpackprosubmission.external.ErrorCodeData
 import com.franzandel.dicodingjetpackprosubmission.external.Resource
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.TmdbErrorResponseDTO
@@ -26,7 +26,7 @@ class TvShowsRepositoryImpl @Inject constructor(
         val tvShowsResponse = MutableLiveData<Resource<List<TvShow>>>()
 
         return withTryCatch(tvShowsResponse) {
-            network.getTvShows(ApiConsts.apiKey).apply {
+            network.getTvShows(BuildConfig.API_KEY).apply {
                 if (isSuccessful) {
                     val tvShows = mapper.map(body()!!)
                     tvShowsResponse.postValue(Resource.success(tvShows))
