@@ -1,29 +1,41 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.detail.fragment
+package com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.fragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.franzandel.dicodingjetpackprosubmission.R
-import com.franzandel.dicodingjetpackprosubmission.base.BaseFragment
+import com.franzandel.dicodingjetpackprosubmission.base.BaseFragmentVM
 import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentDetailBinding
-import com.franzandel.dicodingjetpackprosubmission.ui.detail.adapter.DetailMovieAdapter
-import com.franzandel.dicodingjetpackprosubmission.ui.detail.adapter.DetailTvShowAdapter
+import com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.adapter.DetailMovieAdapter
+import com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.adapter.DetailTvShowAdapter
+import com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.viewmodel.DetailViewModel
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
+import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class DetailFragment : BaseFragment<FragmentDetailBinding>() {
+@AndroidEntryPoint
+class DetailFragment : BaseFragmentVM<DetailViewModel, FragmentDetailBinding>() {
+
+    @Inject
+    lateinit var detailViewModel: DetailViewModel
 
     private var isBookmarked = false
     private val detailFragmentArgs: DetailFragmentArgs by navArgs()
+    private lateinit var movies: List<Movie>
+    private lateinit var tvShows: List<TvShow>
 
-    private val movies by lazy {
+    private val moviesArgs by lazy {
         detailFragmentArgs.movies?.toMutableList()
     }
 
-    private val tvShows by lazy {
+    private val tvShowsArgs by lazy {
         detailFragmentArgs.tvShows?.toMutableList()
     }
 
@@ -48,11 +60,42 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         setupMoviesUI()
         setupTvShowsUI()
         setupListeners()
+        setupObservers()
         setupRV()
     }
 
+    private fun setupObservers() {
+        detailViewModel.favoriteMovieResult.observe(viewLifecycleOwner, Observer {
+            isBookmarked = !isBookmarked
+            setupBookmark()
+        })
+
+        detailViewModel.errorResult.observe(viewLifecycleOwner, Observer {
+            setupBookmark()
+        })
+    }
+
+    private fun setupBookmark() {
+        if (isBookmarked) {
+            viewBinding.fabBookmark.setImageResource(R.drawable.ic_baseline_star_24)
+            Snackbar.make(
+                requireView(),
+                getString(R.string.detail_bookmark_added),
+                Snackbar.LENGTH_SHORT
+            ).show()
+        } else {
+            viewBinding.fabBookmark.setImageResource(R.drawable.ic_baseline_star_border_24)
+            Snackbar.make(
+                requireView(),
+                getString(R.string.detail_bookmark_removed),
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
+    }
+
     private fun setupMoviesUI() {
-        movies?.let {
+        moviesArgs?.let {
+            movies = it.map { movie -> movie.copy() }
             viewBinding.apply {
                 toolbarDetail.title = it[currentPosition].title
                 tvRelease.text = it[currentPosition].releaseDate
@@ -72,7 +115,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     }
 
     private fun setupTvShowsUI() {
-        tvShows?.let {
+        tvShowsArgs?.let {
+            tvShows = it
             viewBinding.apply {
                 toolbarDetail.title = it[currentPosition].name
                 tvRelease.text = it[currentPosition].firstAirDate
@@ -97,22 +141,16 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         }
 
         viewBinding.fabBookmark.setOnClickListener {
-            isBookmarked = !isBookmarked
+            handleBookmarkClick()
+        }
+    }
 
-            if (isBookmarked) {
-                viewBinding.fabBookmark.setImageResource(R.drawable.ic_baseline_star_24)
-                Snackbar.make(
-                    it,
-                    getString(R.string.detail_bookmark_added),
-                    Snackbar.LENGTH_SHORT
-                ).show()
+    private fun handleBookmarkClick() {
+        moviesArgs?.let {
+            if (!isBookmarked) {
+                detailViewModel.addMovieToFavorite(movies[currentPosition])
             } else {
-                viewBinding.fabBookmark.setImageResource(R.drawable.ic_baseline_star_border_24)
-                Snackbar.make(
-                    it,
-                    getString(R.string.detail_bookmark_removed),
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                detailViewModel.deleteMovieFromFavorite(movies[currentPosition].id)
             }
         }
     }
@@ -121,16 +159,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         viewBinding.rvDetail.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        movies?.let {
+        moviesArgs?.let {
             it.removeAt(currentPosition)
             viewBinding.rvDetail.adapter = detailMovieAdapter
-            detailMovieAdapter.submitList(movies)
+            detailMovieAdapter.submitList(moviesArgs)
         }
 
-        tvShows?.let {
+        tvShowsArgs?.let {
             it.removeAt(currentPosition)
             viewBinding.rvDetail.adapter = detailTvShowAdapter
-            detailTvShowAdapter.submitList(tvShows)
+            detailTvShowAdapter.submitList(tvShowsArgs)
         }
     }
+
+    override fun getVM(): DetailViewModel = detailViewModel
 }
