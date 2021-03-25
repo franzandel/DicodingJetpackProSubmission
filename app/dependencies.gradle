@@ -17,6 +17,9 @@ ext {
     spinKitViewVersion = '1.4.0'
     mockkVersion = '1.9.3'
     mockWebServerVersion = '3.11.0'
+    coroutinesTestVersion = '1.4.3'
+    okioVersion = '2.10.0'
+    roomVersion = '2.2.6'
 }
 
 dependencies {
@@ -39,11 +42,14 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
     implementation "com.github.ybq:Android-SpinKit:$spinKitViewVersion"
-    implementation "com.squareup.okio:okio:2.10.0"
+    implementation "com.squareup.okio:okio:$okioVersion"
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
 
     testImplementation "junit:junit:$junitVersion"
     testImplementation "android.arch.core:core-testing:$coreTestingVersion"
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3'
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesTestVersion"
     testImplementation "io.mockk:mockk:$mockkVersion"
     testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServerVersion"
 

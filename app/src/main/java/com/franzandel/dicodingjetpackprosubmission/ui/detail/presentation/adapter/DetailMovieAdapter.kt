@@ -1,11 +1,11 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.detail.adapter
+package com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.franzandel.dicodingjetpackprosubmission.base.BaseAdapter
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDetailBinding
-import com.franzandel.dicodingjetpackprosubmission.ui.detail.viewholder.DetailMovieVH
+import com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.viewholder.DetailMovieVH
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.diffcallback.MoviesDiffCallback
 

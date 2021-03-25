@@ -1,4 +1,4 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.detail.viewholder
+package com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.viewholder
 
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -6,33 +6,34 @@ import com.bumptech.glide.Glide
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemDetailBinding
-import com.franzandel.dicodingjetpackprosubmission.ui.detail.fragment.DetailFragmentDirections
-import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
+import com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.fragment.DetailFragmentDirections
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 
 /**
  * Created by Franz Andel on 12/02/21.
  * Android Engineer
  */
 
-class DetailTvShowVH(private val itemDetailBinding: ItemDetailBinding) :
+class DetailMovieVH(private val itemDetailBinding: ItemDetailBinding) :
     RecyclerView.ViewHolder(itemDetailBinding.root) {
 
-    fun bind(tvShows: List<TvShow>) {
+    fun bind(movies: List<Movie>) {
         with(itemDetailBinding) {
-            val tvShow = tvShows[adapterPosition]
-            val imageUrl = ApiConsts.baseUrlImage + tvShow.posterPath
+            val movie = movies[adapterPosition]
+
+            val imageUrl = ApiConsts.baseUrlImage + movies[adapterPosition].posterPath
             Glide.with(itemView.context)
                 .load(imageUrl)
                 .placeholder(R.drawable.ic_image_not_found)
                 .into(ivItemDetailMovie)
 
-            tvItemDetailTitle.text = tvShow.name
-            tvItemDetailGenre.text = tvShow.voteCount.toString()
+            tvItemDetailTitle.text = movie.title
+            tvItemDetailGenre.text = movie.voteCount.toString()
 
             cvItemMovie.setOnClickListener {
                 val navDirections =
                     DetailFragmentDirections.actionDetailFragmentSelf()
-                navDirections.tvShows = tvShows.toTypedArray()
+                navDirections.movies = movies.toTypedArray()
                 navDirections.currentPosition = adapterPosition
                 findNavController(root).navigate(navDirections)
             }
