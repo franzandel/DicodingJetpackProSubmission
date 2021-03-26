@@ -65,7 +65,7 @@ class DetailFragment : BaseFragmentVM<DetailViewModel, FragmentDetailBinding>() 
     }
 
     private fun setupObservers() {
-        detailViewModel.favoriteMovieResult.observe(viewLifecycleOwner, Observer {
+        detailViewModel.bookmarkMovieResult.observe(viewLifecycleOwner, Observer {
             isBookmarked = !isBookmarked
             setupBookmark()
         })
@@ -148,9 +148,9 @@ class DetailFragment : BaseFragmentVM<DetailViewModel, FragmentDetailBinding>() 
     private fun handleBookmarkClick() {
         moviesArgs?.let {
             if (!isBookmarked) {
-                detailViewModel.addMovieToFavorite(movies[currentPosition])
+                detailViewModel.addMovieToBookmark(movies[currentPosition])
             } else {
-                detailViewModel.deleteMovieFromFavorite(movies[currentPosition].id)
+                detailViewModel.deleteMovieFromBookmark(movies[currentPosition].id)
             }
         }
     }

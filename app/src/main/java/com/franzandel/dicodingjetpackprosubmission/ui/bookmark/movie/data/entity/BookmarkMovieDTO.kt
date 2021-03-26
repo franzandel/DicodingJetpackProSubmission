@@ -1,4 +1,4 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.favorite.movie.data.entity
+package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -9,8 +9,8 @@ import androidx.room.PrimaryKey
  * Android Engineer
  */
 
-@Entity(tableName = "tbl_favorite_movie")
-data class FavoriteMovieDTO(
+@Entity(tableName = "tbl_bookmark_movie")
+data class BookmarkMovieDTO(
     @PrimaryKey
     val id: Int,
     val adult: Boolean,

@@ -1,10 +1,10 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.favorite.movie.data.mapper
+package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.mapper
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
-import com.franzandel.dicodingjetpackprosubmission.ui.favorite.movie.data.entity.FavoriteMovieDTO
-import com.franzandel.dicodingjetpackprosubmission.ui.favorite.movie.data.entity.FavoriteMovieResponse
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieDTO
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieResponse
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
@@ -14,14 +14,14 @@ import javax.inject.Inject
  */
 
 @ActivityScoped
-class FavoriteMoviesResponseDTOMapper @Inject constructor() :
-    BaseMapper<LiveData<List<FavoriteMovieDTO>>, LiveData<List<FavoriteMovieResponse>>>() {
+class BookmarkMoviesResponseDTOMapper @Inject constructor() :
+    BaseMapper<LiveData<List<BookmarkMovieDTO>>, LiveData<List<BookmarkMovieResponse>>>() {
 
-    override fun map(dataModel: LiveData<List<FavoriteMovieDTO>>): LiveData<List<FavoriteMovieResponse>> {
-        val mutableFavoriteMovies = MutableLiveData<List<FavoriteMovieResponse>>()
-        val favoriteMoviesResponse = dataModel.value?.map {
+    override fun map(dataModel: LiveData<List<BookmarkMovieDTO>>): LiveData<List<BookmarkMovieResponse>> {
+        val mutableBookmarkMovies = MutableLiveData<List<BookmarkMovieResponse>>()
+        val bookmarkMoviesResponse = dataModel.value?.map {
             with(it) {
-                FavoriteMovieResponse(
+                BookmarkMovieResponse(
                     id = id,
                     adult = adult,
                     backdropPath = backdropPath,
@@ -38,8 +38,8 @@ class FavoriteMoviesResponseDTOMapper @Inject constructor() :
                 )
             }
         } ?: listOf()
-        mutableFavoriteMovies.postValue(favoriteMoviesResponse)
+        mutableBookmarkMovies.postValue(bookmarkMoviesResponse)
 
-        return mutableFavoriteMovies
+        return mutableBookmarkMovies
     }
 }

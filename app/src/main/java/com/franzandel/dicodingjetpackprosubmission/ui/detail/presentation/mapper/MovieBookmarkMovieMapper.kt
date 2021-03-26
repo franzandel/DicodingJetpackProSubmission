@@ -1,8 +1,8 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.favorite.movie.data.mapper
+package com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.mapper
 
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
-import com.franzandel.dicodingjetpackprosubmission.ui.favorite.movie.data.entity.FavoriteMovieDTO
-import com.franzandel.dicodingjetpackprosubmission.ui.favorite.movie.data.entity.FavoriteMovieRequest
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieRequest
+import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
@@ -12,11 +12,10 @@ import javax.inject.Inject
  */
 
 @ActivityScoped
-class FavoriteMovieRequestMapper @Inject constructor() :
-    BaseMapper<FavoriteMovieRequest, FavoriteMovieDTO>() {
+class MovieBookmarkMovieMapper @Inject constructor() : BaseMapper<Movie, BookmarkMovieRequest>() {
 
-    override fun map(dataModel: FavoriteMovieRequest): FavoriteMovieDTO = with(dataModel) {
-        FavoriteMovieDTO(
+    override fun map(dataModel: Movie): BookmarkMovieRequest = with(dataModel) {
+        BookmarkMovieRequest(
             id = id,
             adult = adult,
             backdropPath = backdropPath,
