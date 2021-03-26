@@ -3,7 +3,7 @@ package com.franzandel.dicodingjetpackprosubmission.di
 import android.content.Context
 import androidx.room.Room
 import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
-import com.franzandel.dicodingjetpackprosubmission.data.local.FavoriteDatabase
+import com.franzandel.dicodingjetpackprosubmission.data.local.BookmarkDatabase
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -23,7 +23,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    private const val FAVORITE_DB_NAME = "FavoriteDatabase.db"
+    private const val BOOKMARK_DB_NAME = "BookmarkDatabase.db"
 
     @Provides
     @Singleton
@@ -38,11 +38,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideFavoriteDatabase(@ApplicationContext context: Context): FavoriteDatabase =
+    fun provideBookmarkDatabase(@ApplicationContext context: Context): BookmarkDatabase =
         Room.databaseBuilder(
             context,
-            FavoriteDatabase::class.java,
-            FAVORITE_DB_NAME
+            BookmarkDatabase::class.java,
+            BOOKMARK_DB_NAME
         ).fallbackToDestructiveMigration()
             .build()
 }

@@ -1,11 +1,11 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.favorite.movie.data.entity
+package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity
 
 /**
  * Created by Franz Andel on 25/03/21.
  * Android Engineer
  */
 
-data class FavoriteMovieRequest(
+data class BookmarkMovieResponse(
     val id: Int,
     val adult: Boolean,
     val backdropPath: String,

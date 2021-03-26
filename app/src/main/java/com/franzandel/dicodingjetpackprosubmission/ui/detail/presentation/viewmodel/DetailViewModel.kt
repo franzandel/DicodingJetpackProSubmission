@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.base.BaseViewModel
 import com.franzandel.dicodingjetpackprosubmission.external.coroutine.CoroutineProvider
-import com.franzandel.dicodingjetpackprosubmission.ui.favorite.movie.data.entity.FavoriteMovieRequest
-import com.franzandel.dicodingjetpackprosubmission.ui.favorite.movie.data.repository.FavoriteMovieRepository
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieRequest
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.repository.BookmarkMovieRepository
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,22 +18,22 @@ import javax.inject.Inject
  */
 
 class DetailViewModel @Inject constructor(
-    private val favoriteMovieRepository: FavoriteMovieRepository,
+    private val bookmarkMovieRepository: BookmarkMovieRepository,
     private val coroutineProvider: CoroutineProvider,
-    private val mapper: BaseMapper<Movie, FavoriteMovieRequest>
+    private val mapper: BaseMapper<Movie, BookmarkMovieRequest>
 ) : BaseViewModel() {
 
-    private val _favoriteMovieResult = MutableLiveData<Unit>()
-    val favoriteMovieResult: LiveData<Unit> = _favoriteMovieResult
+    private val _bookmarkMovieResult = MutableLiveData<Unit>()
+    val bookmarkMovieResult: LiveData<Unit> = _bookmarkMovieResult
 
-    fun addMovieToFavorite(movie: Movie) {
+    fun addMovieToBookmark(movie: Movie) {
         _loadingResult.value = true
-        val favoriteMovieRequest = mapper.map(movie)
+        val bookmarkMovieRequest = mapper.map(movie)
 
         viewModelScope.launch(coroutineProvider.background()) {
-            val addResponse = favoriteMovieRepository.add(favoriteMovieRequest)
+            val addResponse = bookmarkMovieRepository.add(bookmarkMovieRequest)
             if (addResponse >= 0)
-                _favoriteMovieResult.postValue(Unit)
+                _bookmarkMovieResult.postValue(Unit)
             else
                 _errorResult.postValue("")
 
@@ -41,12 +41,12 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun deleteMovieFromFavorite(id: Int) {
+    fun deleteMovieFromBookmark(id: Int) {
         _loadingResult.value = true
         viewModelScope.launch(coroutineProvider.background()) {
-            val deleteResponse = favoriteMovieRepository.delete(id)
+            val deleteResponse = bookmarkMovieRepository.delete(id)
             if (deleteResponse >= 0)
-                _favoriteMovieResult.postValue(Unit)
+                _bookmarkMovieResult.postValue(Unit)
             else
                 _errorResult.postValue("")
 
@@ -54,7 +54,7 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun addTvShowToFavorite() {
+    fun addTvShowToBookmark() {
 
     }
 }
