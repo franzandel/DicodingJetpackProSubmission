@@ -18,6 +18,9 @@ interface BookmarkMovieDao {
     @Query("SELECT * FROM tbl_bookmark_movie")
     fun getBookmarkMovies(): LiveData<List<BookmarkMovieDTO>>
 
+    @Query("SELECT * FROM tbl_bookmark_movie WHERE id = :id")
+    suspend fun getBookmarkMovie(id: Int): BookmarkMovieDTO?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBookmarkMovie(bookmarkMovieDTO: BookmarkMovieDTO): Long
 

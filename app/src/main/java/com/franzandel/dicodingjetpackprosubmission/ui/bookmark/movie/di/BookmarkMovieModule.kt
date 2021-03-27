@@ -8,6 +8,7 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieRequest
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieResponse
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.mapper.BookmarkMovieRequestMapper
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.mapper.BookmarkMovieResponseDTOMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.mapper.BookmarkMoviesResponseDTOMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.mapper.MovieBookmarkMovieMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
@@ -34,6 +35,10 @@ object BookmarkMovieModule {
     @Provides
     fun provideBookmarkMovieRequestMapper(): BaseMapper<BookmarkMovieRequest, BookmarkMovieDTO> =
         BookmarkMovieRequestMapper()
+
+    @Provides
+    fun provideBookmarkMovieResponseDTOMapper(): BaseMapper<BookmarkMovieDTO, BookmarkMovieResponse> =
+        BookmarkMovieResponseDTOMapper()
 
     @Provides
     fun provideBookmarkMoviesResponseDTOMapper(): BaseMapper<LiveData<List<BookmarkMovieDTO>>, LiveData<List<BookmarkMovieResponse>>> =

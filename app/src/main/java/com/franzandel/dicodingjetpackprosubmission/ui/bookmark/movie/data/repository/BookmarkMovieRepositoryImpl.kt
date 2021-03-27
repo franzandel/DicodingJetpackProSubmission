@@ -13,8 +13,21 @@ import javax.inject.Inject
 class BookmarkMovieRepositoryImpl @Inject constructor(
     private val dao: BookmarkMovieDao,
     private val requestMapper: BaseMapper<BookmarkMovieRequest, BookmarkMovieDTO>,
+    private val responseMapper: BaseMapper<BookmarkMovieDTO, BookmarkMovieResponse>,
     private val responsesMapper: BaseMapper<LiveData<List<BookmarkMovieDTO>>, LiveData<List<BookmarkMovieResponse>>>
 ) : BookmarkMovieRepository {
+
+    override suspend fun getAll(): LiveData<List<BookmarkMovieResponse>> =
+        responsesMapper.map(dao.getBookmarkMovies())
+
+    override suspend fun get(id: Int): BookmarkMovieResponse? {
+        val bookmarkMovieDTO = dao.getBookmarkMovie(id)
+
+        return if (bookmarkMovieDTO == null)
+            null
+        else
+            responseMapper.map(bookmarkMovieDTO)
+    }
 
     override suspend fun add(bookmarkMovieRequest: BookmarkMovieRequest): Long {
         val bookmarkMovieDTO = requestMapper.map(bookmarkMovieRequest)
@@ -22,7 +35,4 @@ class BookmarkMovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun delete(id: Int): Int = dao.deleteBookmarkMovie(id)
-
-    override suspend fun getAll(): LiveData<List<BookmarkMovieResponse>> =
-        responsesMapper.map(dao.getBookmarkMovies())
 }

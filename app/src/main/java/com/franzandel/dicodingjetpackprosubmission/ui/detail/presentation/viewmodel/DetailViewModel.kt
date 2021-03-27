@@ -23,8 +23,21 @@ class DetailViewModel @Inject constructor(
     private val mapper: BaseMapper<Movie, BookmarkMovieRequest>
 ) : BaseViewModel() {
 
+    private val _isMovieBookmarked = MutableLiveData<Boolean>()
+    val isMovieBookmarked: LiveData<Boolean> = _isMovieBookmarked
+
     private val _bookmarkMovieResult = MutableLiveData<Unit>()
     val bookmarkMovieResult: LiveData<Unit> = _bookmarkMovieResult
+
+    fun getBookmarkMovie(id: Int) {
+        _loadingResult.value = true
+        viewModelScope.launch(coroutineProvider.background()) {
+            val bookmarkMovieResponse = bookmarkMovieRepository.get(id)
+            val isBookmarked = bookmarkMovieResponse != null
+            _isMovieBookmarked.postValue(isBookmarked)
+            _loadingResult.postValue(false)
+        }
+    }
 
     fun addMovieToBookmark(movie: Movie) {
         _loadingResult.value = true
