@@ -65,6 +65,18 @@ class DetailFragment : BaseFragmentVM<DetailViewModel, FragmentDetailBinding>() 
     }
 
     private fun setupObservers() {
+        detailViewModel.isMovieBookmarked.observe(
+            viewLifecycleOwner,
+            Observer { isMovieBookmarked ->
+                isBookmarked = isMovieBookmarked
+                val imageResource = if (isMovieBookmarked)
+                    R.drawable.ic_baseline_star_24
+                else
+                    R.drawable.ic_baseline_star_border_24
+
+                viewBinding.fabBookmark.setImageResource(imageResource)
+            })
+
         detailViewModel.bookmarkMovieResult.observe(viewLifecycleOwner, Observer {
             isBookmarked = !isBookmarked
             setupBookmark()
@@ -96,21 +108,25 @@ class DetailFragment : BaseFragmentVM<DetailViewModel, FragmentDetailBinding>() 
     private fun setupMoviesUI() {
         moviesArgs?.let {
             movies = it.map { movie -> movie.copy() }
-            viewBinding.apply {
-                toolbarDetail.title = it[currentPosition].title
-                tvRelease.text = it[currentPosition].releaseDate
-                tvGenre.text = it[currentPosition].popularity.toString()
-                tvLength.text = it[currentPosition].voteCount.toString()
-                tvRating.text = it[currentPosition].voteAverage.toString()
-                tvOverview.text = it[currentPosition].overview
+            val movie = it[currentPosition]
 
-                val imageUrl = ApiConsts.baseUrlImage + it[currentPosition].posterPath
+            viewBinding.apply {
+                toolbarDetail.title = movie.title
+                tvRelease.text = movie.releaseDate
+                tvGenre.text = movie.popularity.toString()
+                tvLength.text = movie.voteCount.toString()
+                tvRating.text = movie.voteAverage.toString()
+                tvOverview.text = movie.overview
+
+                val imageUrl = ApiConsts.baseUrlImage + movie.posterPath
                 Glide.with(requireContext())
                     .load(imageUrl)
                     .centerCrop()
                     .placeholder(R.drawable.ic_image_not_found)
                     .into(ivDetail)
             }
+
+            detailViewModel.getBookmarkMovie(movie.id)
         }
     }
 
@@ -147,11 +163,10 @@ class DetailFragment : BaseFragmentVM<DetailViewModel, FragmentDetailBinding>() 
 
     private fun handleBookmarkClick() {
         moviesArgs?.let {
-            if (!isBookmarked) {
+            if (!isBookmarked)
                 detailViewModel.addMovieToBookmark(movies[currentPosition])
-            } else {
+            else
                 detailViewModel.deleteMovieFromBookmark(movies[currentPosition].id)
-            }
         }
     }
 
