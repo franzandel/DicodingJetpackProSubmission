@@ -65,11 +65,11 @@ class DetailFragment : BaseFragmentVM<DetailViewModel, FragmentDetailBinding>() 
     }
 
     private fun setupObservers() {
-        detailViewModel.isMovieBookmarked.observe(
+        detailViewModel.isBookmarked.observe(
             viewLifecycleOwner,
-            Observer { isMovieBookmarked ->
-                isBookmarked = isMovieBookmarked
-                val imageResource = if (isMovieBookmarked)
+            Observer { isBookmarked ->
+                this.isBookmarked = isBookmarked
+                val imageResource = if (isBookmarked)
                     R.drawable.ic_baseline_star_24
                 else
                     R.drawable.ic_baseline_star_border_24
@@ -77,7 +77,7 @@ class DetailFragment : BaseFragmentVM<DetailViewModel, FragmentDetailBinding>() 
                 viewBinding.fabBookmark.setImageResource(imageResource)
             })
 
-        detailViewModel.bookmarkMovieResult.observe(viewLifecycleOwner, Observer {
+        detailViewModel.bookmarkResult.observe(viewLifecycleOwner, Observer {
             isBookmarked = !isBookmarked
             setupBookmark()
         })
@@ -132,22 +132,26 @@ class DetailFragment : BaseFragmentVM<DetailViewModel, FragmentDetailBinding>() 
 
     private fun setupTvShowsUI() {
         tvShowsArgs?.let {
-            tvShows = it
-            viewBinding.apply {
-                toolbarDetail.title = it[currentPosition].name
-                tvRelease.text = it[currentPosition].firstAirDate
-                tvGenre.text = it[currentPosition].popularity.toString()
-                tvLength.text = it[currentPosition].voteCount.toString()
-                tvRating.text = it[currentPosition].voteAverage.toString()
-                tvOverview.text = it[currentPosition].overview
+            tvShows = it.map { tvShow -> tvShow.copy() }
+            val tvShow = it[currentPosition]
 
-                val imageUrl = ApiConsts.baseUrlImage + it[currentPosition].posterPath
+            viewBinding.apply {
+                toolbarDetail.title = tvShow.name
+                tvRelease.text = tvShow.firstAirDate
+                tvGenre.text = tvShow.popularity.toString()
+                tvLength.text = tvShow.voteCount.toString()
+                tvRating.text = tvShow.voteAverage.toString()
+                tvOverview.text = tvShow.overview
+
+                val imageUrl = ApiConsts.baseUrlImage + tvShow.posterPath
                 Glide.with(requireContext())
                     .load(imageUrl)
                     .centerCrop()
                     .placeholder(R.drawable.ic_image_not_found)
                     .into(ivDetail)
             }
+
+            detailViewModel.getBookmarkTvShow(tvShow.id)
         }
     }
 
@@ -163,10 +167,19 @@ class DetailFragment : BaseFragmentVM<DetailViewModel, FragmentDetailBinding>() 
 
     private fun handleBookmarkClick() {
         moviesArgs?.let {
+            val movie = movies[currentPosition]
             if (!isBookmarked)
-                detailViewModel.addMovieToBookmark(movies[currentPosition])
+                detailViewModel.addMovieToBookmark(movie)
             else
-                detailViewModel.deleteMovieFromBookmark(movies[currentPosition].id)
+                detailViewModel.deleteMovieFromBookmark(movie.id)
+        }
+
+        tvShowsArgs?.let {
+            val tvShow = tvShows[currentPosition]
+            if (!isBookmarked)
+                detailViewModel.addTvShowToBookmark(tvShow)
+            else
+                detailViewModel.deleteTvShowFromBookmark(tvShow.id)
         }
     }
 

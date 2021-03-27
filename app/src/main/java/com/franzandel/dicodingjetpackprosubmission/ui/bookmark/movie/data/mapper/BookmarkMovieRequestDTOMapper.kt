@@ -12,7 +12,7 @@ import javax.inject.Inject
  */
 
 @ActivityScoped
-class BookmarkMovieRequestMapper @Inject constructor() :
+class BookmarkMovieRequestDTOMapper @Inject constructor() :
     BaseMapper<BookmarkMovieRequest, BookmarkMovieDTO>() {
 
     override fun map(dataModel: BookmarkMovieRequest): BookmarkMovieDTO = with(dataModel) {
