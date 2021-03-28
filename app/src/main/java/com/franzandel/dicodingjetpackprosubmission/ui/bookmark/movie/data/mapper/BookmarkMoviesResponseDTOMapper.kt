@@ -1,7 +1,5 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.mapper
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieDTO
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieResponse
@@ -15,11 +13,10 @@ import javax.inject.Inject
 
 @ActivityScoped
 class BookmarkMoviesResponseDTOMapper @Inject constructor() :
-    BaseMapper<LiveData<List<BookmarkMovieDTO>>, LiveData<List<BookmarkMovieResponse>>>() {
+    BaseMapper<List<BookmarkMovieDTO>, List<BookmarkMovieResponse>>() {
 
-    override fun map(dataModel: LiveData<List<BookmarkMovieDTO>>): LiveData<List<BookmarkMovieResponse>> {
-        val mutableBookmarkMovies = MutableLiveData<List<BookmarkMovieResponse>>()
-        val bookmarkMoviesResponse = dataModel.value?.map {
+    override fun map(dataModel: List<BookmarkMovieDTO>): List<BookmarkMovieResponse> =
+        dataModel.map {
             with(it) {
                 BookmarkMovieResponse(
                     id = id,
@@ -37,9 +34,5 @@ class BookmarkMoviesResponseDTOMapper @Inject constructor() :
                     voteCount = voteCount
                 )
             }
-        } ?: listOf()
-        mutableBookmarkMovies.postValue(bookmarkMoviesResponse)
-
-        return mutableBookmarkMovies
-    }
+        }
 }

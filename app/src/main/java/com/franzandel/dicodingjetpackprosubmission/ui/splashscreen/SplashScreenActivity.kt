@@ -1,13 +1,18 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.splashscreen
 
-import android.content.Intent
 import android.os.Handler
+import android.os.Looper
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseActivity
+import com.franzandel.dicodingjetpackprosubmission.external.extension.goTo
 import com.franzandel.dicodingjetpackprosubmission.instrumentedtest.EspressoIdlingResource
 import com.franzandel.dicodingjetpackprosubmission.ui.dashboard.DashboardActivity
 
 class SplashScreenActivity : BaseActivity() {
+
+    companion object {
+        private const val TIME_OUT = 1000L
+    }
 
     override fun getLayoutId(): Int = R.layout.activity_splash_screen
 
@@ -17,17 +22,12 @@ class SplashScreenActivity : BaseActivity() {
 
     private fun delayOneSecond() {
         EspressoIdlingResource.increment()
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             kotlin.run {
-                navigateToDashboard()
+                goTo(DashboardActivity::class.java)
                 finish()
                 EspressoIdlingResource.decrement()
             }
-        }, 1000L)
-    }
-
-    private fun navigateToDashboard() {
-        val intent = Intent(this, DashboardActivity::class.java)
-        startActivity(intent)
+        }, TIME_OUT)
     }
 }

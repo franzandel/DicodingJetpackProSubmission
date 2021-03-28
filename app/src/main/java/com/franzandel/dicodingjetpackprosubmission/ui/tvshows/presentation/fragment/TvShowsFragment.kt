@@ -8,10 +8,12 @@ import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragmentVM
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentTvShowsBinding
 import com.franzandel.dicodingjetpackprosubmission.databinding.LayoutErrorBinding
+import com.franzandel.dicodingjetpackprosubmission.external.extension.goTo
 import com.franzandel.dicodingjetpackprosubmission.external.extension.hide
 import com.franzandel.dicodingjetpackprosubmission.external.extension.show
 import com.franzandel.dicodingjetpackprosubmission.external.extension.showShareMessage
 import com.franzandel.dicodingjetpackprosubmission.instrumentedtest.EspressoIdlingResource
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.BookmarkActivity
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.adapter.TvShowsAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.viewmodel.TvShowsViewModel
@@ -69,6 +71,10 @@ class TvShowsFragment : BaseFragmentVM<TvShowsViewModel, FragmentTvShowsBinding>
             when (menuItem.itemId) {
                 R.id.menu_share -> {
                     requireActivity().showShareMessage()
+                    true
+                }
+                R.id.menu_bookmark -> {
+                    requireContext().goTo(BookmarkActivity::class.java)
                     true
                 }
                 else -> false
