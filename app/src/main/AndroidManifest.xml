@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_home_cinema_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DicodingJetpackProSubmission">
+        <activity android:name=".ui.bookmark.BookmarkActivity" />
         <activity
             android:name=".ui.splashscreen.SplashScreenActivity"
             android:theme="@style/SplashScreen">

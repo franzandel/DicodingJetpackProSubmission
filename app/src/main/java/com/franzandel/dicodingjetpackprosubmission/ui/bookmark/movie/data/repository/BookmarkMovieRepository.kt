@@ -1,6 +1,5 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.repository
 
-import androidx.lifecycle.LiveData
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieRequest
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieResponse
 
@@ -10,7 +9,7 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity
  */
 
 interface BookmarkMovieRepository {
-    suspend fun getAll(): LiveData<List<BookmarkMovieResponse>>
+    suspend fun getAll(): List<BookmarkMovieResponse>
     suspend fun get(id: Int): BookmarkMovieResponse?
     suspend fun add(bookmarkMovieRequest: BookmarkMovieRequest): Long
     suspend fun delete(id: Int): Int

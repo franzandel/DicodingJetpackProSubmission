@@ -5,6 +5,7 @@
     <string name="title_tv_shows">Tv Shows</string>
 
     <string name="menu_share">Share</string>
+    <string name="menu_bookmark">Bookmark</string>
 
     <string name="share_message_title">Let\'s share this apps to your friends!</string>
     <string name="share_message_description">Know more info about Movies &amp; Tv Shows at <b>Home Cinema</b> in Google Play Store</string>
@@ -14,4 +15,9 @@
     <string name="detail_bookmark_removed">Bookmark removed!</string>
 
     <string name="error_button">Try again</string>
+
+    <string-array name="bookmark_tab_title">
+        <item>Movie</item>
+        <item>Tv Show</item>
+    </string-array>
 </resources>
