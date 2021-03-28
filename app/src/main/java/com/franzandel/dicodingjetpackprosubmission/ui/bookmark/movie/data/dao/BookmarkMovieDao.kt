@@ -1,5 +1,6 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -15,7 +16,7 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity
 interface BookmarkMovieDao {
 
     @Query("SELECT * FROM tbl_bookmark_movie")
-    suspend fun getBookmarkMovies(): List<BookmarkMovieDTO>
+    fun getBookmarkMovies(): LiveData<List<BookmarkMovieDTO>>
 
     @Query("SELECT * FROM tbl_bookmark_movie WHERE id = :id")
     suspend fun getBookmarkMovie(id: Int): BookmarkMovieDTO?

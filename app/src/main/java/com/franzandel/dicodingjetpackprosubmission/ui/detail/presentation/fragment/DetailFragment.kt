@@ -11,6 +11,8 @@ import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragmentVM
 import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentDetailBinding
+import com.franzandel.dicodingjetpackprosubmission.external.extension.goTo
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.BookmarkActivity
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.adapter.DetailMovieAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.adapter.DetailTvShowAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.viewmodel.DetailViewModel
@@ -90,11 +92,15 @@ class DetailFragment : BaseFragmentVM<DetailViewModel, FragmentDetailBinding>() 
     private fun setupBookmark() {
         if (isBookmarked) {
             viewBinding.fabBookmark.setImageResource(R.drawable.ic_baseline_star_24)
-            Snackbar.make(
+            val snackbar = Snackbar.make(
                 requireView(),
                 getString(R.string.detail_bookmark_added),
                 Snackbar.LENGTH_SHORT
-            ).show()
+            )
+            snackbar.setAction(getString(R.string.detail_bookmark_added_view)) {
+                requireContext().goTo(BookmarkActivity::class.java)
+            }
+            snackbar.show()
         } else {
             viewBinding.fabBookmark.setImageResource(R.drawable.ic_baseline_star_border_24)
             Snackbar.make(

@@ -9,6 +9,7 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.mapper.BookmarkMovieRequestDTOMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.mapper.BookmarkMovieResponseDTOMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.mapper.BookmarkMoviesResponseDTOMapper
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.presentation.mapper.BookmarkMovieResponseRequestMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.mapper.MovieBookmarkMovieMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 import dagger.Module
@@ -46,4 +47,8 @@ object BookmarkMovieModule {
     @Provides
     fun provideMovieBookmarkMovieMapper(): BaseMapper<Movie, BookmarkMovieRequest> =
         MovieBookmarkMovieMapper()
+
+    @Provides
+    fun provideBookmarkMovieResponseRequestMapper(): BaseMapper<BookmarkMovieResponse, BookmarkMovieRequest> =
+        BookmarkMovieResponseRequestMapper()
 }
