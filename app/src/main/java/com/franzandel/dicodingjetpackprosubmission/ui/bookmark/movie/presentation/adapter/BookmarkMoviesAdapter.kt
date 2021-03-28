@@ -14,20 +14,20 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.presentatio
  * Android Engineer
  */
 
-class BookmarkMoviesAdapter(private val context: Context) :
-    BaseAdapter<BookmarkMovieResponse, BookmarkMoviesVH, ItemBookmarkMoviesBinding>(
-        BookmarkMoviesDiffCallback()
-    ) {
+class BookmarkMoviesAdapter(
+    private val context: Context,
+    private val onDeleteClick: (bookmarkMovieResponse: BookmarkMovieResponse) -> Unit
+) : BaseAdapter<BookmarkMovieResponse, BookmarkMoviesVH, ItemBookmarkMoviesBinding>(
+    BookmarkMoviesDiffCallback()
+) {
 
     override fun getViewBinding(parent: ViewGroup): ItemBookmarkMoviesBinding =
         ItemBookmarkMoviesBinding.inflate(LayoutInflater.from(context), parent, false)
 
     override fun getViewHolder(viewBinding: ItemBookmarkMoviesBinding): BookmarkMoviesVH =
-        BookmarkMoviesVH(
-            viewBinding
-        )
+        BookmarkMoviesVH(viewBinding)
 
     override fun onBindViewHolder(holder: BookmarkMoviesVH, position: Int) {
-        holder.bind(currentList[position])
+        holder.bind(currentList[position], onDeleteClick)
     }
 }

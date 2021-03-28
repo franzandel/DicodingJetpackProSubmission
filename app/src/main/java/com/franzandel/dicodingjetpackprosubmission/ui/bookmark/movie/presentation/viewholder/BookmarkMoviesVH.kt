@@ -15,22 +15,30 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity
 class BookmarkMoviesVH(private val itemBookmarkMoviesBinding: ItemBookmarkMoviesBinding) :
     RecyclerView.ViewHolder(itemBookmarkMoviesBinding.root) {
 
-    fun bind(bookmarkMovies: BookmarkMovieResponse) {
+    fun bind(
+        bookmarkMovieResponse: BookmarkMovieResponse,
+        onDeleteClick: (bookmarkMovieResponse: BookmarkMovieResponse) -> Unit
+    ) {
         with(itemBookmarkMoviesBinding) {
-            val imageUrl = ApiConsts.baseUrlImage + bookmarkMovies.posterPath
+            val context = itemView.context
+            val imageUrl = ApiConsts.baseUrlImage + bookmarkMovieResponse.posterPath
 
-            Glide.with(itemView.context)
+            Glide.with(context)
                 .load(imageUrl)
                 .centerCrop()
                 .placeholder(R.drawable.ic_image_not_found)
                 .into(ivBookmarkMovies)
 
-            tvTitle.text = bookmarkMovies.title
-            tvReleaseDate.text = bookmarkMovies.releaseDate
-            tvOverview.text = bookmarkMovies.overview
+            tvTitle.text = bookmarkMovieResponse.title
+            tvReleaseDate.text = bookmarkMovieResponse.releaseDate
+            tvOverview.text = bookmarkMovieResponse.overview
 
-            cpiVoteAverage.progress = bookmarkMovies.voteAverage.toInt()
-            tvVoteAverage.text = bookmarkMovies.voteAverage.toString()
+            cpiVoteAverage.progress = bookmarkMovieResponse.voteAverage.toInt()
+            tvVoteAverage.text = bookmarkMovieResponse.voteAverage.toString()
+
+            ivDeleteBookmarkMovie.setOnClickListener {
+                onDeleteClick.invoke(bookmarkMovieResponse)
+            }
         }
     }
 }

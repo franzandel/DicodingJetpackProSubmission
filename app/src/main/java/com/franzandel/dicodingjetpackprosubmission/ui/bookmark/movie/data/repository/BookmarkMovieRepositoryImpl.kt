@@ -1,5 +1,7 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.dao.BookmarkMovieDao
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieDTO
@@ -16,8 +18,10 @@ class BookmarkMovieRepositoryImpl @Inject constructor(
     private val responsesMapper: BaseMapper<List<BookmarkMovieDTO>, List<BookmarkMovieResponse>>
 ) : BookmarkMovieRepository {
 
-    override suspend fun getAll(): List<BookmarkMovieResponse> =
-        responsesMapper.map(dao.getBookmarkMovies())
+    override suspend fun getAll(): LiveData<List<BookmarkMovieResponse>> =
+        Transformations.map(dao.getBookmarkMovies()) { bookmarkMoviesDTO ->
+            responsesMapper.map(bookmarkMoviesDTO)
+        }
 
     override suspend fun get(id: Int): BookmarkMovieResponse? {
         val bookmarkMovieDTO = dao.getBookmarkMovie(id)

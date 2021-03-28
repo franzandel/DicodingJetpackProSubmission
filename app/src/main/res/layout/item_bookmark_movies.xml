@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_8"
+    android:layout_marginStart="@dimen/margin_8"
+    android:layout_marginEnd="@dimen/margin_8"
+    android:layout_marginTop="@dimen/margin_8"
     app:cardCornerRadius="@dimen/margin_8"
     app:cardElevation="@dimen/margin_4"
     app:cardUseCompatPadding="true">
@@ -62,6 +64,17 @@
             app:layout_constraintStart_toEndOf="@+id/ivBookmarkMovies"
             app:layout_constraintTop_toBottomOf="@+id/tvReleaseDate"
             tools:text="In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages." />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivDeleteBookmarkMovie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_delete_24"
+            android:background="?attr/selectableItemBackground"
+            android:layout_marginEnd="@dimen/margin_16"
+            app:layout_constraintBottom_toBottomOf="@+id/cpiVoteAverage"
+            app:layout_constraintEnd_toStartOf="@+id/cpiVoteAverage"
+            app:layout_constraintTop_toTopOf="@+id/cpiVoteAverage" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/cpiVoteAverage"
