@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.bookmark.movie.presentation.fragment.BookmarkMoviesFragment">
+    tools:context=".ui.bookmark.tvshow.presentation.fragment.BookmarkTvShowsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvBookmarkMovies"
+        android:id="@+id/rvBookmarkTvShows"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_bookmark_movies"
+        tools:listitem="@layout/item_bookmark_tv_shows"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

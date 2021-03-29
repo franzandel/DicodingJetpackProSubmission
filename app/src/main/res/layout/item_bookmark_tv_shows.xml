@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_8"
+    android:layout_marginEnd="@dimen/margin_8"
+    android:layout_marginTop="@dimen/margin_8"
+    app:cardCornerRadius="@dimen/margin_8"
+    app:cardElevation="@dimen/margin_4"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivBookmarkTvShow"
+            android:layout_width="150dp"
+            android:layout_height="180dp"
+            android:layout_margin="@dimen/margin_8"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_movies_alita"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_16"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivBookmarkTvShow"
+            app:layout_constraintTop_toTopOf="@+id/ivBookmarkTvShow"
+            tools:text="Alita Battle Angel" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvFirstAirDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_8"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toEndOf="@+id/ivBookmarkTvShow"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            tools:text="2021-03-05" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvOverview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:textSize="@dimen/text_size_12"
+            app:layout_constraintBottom_toTopOf="@+id/cpiVoteAverage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivBookmarkTvShow"
+            app:layout_constraintTop_toBottomOf="@+id/tvFirstAirDate"
+            tools:text="In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages." />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivDeleteBookmarkTvShow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_delete_24"
+            android:background="?attr/selectableItemBackground"
+            android:layout_marginEnd="@dimen/margin_16"
+            app:layout_constraintBottom_toBottomOf="@+id/cpiVoteAverage"
+            app:layout_constraintEnd_toStartOf="@+id/cpiVoteAverage"
+            app:layout_constraintTop_toTopOf="@+id/cpiVoteAverage" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/cpiVoteAverage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:max="10"
+            app:indicatorColor="@android:color/holo_green_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:trackColor="@android:color/holo_green_dark"
+            tools:progress="6" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvVoteAverage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/cpiVoteAverage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/cpiVoteAverage"
+            app:layout_constraintTop_toTopOf="@+id/cpiVoteAverage"
+            tools:text="6.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

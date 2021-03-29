@@ -1,48 +1,54 @@
-package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.presentation.fragment
+package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.presentation.fragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragmentVM
-import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentBookmarkMoviesBinding
-import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieResponse
-import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.presentation.adapter.BookmarkMoviesAdapter
-import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.presentation.viewmodel.BookmarkMoviesVM
+import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentBookmarkTvShowsBinding
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowResponse
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.presentation.adapter.BookmarkTvShowsAdapter
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.presentation.viewmodel.BookmarkTvShowsVM
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+/**
+ * Created by Franz Andel on 29/03/21.
+ * Android Engineer
+ */
+
 @AndroidEntryPoint
-class BookmarkMoviesFragment : BaseFragmentVM<BookmarkMoviesVM, FragmentBookmarkMoviesBinding>() {
+class BookmarkTvShowsFragment :
+    BaseFragmentVM<BookmarkTvShowsVM, FragmentBookmarkTvShowsBinding>() {
 
     @Inject
-    lateinit var bookmarkMoviesVM: BookmarkMoviesVM
+    lateinit var bookmarkTvShowsVM: BookmarkTvShowsVM
 
-    private lateinit var deletedBookmarkMovieResponse: BookmarkMovieResponse
+    private lateinit var deletedBookmarkTvShowResponse: BookmarkTvShowResponse
 
-    override fun getVM(): BookmarkMoviesVM = bookmarkMoviesVM
+    override fun getVM(): BookmarkTvShowsVM = bookmarkTvShowsVM
 
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentBookmarkMoviesBinding =
-        FragmentBookmarkMoviesBinding.inflate(inflater, container, false)
+    ): FragmentBookmarkTvShowsBinding =
+        FragmentBookmarkTvShowsBinding.inflate(inflater, container, false)
 
     override fun onFragmentCreated() {
         setupObservers()
-        bookmarkMoviesVM.getBookmarkMovies()
+        bookmarkTvShowsVM.getBookmarkMovies()
     }
 
     private fun setupObservers() {
-        bookmarkMoviesVM.bookmarkMovies.observe(
+        bookmarkTvShowsVM.bookmarkTvShows.observe(
             viewLifecycleOwner,
             Observer { bookmarkMoviesDTO ->
                 setupRV(bookmarkMoviesDTO)
             })
 
-        bookmarkMoviesVM.deleteBookmarkResult.observe(
+        bookmarkTvShowsVM.deleteBookmarkResult.observe(
             viewLifecycleOwner,
             Observer {
                 Snackbar.make(
@@ -57,12 +63,12 @@ class BookmarkMoviesFragment : BaseFragmentVM<BookmarkMoviesVM, FragmentBookmark
                     Snackbar.LENGTH_SHORT
                 )
                 snackbar.setAction(getString(R.string.bookmark_deleted_undo)) {
-                    bookmarkMoviesVM.addMovieToBookmark(deletedBookmarkMovieResponse)
+                    bookmarkTvShowsVM.addMovieToBookmark(deletedBookmarkTvShowResponse)
                 }
                 snackbar.show()
             })
 
-        bookmarkMoviesVM.addBookmarkResult.observe(
+        bookmarkTvShowsVM.addBookmarkResult.observe(
             viewLifecycleOwner,
             Observer {
                 Snackbar.make(
@@ -73,22 +79,22 @@ class BookmarkMoviesFragment : BaseFragmentVM<BookmarkMoviesVM, FragmentBookmark
             })
     }
 
-    private fun setupRV(bookmarkMoviesResponse: List<BookmarkMovieResponse>) {
-        val adapter = BookmarkMoviesAdapter(requireContext()) { bookmarkMovieResponse ->
-            showDeleteConfirmationDialog(bookmarkMovieResponse)
+    private fun setupRV(bookmarkTvShowsResponse: List<BookmarkTvShowResponse>) {
+        val adapter = BookmarkTvShowsAdapter(requireContext()) { bookmarkTvShowResponse ->
+            showDeleteConfirmationDialog(bookmarkTvShowResponse)
         }
-        viewBinding.rvBookmarkMovies.adapter = adapter
-        adapter.submitList(bookmarkMoviesResponse)
+        viewBinding.rvBookmarkTvShows.adapter = adapter
+        adapter.submitList(bookmarkTvShowsResponse)
     }
 
-    private fun showDeleteConfirmationDialog(bookmarkMovieResponse: BookmarkMovieResponse) {
+    private fun showDeleteConfirmationDialog(bookmarkTvShowResponse: BookmarkTvShowResponse) {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(getString(R.string.bookmark_confirmation_delete_movie_title))
+            .setTitle(getString(R.string.bookmark_confirmation_delete_tv_show_title))
             .setMessage(getString(R.string.bookmark_confirmation_delete_description))
             .setNegativeButton(getString(R.string.bookmark_confirmation_negative_button), null)
             .setPositiveButton(getString(R.string.bookmark_confirmation_positive_button)) { _, _ ->
-                deletedBookmarkMovieResponse = bookmarkMovieResponse
-                bookmarkMoviesVM.deleteMovieFromBookmark(bookmarkMovieResponse.id)
+                deletedBookmarkTvShowResponse = bookmarkTvShowResponse
+                bookmarkTvShowsVM.deleteMovieFromBookmark(bookmarkTvShowResponse.id)
             }
             .show()
     }

@@ -8,6 +8,8 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entit
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowResponse
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.mapper.BookmarkTvShowRequestDTOMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.mapper.BookmarkTvShowResponseDTOMapper
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.mapper.BookmarkTvShowsResponseDTOMapper
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.presentation.mapper.BookmarkTvShowResponseRequestMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.mapper.TvShowBookmarkTvShowMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 import dagger.Module
@@ -39,6 +41,14 @@ object BookmarkTvShowModule {
         BookmarkTvShowResponseDTOMapper()
 
     @Provides
+    fun provideBookmarkTvShowsResponseDTOMapper(): BaseMapper<List<BookmarkTvShowDTO>, List<BookmarkTvShowResponse>> =
+        BookmarkTvShowsResponseDTOMapper()
+
+    @Provides
     fun provideTvShowBookmarkTvShowMapper(): BaseMapper<TvShow, BookmarkTvShowRequest> =
         TvShowBookmarkTvShowMapper()
+
+    @Provides
+    fun provideBookmarkTvShowResponseRequestMapper(): BaseMapper<BookmarkTvShowResponse, BookmarkTvShowRequest> =
+        BookmarkTvShowResponseRequestMapper()
 }
