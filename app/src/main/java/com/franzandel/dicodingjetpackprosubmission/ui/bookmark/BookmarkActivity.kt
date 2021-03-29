@@ -7,6 +7,7 @@ import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.databinding.ActivityBookmarkBinding
 import com.franzandel.dicodingjetpackprosubmission.external.extension.showShareMessage
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.presentation.fragment.BookmarkMoviesFragment
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.presentation.fragment.BookmarkTvShowsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,7 +36,7 @@ class BookmarkActivity : AppCompatActivity() {
     }
 
     private fun setupTabAdapter() {
-        val fragments = listOf<Fragment>(BookmarkMoviesFragment())
+        val fragments = listOf<Fragment>(BookmarkMoviesFragment(), BookmarkTvShowsFragment())
         val tabAdapter = BookmarkTabAdapter(this, fragments, supportFragmentManager)
         binding.viewPager.adapter = tabAdapter
     }

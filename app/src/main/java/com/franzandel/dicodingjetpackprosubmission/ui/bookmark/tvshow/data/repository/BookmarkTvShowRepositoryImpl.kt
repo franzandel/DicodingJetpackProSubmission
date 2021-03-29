@@ -1,5 +1,7 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.dao.BookmarkTvShowDao
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowDTO
@@ -12,8 +14,14 @@ import javax.inject.Inject
 class BookmarkTvShowRepositoryImpl @Inject constructor(
     private val dao: BookmarkTvShowDao,
     private val requestMapper: BaseMapper<BookmarkTvShowRequest, BookmarkTvShowDTO>,
-    private val responseMapper: BaseMapper<BookmarkTvShowDTO, BookmarkTvShowResponse>
+    private val responseMapper: BaseMapper<BookmarkTvShowDTO, BookmarkTvShowResponse>,
+    private val responsesMapper: BaseMapper<List<BookmarkTvShowDTO>, List<BookmarkTvShowResponse>>
 ) : BookmarkTvShowRepository {
+
+    override suspend fun getAll(): LiveData<List<BookmarkTvShowResponse>> =
+        Transformations.map(dao.getBookmarkTvShows()) { bookmarkTvShowsDTO ->
+            responsesMapper.map(bookmarkTvShowsDTO)
+        }
 
     override suspend fun get(id: Int): BookmarkTvShowResponse? {
         val bookmarkTvShowDTO = dao.getBookmarkTvShow(id)

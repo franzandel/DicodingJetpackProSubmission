@@ -22,7 +22,8 @@
         <item>Tv Show</item>
     </string-array>
 
-    <string name="bookmark_confirmation_delete_title">Delete Bookmarked Movie?</string>
+    <string name="bookmark_confirmation_delete_movie_title">Delete Bookmarked Movie?</string>
+    <string name="bookmark_confirmation_delete_tv_show_title">Delete Bookmarked Tv Show?</string>
     <string name="bookmark_confirmation_delete_description">Can\'t be retrieved once deleted</string>
     <string name="bookmark_confirmation_negative_button">Cancel</string>
     <string name="bookmark_confirmation_positive_button">Delete</string>
