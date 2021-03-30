@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagedList
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.base.BaseViewModel
 import com.franzandel.dicodingjetpackprosubmission.external.coroutine.CoroutineProvider
@@ -25,9 +26,10 @@ class BookmarkMoviesVM @Inject constructor(
     private val mapper: BaseMapper<BookmarkMovieResponse, BookmarkMovieRequest>
 ) : BaseViewModel() {
 
-    private var _bookmarkMoviesSource: LiveData<List<BookmarkMovieResponse>> = MutableLiveData()
-    private val _bookmarkMovies = MediatorLiveData<List<BookmarkMovieResponse>>()
-    val bookmarkMovies: LiveData<List<BookmarkMovieResponse>> = _bookmarkMovies
+    private var _bookmarkMoviesSource: LiveData<PagedList<BookmarkMovieResponse>> =
+        MutableLiveData()
+    private val _bookmarkMovies = MediatorLiveData<PagedList<BookmarkMovieResponse>>()
+    val bookmarkMovies: LiveData<PagedList<BookmarkMovieResponse>> = _bookmarkMovies
 
     private val _deleteBookmarkResult = MutableLiveData<Unit>()
     val deleteBookmarkResult: LiveData<Unit> = _deleteBookmarkResult

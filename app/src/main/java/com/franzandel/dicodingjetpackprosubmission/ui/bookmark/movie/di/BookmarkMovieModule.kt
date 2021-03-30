@@ -1,5 +1,6 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.di
 
+import androidx.paging.DataSource
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.data.local.BookmarkDatabase
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.dao.BookmarkMovieDao
@@ -41,7 +42,7 @@ object BookmarkMovieModule {
         BookmarkMovieResponseDTOMapper()
 
     @Provides
-    fun provideBookmarkMoviesResponseDTOMapper(): BaseMapper<List<BookmarkMovieDTO>, List<BookmarkMovieResponse>> =
+    fun provideBookmarkMoviesResponseDTOMapper(): BaseMapper<DataSource.Factory<Int, BookmarkMovieDTO>, DataSource.Factory<Int, BookmarkMovieResponse>> =
         BookmarkMoviesResponseDTOMapper()
 
     @Provides
