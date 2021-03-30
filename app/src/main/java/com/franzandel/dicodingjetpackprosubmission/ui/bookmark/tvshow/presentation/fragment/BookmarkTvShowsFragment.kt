@@ -7,6 +7,7 @@ import androidx.paging.PagedList
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragmentVM
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentBookmarkTvShowsBinding
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.SortChoice
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowResponse
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.presentation.adapter.BookmarkTvShowsAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.presentation.viewmodel.BookmarkTvShowsVM
@@ -39,7 +40,7 @@ class BookmarkTvShowsFragment :
 
     override fun onFragmentCreated() {
         setupObservers()
-        bookmarkTvShowsVM.getBookmarkMovies()
+        bookmarkTvShowsVM.getBookmarkTvShows(SortChoice.TITLE)
     }
 
     private fun setupObservers() {
@@ -62,7 +63,7 @@ class BookmarkTvShowsFragment :
                 Snackbar.LENGTH_SHORT
             )
             snackbar.setAction(getString(R.string.bookmark_deleted_undo)) {
-                bookmarkTvShowsVM.addMovieToBookmark(deletedBookmarkTvShowResponse)
+                bookmarkTvShowsVM.addTvShowToBookmark(deletedBookmarkTvShowResponse)
             }
             snackbar.show()
         })
@@ -91,7 +92,7 @@ class BookmarkTvShowsFragment :
             .setNegativeButton(getString(R.string.bookmark_confirmation_negative_button), null)
             .setPositiveButton(getString(R.string.bookmark_confirmation_positive_button)) { _, _ ->
                 deletedBookmarkTvShowResponse = bookmarkTvShowResponse
-                bookmarkTvShowsVM.deleteMovieFromBookmark(bookmarkTvShowResponse.id)
+                bookmarkTvShowsVM.deleteTvShowFromBookmark(bookmarkTvShowResponse.id)
             }
             .show()
     }

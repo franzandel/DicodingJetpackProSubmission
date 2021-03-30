@@ -7,8 +7,6 @@ import androidx.paging.PagedList
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragmentVM
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentBookmarkMoviesBinding
-import com.franzandel.dicodingjetpackprosubmission.external.extension.showShareMessage
-import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.BookmarkActivity
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.SortChoice
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieResponse
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.presentation.adapter.BookmarkMoviesAdapter
@@ -26,10 +24,6 @@ class BookmarkMoviesFragment : BaseFragmentVM<BookmarkMoviesVM, FragmentBookmark
 
     private lateinit var deletedBookmarkMovieResponse: BookmarkMovieResponse
 
-    private val currentActivity by lazy {
-        requireActivity() as BookmarkActivity
-    }
-
     override fun getVM(): BookmarkMoviesVM = bookmarkMoviesVM
 
     override fun getViewBinding(
@@ -39,31 +33,8 @@ class BookmarkMoviesFragment : BaseFragmentVM<BookmarkMoviesVM, FragmentBookmark
         FragmentBookmarkMoviesBinding.inflate(inflater, container, false)
 
     override fun onFragmentCreated() {
-        setupListeners()
         setupObservers()
         bookmarkMoviesVM.getBookmarkMovies(SortChoice.TITLE)
-    }
-
-    private fun setupListeners() {
-        currentActivity.binding.mtbBookmark.setOnMenuItemClickListener { menuItem ->
-            menuItem.isChecked = true
-
-            when (menuItem.itemId) {
-                R.id.menu_share -> {
-                    requireActivity().showShareMessage()
-                    true
-                }
-                R.id.menu_sort_title -> {
-                    bookmarkMoviesVM.getBookmarkMovies(SortChoice.TITLE)
-                    true
-                }
-                R.id.menu_sort_rating -> {
-                    bookmarkMoviesVM.getBookmarkMovies(SortChoice.RATING)
-                    true
-                }
-                else -> false
-            }
-        }
     }
 
     private fun setupObservers() {
