@@ -8,6 +8,7 @@ import androidx.paging.PagedList
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.base.BaseViewModel
 import com.franzandel.dicodingjetpackprosubmission.external.coroutine.CoroutineProvider
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.SortChoice
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieRequest
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieResponse
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.repository.BookmarkMovieRepository
@@ -37,11 +38,11 @@ class BookmarkMoviesVM @Inject constructor(
     private val _addBookmarkResult = MutableLiveData<Unit>()
     val addBookmarkResult: LiveData<Unit> = _addBookmarkResult
 
-    fun getBookmarkMovies() {
+    fun getBookmarkMovies(sortChoice: SortChoice) {
         viewModelScope.launch(coroutineProvider.main()) {
             _loadingResult.value = true
             withContext(coroutineProvider.background()) {
-                _bookmarkMoviesSource = bookmarkMovieRepository.getAll()
+                _bookmarkMoviesSource = bookmarkMovieRepository.getAll(sortChoice)
             }
 
             _bookmarkMovies.addSource(_bookmarkMoviesSource) {

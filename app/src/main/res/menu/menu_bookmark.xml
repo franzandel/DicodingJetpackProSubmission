@@ -7,4 +7,15 @@
         android:title="@string/menu_share"
         android:icon="@drawable/ic_baseline_share_24"
         app:showAsAction="ifRoom" />
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_sort_title"
+            android:checked="true"
+            android:title="@string/menu_sort_title" />
+        <item
+            android:id="@+id/menu_sort_rating"
+            android:checked="false"
+            android:title="@string/menu_sort_rating" />
+    </group>
 </menu>
