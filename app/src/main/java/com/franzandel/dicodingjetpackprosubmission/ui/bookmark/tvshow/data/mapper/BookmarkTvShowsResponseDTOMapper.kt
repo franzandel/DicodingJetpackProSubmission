@@ -1,5 +1,6 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.mapper
 
+import androidx.paging.DataSource
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowDTO
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowResponse
@@ -13,9 +14,9 @@ import javax.inject.Inject
 
 @ActivityScoped
 class BookmarkTvShowsResponseDTOMapper @Inject constructor() :
-    BaseMapper<List<BookmarkTvShowDTO>, List<BookmarkTvShowResponse>>() {
+    BaseMapper<DataSource.Factory<Int, BookmarkTvShowDTO>, DataSource.Factory<Int, BookmarkTvShowResponse>>() {
 
-    override fun map(dataModel: List<BookmarkTvShowDTO>): List<BookmarkTvShowResponse> =
+    override fun map(dataModel: DataSource.Factory<Int, BookmarkTvShowDTO>): DataSource.Factory<Int, BookmarkTvShowResponse> =
         dataModel.map {
             with(it) {
                 BookmarkTvShowResponse(

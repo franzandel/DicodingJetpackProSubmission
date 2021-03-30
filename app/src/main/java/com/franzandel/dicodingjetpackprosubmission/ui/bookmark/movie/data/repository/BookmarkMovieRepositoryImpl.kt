@@ -5,6 +5,7 @@ import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
+import com.franzandel.dicodingjetpackprosubmission.data.consts.PaginationConsts
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.dao.BookmarkMovieDao
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieDTO
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieRequest
@@ -20,16 +21,12 @@ class BookmarkMovieRepositoryImpl @Inject constructor(
     private val responsesMapper: BaseMapper<DataSource.Factory<Int, BookmarkMovieDTO>, DataSource.Factory<Int, BookmarkMovieResponse>>
 ) : BookmarkMovieRepository {
 
-    companion object {
-        private const val PAGE_SIZE = 3
-    }
-
     override suspend fun getAll(): LiveData<PagedList<BookmarkMovieResponse>> {
         val mappedDataSource = responsesMapper.map(dao.getBookmarkMovies())
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
-            .setInitialLoadSizeHint(PAGE_SIZE)
-            .setPageSize(PAGE_SIZE)
+            .setInitialLoadSizeHint(PaginationConsts.PAGE_SIZE)
+            .setPageSize(PaginationConsts.PAGE_SIZE)
             .build()
 
         return LivePagedListBuilder(mappedDataSource, config).build()

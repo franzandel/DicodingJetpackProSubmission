@@ -1,6 +1,6 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.dao
 
-import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -16,7 +16,7 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entit
 interface BookmarkTvShowDao {
 
     @Query("SELECT * FROM tbl_bookmark_tv_show")
-    fun getBookmarkTvShows(): LiveData<List<BookmarkTvShowDTO>>
+    fun getBookmarkTvShows(): DataSource.Factory<Int, BookmarkTvShowDTO>
 
     @Query("SELECT * FROM tbl_bookmark_tv_show WHERE id = :id")
     suspend fun getBookmarkTvShow(id: Int): BookmarkTvShowDTO?

@@ -1,8 +1,11 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.paging.DataSource
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
+import com.franzandel.dicodingjetpackprosubmission.data.consts.PaginationConsts
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.dao.BookmarkTvShowDao
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowDTO
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowRequest
@@ -15,13 +18,19 @@ class BookmarkTvShowRepositoryImpl @Inject constructor(
     private val dao: BookmarkTvShowDao,
     private val requestMapper: BaseMapper<BookmarkTvShowRequest, BookmarkTvShowDTO>,
     private val responseMapper: BaseMapper<BookmarkTvShowDTO, BookmarkTvShowResponse>,
-    private val responsesMapper: BaseMapper<List<BookmarkTvShowDTO>, List<BookmarkTvShowResponse>>
+    private val responsesMapper: BaseMapper<DataSource.Factory<Int, BookmarkTvShowDTO>, DataSource.Factory<Int, BookmarkTvShowResponse>>
 ) : BookmarkTvShowRepository {
 
-    override suspend fun getAll(): LiveData<List<BookmarkTvShowResponse>> =
-        Transformations.map(dao.getBookmarkTvShows()) { bookmarkTvShowsDTO ->
-            responsesMapper.map(bookmarkTvShowsDTO)
-        }
+    override suspend fun getAll(): LiveData<PagedList<BookmarkTvShowResponse>> {
+        val mappedDataSource = responsesMapper.map(dao.getBookmarkTvShows())
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(PaginationConsts.PAGE_SIZE)
+            .setPageSize(PaginationConsts.PAGE_SIZE)
+            .build()
+
+        return LivePagedListBuilder(mappedDataSource, config).build()
+    }
 
     override suspend fun get(id: Int): BookmarkTvShowResponse? {
         val bookmarkTvShowDTO = dao.getBookmarkTvShow(id)

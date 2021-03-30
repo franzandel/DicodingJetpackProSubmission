@@ -3,6 +3,7 @@ package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.presentat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragmentVM
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentBookmarkTvShowsBinding
@@ -48,39 +49,35 @@ class BookmarkTvShowsFragment :
                 setupRV(bookmarkMoviesDTO)
             })
 
-        bookmarkTvShowsVM.deleteBookmarkResult.observe(
-            viewLifecycleOwner,
-            Observer {
-                Snackbar.make(
-                    requireView(),
-                    getString(R.string.bookmark_deleted),
-                    Snackbar.LENGTH_SHORT
-                ).show()
+        bookmarkTvShowsVM.deleteBookmarkResult.observe(viewLifecycleOwner, Observer {
+            Snackbar.make(
+                requireView(),
+                getString(R.string.bookmark_deleted),
+                Snackbar.LENGTH_SHORT
+            ).show()
 
-                val snackbar = Snackbar.make(
-                    requireView(),
-                    getString(R.string.bookmark_deleted),
-                    Snackbar.LENGTH_SHORT
-                )
-                snackbar.setAction(getString(R.string.bookmark_deleted_undo)) {
-                    bookmarkTvShowsVM.addMovieToBookmark(deletedBookmarkTvShowResponse)
-                }
-                snackbar.show()
-            })
+            val snackbar = Snackbar.make(
+                requireView(),
+                getString(R.string.bookmark_deleted),
+                Snackbar.LENGTH_SHORT
+            )
+            snackbar.setAction(getString(R.string.bookmark_deleted_undo)) {
+                bookmarkTvShowsVM.addMovieToBookmark(deletedBookmarkTvShowResponse)
+            }
+            snackbar.show()
+        })
 
-        bookmarkTvShowsVM.addBookmarkResult.observe(
-            viewLifecycleOwner,
-            Observer {
-                Snackbar.make(
-                    requireView(),
-                    getString(R.string.bookmark_deleted_undo_success),
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            })
+        bookmarkTvShowsVM.addBookmarkResult.observe(viewLifecycleOwner, Observer {
+            Snackbar.make(
+                requireView(),
+                getString(R.string.bookmark_deleted_undo_success),
+                Snackbar.LENGTH_SHORT
+            ).show()
+        })
     }
 
-    private fun setupRV(bookmarkTvShowsResponse: List<BookmarkTvShowResponse>) {
-        val adapter = BookmarkTvShowsAdapter(requireContext()) { bookmarkTvShowResponse ->
+    private fun setupRV(bookmarkTvShowsResponse: PagedList<BookmarkTvShowResponse>) {
+        val adapter = BookmarkTvShowsAdapter { bookmarkTvShowResponse ->
             showDeleteConfirmationDialog(bookmarkTvShowResponse)
         }
         viewBinding.rvBookmarkTvShows.adapter = adapter
