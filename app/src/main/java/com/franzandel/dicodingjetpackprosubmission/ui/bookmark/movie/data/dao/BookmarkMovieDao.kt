@@ -1,10 +1,8 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.dao
 
 import androidx.paging.DataSource
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieDTO
 
 /**
@@ -15,8 +13,8 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity
 @Dao
 interface BookmarkMovieDao {
 
-    @Query("SELECT * FROM tbl_bookmark_movie")
-    fun getBookmarkMovies(): DataSource.Factory<Int, BookmarkMovieDTO>
+    @RawQuery(observedEntities = [BookmarkMovieDTO::class])
+    fun getBookmarkMovies(query: SupportSQLiteQuery): DataSource.Factory<Int, BookmarkMovieDTO>
 
     @Query("SELECT * FROM tbl_bookmark_movie WHERE id = :id")
     suspend fun getBookmarkMovie(id: Int): BookmarkMovieDTO?

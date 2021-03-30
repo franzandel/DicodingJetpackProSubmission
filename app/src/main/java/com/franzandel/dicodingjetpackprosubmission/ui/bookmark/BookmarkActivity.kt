@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class BookmarkActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityBookmarkBinding
+    lateinit var binding: ActivityBookmarkBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
