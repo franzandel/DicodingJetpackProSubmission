@@ -1,9 +1,8 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.presentation.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.franzandel.dicodingjetpackprosubmission.base.BaseAdapter
+import androidx.paging.PagedListAdapter
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemBookmarkTvShowsBinding
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowResponse
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.presentation.diffcallback.BookmarkTvShowsDiffCallback
@@ -15,19 +14,19 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.presentati
  */
 
 class BookmarkTvShowsAdapter(
-    private val context: Context,
     private val onDeleteClick: (bookmarkTvShowResponse: BookmarkTvShowResponse) -> Unit
-) : BaseAdapter<BookmarkTvShowResponse, BookmarkTvShowsVH, ItemBookmarkTvShowsBinding>(
-    BookmarkTvShowsDiffCallback()
-) {
+) : PagedListAdapter<BookmarkTvShowResponse, BookmarkTvShowsVH>(BookmarkTvShowsDiffCallback()) {
 
-    override fun getViewBinding(parent: ViewGroup): ItemBookmarkTvShowsBinding =
-        ItemBookmarkTvShowsBinding.inflate(LayoutInflater.from(context), parent, false)
-
-    override fun getViewHolder(viewBinding: ItemBookmarkTvShowsBinding): BookmarkTvShowsVH =
-        BookmarkTvShowsVH(viewBinding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkTvShowsVH {
+        val itemBookmarkTvShowsBinding =
+            ItemBookmarkTvShowsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return BookmarkTvShowsVH(itemBookmarkTvShowsBinding)
+    }
 
     override fun onBindViewHolder(holder: BookmarkTvShowsVH, position: Int) {
-        holder.bind(currentList[position], onDeleteClick)
+        val bookmarkTvShowResponse = getItem(position)
+        bookmarkTvShowResponse?.let {
+            holder.bind(it, onDeleteClick)
+        }
     }
 }

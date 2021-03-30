@@ -1,5 +1,6 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.di
 
+import androidx.paging.DataSource
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.data.local.BookmarkDatabase
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.dao.BookmarkTvShowDao
@@ -41,7 +42,7 @@ object BookmarkTvShowModule {
         BookmarkTvShowResponseDTOMapper()
 
     @Provides
-    fun provideBookmarkTvShowsResponseDTOMapper(): BaseMapper<List<BookmarkTvShowDTO>, List<BookmarkTvShowResponse>> =
+    fun provideBookmarkTvShowsResponseDTOMapper(): BaseMapper<DataSource.Factory<Int, BookmarkTvShowDTO>, DataSource.Factory<Int, BookmarkTvShowResponse>> =
         BookmarkTvShowsResponseDTOMapper()
 
     @Provides
