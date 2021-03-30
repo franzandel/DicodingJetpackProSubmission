@@ -4,7 +4,7 @@ ext {
     materialVersion = '1.3.0'
     constraintLayoutVersion = '2.0.4'
     navigationVersion = '2.3.4'
-    lifecycleVersion = '2.3.0'
+    lifecycleVersion = '2.3.1'
     legacyVersion = '1.0.0'
     junitVersion = '4.13.2'
     coreTestingVersion = '1.1.1'
@@ -20,6 +20,7 @@ ext {
     coroutinesTestVersion = '1.4.3'
     okioVersion = '2.10.0'
     roomVersion = '2.2.6'
+    pagingVersion = '2.1.2'
 }
 
 dependencies {
@@ -46,6 +47,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
 
     testImplementation "junit:junit:$junitVersion"
     testImplementation "android.arch.core:core-testing:$coreTestingVersion"

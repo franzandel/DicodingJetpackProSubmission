@@ -1,5 +1,6 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.mapper
 
+import androidx.paging.DataSource
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieDTO
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieResponse
@@ -13,9 +14,9 @@ import javax.inject.Inject
 
 @ActivityScoped
 class BookmarkMoviesResponseDTOMapper @Inject constructor() :
-    BaseMapper<List<BookmarkMovieDTO>, List<BookmarkMovieResponse>>() {
+    BaseMapper<DataSource.Factory<Int, BookmarkMovieDTO>, DataSource.Factory<Int, BookmarkMovieResponse>>() {
 
-    override fun map(dataModel: List<BookmarkMovieDTO>): List<BookmarkMovieResponse> =
+    override fun map(dataModel: DataSource.Factory<Int, BookmarkMovieDTO>): DataSource.Factory<Int, BookmarkMovieResponse> =
         dataModel.map {
             with(it) {
                 BookmarkMovieResponse(

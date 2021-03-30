@@ -1,9 +1,8 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.presentation.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.franzandel.dicodingjetpackprosubmission.base.BaseAdapter
+import androidx.paging.PagedListAdapter
 import com.franzandel.dicodingjetpackprosubmission.databinding.ItemBookmarkMoviesBinding
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieResponse
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.presentation.diffcallback.BookmarkMoviesDiffCallback
@@ -15,19 +14,19 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.presentatio
  */
 
 class BookmarkMoviesAdapter(
-    private val context: Context,
     private val onDeleteClick: (bookmarkMovieResponse: BookmarkMovieResponse) -> Unit
-) : BaseAdapter<BookmarkMovieResponse, BookmarkMoviesVH, ItemBookmarkMoviesBinding>(
-    BookmarkMoviesDiffCallback()
-) {
+) : PagedListAdapter<BookmarkMovieResponse, BookmarkMoviesVH>(BookmarkMoviesDiffCallback()) {
 
-    override fun getViewBinding(parent: ViewGroup): ItemBookmarkMoviesBinding =
-        ItemBookmarkMoviesBinding.inflate(LayoutInflater.from(context), parent, false)
-
-    override fun getViewHolder(viewBinding: ItemBookmarkMoviesBinding): BookmarkMoviesVH =
-        BookmarkMoviesVH(viewBinding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkMoviesVH {
+        val itemBookmarkMoviesBinding =
+            ItemBookmarkMoviesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return BookmarkMoviesVH(itemBookmarkMoviesBinding)
+    }
 
     override fun onBindViewHolder(holder: BookmarkMoviesVH, position: Int) {
-        holder.bind(currentList[position], onDeleteClick)
+        val bookmarkMovieResponse = getItem(position)
+        bookmarkMovieResponse?.let {
+            holder.bind(it, onDeleteClick)
+        }
     }
 }
