@@ -15,6 +15,9 @@ class BookmarkActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityBookmarkBinding
 
+    private val bookmarkMoviesFragment = BookmarkMoviesFragment()
+    private val bookmarkTvShowsFragment = BookmarkTvShowsFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBookmarkBinding.inflate(layoutInflater)
@@ -30,13 +33,23 @@ class BookmarkActivity : AppCompatActivity() {
                     showShareMessage()
                     true
                 }
+                R.id.menu_sort_title -> {
+                    bookmarkMoviesFragment.bookmarkMoviesVM.getBookmarkMovies(SortChoice.TITLE)
+                    bookmarkTvShowsFragment.bookmarkTvShowsVM.getBookmarkTvShows(SortChoice.TITLE)
+                    true
+                }
+                R.id.menu_sort_rating -> {
+                    bookmarkMoviesFragment.bookmarkMoviesVM.getBookmarkMovies(SortChoice.RATING)
+                    bookmarkTvShowsFragment.bookmarkTvShowsVM.getBookmarkTvShows(SortChoice.RATING)
+                    true
+                }
                 else -> false
             }
         }
     }
 
     private fun setupTabAdapter() {
-        val fragments = listOf<Fragment>(BookmarkMoviesFragment(), BookmarkTvShowsFragment())
+        val fragments = listOf<Fragment>(bookmarkMoviesFragment, bookmarkTvShowsFragment)
         val tabAdapter = BookmarkTabAdapter(this, fragments, supportFragmentManager)
         binding.viewPager.adapter = tabAdapter
     }

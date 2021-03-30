@@ -8,6 +8,7 @@ import androidx.paging.PagedList
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.base.BaseViewModel
 import com.franzandel.dicodingjetpackprosubmission.external.coroutine.CoroutineProvider
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.SortChoice
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowRequest
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowResponse
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.repository.BookmarkTvShowRepository
@@ -37,11 +38,11 @@ class BookmarkTvShowsVM @Inject constructor(
     private val _addBookmarkResult = MutableLiveData<Unit>()
     val addBookmarkResult: LiveData<Unit> = _addBookmarkResult
 
-    fun getBookmarkMovies() {
+    fun getBookmarkTvShows(sortChoice: SortChoice) {
         viewModelScope.launch(coroutineProvider.main()) {
             _loadingResult.value = true
             withContext(coroutineProvider.background()) {
-                _bookmarkTvShowsSource = bookmarkTvShowsRepository.getAll()
+                _bookmarkTvShowsSource = bookmarkTvShowsRepository.getAll(sortChoice)
             }
 
             _bookmarkTvShows.addSource(_bookmarkTvShowsSource) {
@@ -51,7 +52,7 @@ class BookmarkTvShowsVM @Inject constructor(
         }
     }
 
-    fun deleteMovieFromBookmark(id: Int) {
+    fun deleteTvShowFromBookmark(id: Int) {
         _loadingResult.value = true
         viewModelScope.launch(coroutineProvider.background()) {
             val deleteResponse = bookmarkTvShowsRepository.delete(id)
@@ -64,7 +65,7 @@ class BookmarkTvShowsVM @Inject constructor(
         }
     }
 
-    fun addMovieToBookmark(bookmarkTvShowResponse: BookmarkTvShowResponse) {
+    fun addTvShowToBookmark(bookmarkTvShowResponse: BookmarkTvShowResponse) {
         _loadingResult.value = true
         val bookmarkMovieRequest = mapper.map(bookmarkTvShowResponse)
 

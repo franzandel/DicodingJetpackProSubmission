@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import androidx.sqlite.db.SimpleSQLiteQuery
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.data.consts.PaginationConsts
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.SortChoice
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.dao.BookmarkTvShowDao
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowDTO
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowRequest
@@ -21,8 +23,17 @@ class BookmarkTvShowRepositoryImpl @Inject constructor(
     private val responsesMapper: BaseMapper<DataSource.Factory<Int, BookmarkTvShowDTO>, DataSource.Factory<Int, BookmarkTvShowResponse>>
 ) : BookmarkTvShowRepository {
 
-    override suspend fun getAll(): LiveData<PagedList<BookmarkTvShowResponse>> {
-        val mappedDataSource = responsesMapper.map(dao.getBookmarkTvShows())
+    override suspend fun getAll(sortChoice: SortChoice): LiveData<PagedList<BookmarkTvShowResponse>> {
+        fun getSortedQuery(): SimpleSQLiteQuery {
+            val query = StringBuilder().append("SELECT * FROM tbl_bookmark_tv_show ")
+            when (sortChoice) {
+                SortChoice.TITLE -> query.append("ORDER BY name ASC")
+                SortChoice.RATING -> query.append("ORDER BY vote_average ASC")
+            }
+            return SimpleSQLiteQuery(query.toString())
+        }
+
+        val mappedDataSource = responsesMapper.map(dao.getBookmarkTvShows(getSortedQuery()))
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
             .setInitialLoadSizeHint(PaginationConsts.PAGE_SIZE)
