@@ -126,9 +126,9 @@ class BookmarkMoviesVMTest {
             viewModel.deleteMovieFromBookmark(id)
 
             verify {
-                val bookmarkMovies = viewModel.deleteBookmarkResult.value
-                successObserver.onChanged(bookmarkMovies)
-                assertNotNull(bookmarkMovies)
+                val deleteBookmarkResult = viewModel.deleteBookmarkResult.value
+                successObserver.onChanged(deleteBookmarkResult)
+                assertNotNull(deleteBookmarkResult)
             }
         }
     }

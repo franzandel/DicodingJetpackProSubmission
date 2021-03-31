@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.base.BaseViewModel
+import com.franzandel.dicodingjetpackprosubmission.data.consts.RoomConsts
 import com.franzandel.dicodingjetpackprosubmission.external.coroutine.CoroutineProvider
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.SortChoice
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowRequest
@@ -59,7 +60,7 @@ class BookmarkTvShowsVM @Inject constructor(
             if (deleteResponse >= 0)
                 _deleteBookmarkResult.postValue(Unit)
             else
-                _errorResult.postValue("")
+                _errorResult.postValue(RoomConsts.REMOVE_BOOKMARK_FAILED)
 
             _loadingResult.postValue(false)
         }
@@ -74,7 +75,7 @@ class BookmarkTvShowsVM @Inject constructor(
             if (addResponse >= 0)
                 _addBookmarkResult.postValue(Unit)
             else
-                _errorResult.postValue("")
+                _errorResult.postValue(RoomConsts.ADD_BOOKMARK_FAILED)
 
             _loadingResult.postValue(false)
         }
