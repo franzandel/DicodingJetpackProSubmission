@@ -15,8 +15,13 @@ class BookmarkActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityBookmarkBinding
 
-    private val bookmarkMoviesFragment = BookmarkMoviesFragment()
-    private val bookmarkTvShowsFragment = BookmarkTvShowsFragment()
+    private val bookmarkMoviesFragment by lazy {
+        BookmarkMoviesFragment()
+    }
+
+    private val bookmarkTvShowsFragment by lazy {
+        BookmarkTvShowsFragment()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

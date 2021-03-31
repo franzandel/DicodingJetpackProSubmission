@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.franzandel.dicodingjetpackprosubmission.base.BaseMapper
 import com.franzandel.dicodingjetpackprosubmission.base.BaseViewModel
+import com.franzandel.dicodingjetpackprosubmission.data.consts.RoomConsts
 import com.franzandel.dicodingjetpackprosubmission.external.coroutine.CoroutineProvider
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieRequest
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.repository.BookmarkMovieRepository
@@ -53,7 +54,7 @@ class DetailViewModel @Inject constructor(
             if (addResponse >= 0)
                 _bookmarkResult.postValue(Unit)
             else
-                _errorResult.postValue("")
+                _errorResult.postValue(RoomConsts.ADD_BOOKMARK_FAILED)
 
             _loadingResult.postValue(false)
         }
@@ -66,7 +67,7 @@ class DetailViewModel @Inject constructor(
             if (deleteResponse >= 0)
                 _bookmarkResult.postValue(Unit)
             else
-                _errorResult.postValue("")
+                _errorResult.postValue(RoomConsts.REMOVE_BOOKMARK_FAILED)
 
             _loadingResult.postValue(false)
         }
