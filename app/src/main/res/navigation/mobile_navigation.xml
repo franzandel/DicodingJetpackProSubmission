@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_movies_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_navigation_movies_to_bookmarkActivity"
+            app:destination="@id/bookmarkActivity" />
     </fragment>
 
     <fragment
@@ -23,6 +26,9 @@
         <action
             android:id="@+id/action_navigation_tv_shows_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_navigation_tv_shows_to_bookmarkActivity"
+            app:destination="@id/bookmarkActivity" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -46,6 +52,14 @@
             app:argType="com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow[]"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_detailFragment_to_bookmarkActivity"
+            app:destination="@id/bookmarkActivity" />
     </fragment>
+    <activity
+        android:id="@+id/bookmarkActivity"
+        android:name="com.franzandel.dicodingjetpackprosubmission.ui.bookmark.BookmarkActivity"
+        android:label="activity_bookmark"
+        tools:layout="@layout/activity_bookmark" />
 
 </navigation>

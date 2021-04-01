@@ -3,6 +3,7 @@ package com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.fragm
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,8 +12,6 @@ import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragmentVM
 import com.franzandel.dicodingjetpackprosubmission.data.consts.ApiConsts
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentDetailBinding
-import com.franzandel.dicodingjetpackprosubmission.external.extension.goTo
-import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.BookmarkActivity
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.adapter.DetailMovieAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.adapter.DetailTvShowAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.detail.presentation.viewmodel.DetailViewModel
@@ -98,7 +97,9 @@ class DetailFragment : BaseFragmentVM<DetailViewModel, FragmentDetailBinding>() 
                 Snackbar.LENGTH_SHORT
             )
             snackbar.setAction(getString(R.string.detail_bookmark_added_view)) {
-                requireContext().goTo(BookmarkActivity::class.java)
+                val navDirections =
+                    DetailFragmentDirections.actionDetailFragmentToBookmarkActivity()
+                Navigation.findNavController(it).navigate(navDirections)
             }
             snackbar.show()
         } else {
