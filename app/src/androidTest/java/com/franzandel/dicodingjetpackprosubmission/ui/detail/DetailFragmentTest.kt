@@ -7,8 +7,7 @@ import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.instrumentedtest.EspressoIdlingResource
 import com.franzandel.dicodingjetpackprosubmission.ui.dashboard.DashboardActivity
@@ -59,6 +58,20 @@ class DetailFragmentTest {
     }
 
     @Test
+    fun checkIfMovieDetailBookmarkWork() {
+        val moviePosition = 0
+        onView(withId(R.id.rvMovies)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                moviePosition,
+                ViewActions.click()
+            )
+        )
+        onView(withId(R.id.fabBookmark)).perform(ViewActions.click())
+        onView(withId(com.google.android.material.R.id.snackbar_text))
+            .check(matches(withText(R.string.detail_bookmark_added)))
+    }
+
+    @Test
     fun checkIfTvShowDetailDataCorrectlyShown() {
         activityScenario.onActivity { dashboardActivity ->
             bottomNavigation = dashboardActivity.findViewById(R.id.navView)
@@ -82,5 +95,25 @@ class DetailFragmentTest {
         onView(withId(R.id.tvRating)).check(matches(isDisplayed()))
         onView(withId(R.id.tvOverview)).check(matches(isDisplayed()))
         onView(withId(R.id.rvDetail)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun checkIfTvShowDetailBookmarkWork() {
+        activityScenario.onActivity { dashboardActivity ->
+            bottomNavigation = dashboardActivity.findViewById(R.id.navView)
+            bottomNavigation.selectedItemId = R.id.navigation_tv_shows
+        }
+        EspressoIdlingResource.decrement()
+
+        val tvShowPosition = 0
+        onView(withId(R.id.rvTvShows)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                tvShowPosition,
+                ViewActions.click()
+            )
+        )
+        onView(withId(R.id.fabBookmark)).perform(ViewActions.click())
+        onView(withId(com.google.android.material.R.id.snackbar_text))
+            .check(matches(withText(R.string.detail_bookmark_added)))
     }
 }
