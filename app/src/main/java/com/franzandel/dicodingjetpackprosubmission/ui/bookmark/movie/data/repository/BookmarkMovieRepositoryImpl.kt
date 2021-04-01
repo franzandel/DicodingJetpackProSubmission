@@ -12,16 +12,16 @@ import javax.inject.Inject
 
 @ActivityScoped
 class BookmarkMovieRepositoryImpl @Inject constructor(
-    private val bookmarkMovieLocalDataSource: BookmarkMovieLocalDataSource
+    private val localDataSource: BookmarkMovieLocalDataSource
 ) : BookmarkMovieRepository {
 
     override suspend fun getAll(sortChoice: SortChoice): LiveData<PagedList<BookmarkMovieResponse>> =
-        bookmarkMovieLocalDataSource.getAll(sortChoice)
+        localDataSource.getAll(sortChoice)
 
-    override suspend fun get(id: Int): BookmarkMovieResponse? = bookmarkMovieLocalDataSource.get(id)
+    override suspend fun get(id: Int): BookmarkMovieResponse? = localDataSource.get(id)
 
     override suspend fun add(bookmarkMovieRequest: BookmarkMovieRequest): Long =
-        bookmarkMovieLocalDataSource.add(bookmarkMovieRequest)
+        localDataSource.add(bookmarkMovieRequest)
 
-    override suspend fun delete(id: Int): Int = bookmarkMovieLocalDataSource.delete(id)
+    override suspend fun delete(id: Int): Int = localDataSource.delete(id)
 }

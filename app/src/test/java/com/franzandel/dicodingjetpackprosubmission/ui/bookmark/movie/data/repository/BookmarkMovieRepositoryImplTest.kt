@@ -82,6 +82,28 @@ class BookmarkMovieRepositoryImplTest {
     }
 
     @Test
+    fun `get empty bookmark movies`() {
+        runBlocking {
+            val sortChoice = SortChoice.TITLE
+            val dummyBookmarkMovies = listOf<BookmarkMovieResponse>()
+            val bookmarkMoviesLiveData = MutableLiveData<PagedList<BookmarkMovieResponse>>()
+            bookmarkMoviesLiveData.value = PagedListUtil.mockPagedList(dummyBookmarkMovies)
+
+            coEvery { localDataSource.getAll(sortChoice) } returns bookmarkMoviesLiveData
+
+            val moviesResource = repository.getAll(sortChoice)
+            moviesResource.observeForever(observer)
+            val movies = moviesResource.value
+
+            verify {
+                observer.onChanged(movies)
+                assertNotNull(movies)
+                assertEquals(dummyBookmarkMovies.size, movies?.size)
+            }
+        }
+    }
+
+    @Test
     fun `get bookmark movie is not null`() {
         runBlocking {
             val bookmarkMovieResponse = RoomUtils.getBookmarkMovieResponse()
