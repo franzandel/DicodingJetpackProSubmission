@@ -33,6 +33,8 @@ class BookmarkActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         binding.mtbBookmark.setOnMenuItemClickListener { menuItem ->
+            menuItem.isChecked = true
+
             when (menuItem.itemId) {
                 R.id.menu_share -> {
                     showShareMessage()
