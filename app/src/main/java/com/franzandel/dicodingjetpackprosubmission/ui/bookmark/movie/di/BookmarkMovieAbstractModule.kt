@@ -1,5 +1,7 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.di
 
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.local.BookmarkMovieLocalDataSource
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.local.BookmarkMovieLocalDataSourceImpl
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.repository.BookmarkMovieRepository
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.repository.BookmarkMovieRepositoryImpl
 import dagger.Binds
@@ -18,4 +20,7 @@ abstract class BookmarkMovieAbstractModule {
 
     @Binds
     abstract fun bindBookmarkMovieRepository(bookmarkMovieRepositoryImpl: BookmarkMovieRepositoryImpl): BookmarkMovieRepository
+
+    @Binds
+    abstract fun bindBookmarkMovieLocalDatasource(bookmarkMovieLocalDatasourceImpl: BookmarkMovieLocalDataSourceImpl): BookmarkMovieLocalDataSource
 }
