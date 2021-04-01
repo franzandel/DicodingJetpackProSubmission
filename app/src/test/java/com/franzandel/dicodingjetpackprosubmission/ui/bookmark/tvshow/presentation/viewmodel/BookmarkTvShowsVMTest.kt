@@ -14,6 +14,11 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.repos
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.presentation.mapper.BookmarkTvShowResponseRequestMapper
 import com.franzandel.dicodingjetpackprosubmission.utils.PagedListUtil
 import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils.ADD_FAILED_RESPONSE
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils.ADD_SUCCESS_RESPONSE
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils.DELETE_FAILED_RESPONSE
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils.DELETE_SUCCESS_RESPONSE
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils.TV_SHOW_ID
 import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.verify
@@ -117,13 +122,11 @@ class BookmarkTvShowsVMTest {
     @Test
     fun `delete bookmark tv show success`() {
         runBlockingTest {
-            val id = 1
-
-            coEvery { bookmarkTvShowRepository.delete(id) } returns 2
+            coEvery { bookmarkTvShowRepository.delete(TV_SHOW_ID) } returns DELETE_SUCCESS_RESPONSE
             coEvery { coroutineProvider.background() } returns Dispatchers.Unconfined
 
             viewModel.deleteBookmarkResult.observeForever(successObserver)
-            viewModel.deleteTvShowFromBookmark(id)
+            viewModel.deleteTvShowFromBookmark(TV_SHOW_ID)
 
             verify {
                 val deleteBookmarkResult = viewModel.deleteBookmarkResult.value
@@ -136,13 +139,11 @@ class BookmarkTvShowsVMTest {
     @Test
     fun `delete bookmark tv show error`() {
         runBlockingTest {
-            val id = 1
-
-            coEvery { bookmarkTvShowRepository.delete(id) } returns -1
+            coEvery { bookmarkTvShowRepository.delete(TV_SHOW_ID) } returns DELETE_FAILED_RESPONSE
             coEvery { coroutineProvider.background() } returns Dispatchers.Unconfined
 
             viewModel.errorResult.observeForever(deleteFailedObserver)
-            viewModel.deleteTvShowFromBookmark(id)
+            viewModel.deleteTvShowFromBookmark(TV_SHOW_ID)
 
             verify {
                 val errorMessage = viewModel.errorResult.value
@@ -156,22 +157,10 @@ class BookmarkTvShowsVMTest {
     @Test
     fun `add bookmark tv show success`() {
         runBlockingTest {
-            val bookmarkTvShowResponse = BookmarkTvShowResponse(
-                id = 85271,
-                backdropPath = "/rFLF2QTZL37Yjdc6kmV0PbrYz3w.jpg",
-                firstAirDate = "2021-01-15",
-                name = "WandaVision",
-                originalLanguage = "en",
-                originalName = "WandaVision",
-                overview = "Wanda Maximoff and Vision—two super-powered beings living idealized suburban lives—begin to suspect that everything is not as it seems.",
-                popularity = 894.651,
-                posterPath = "/glKDfE6btIRcVB5zrjspRIs4r52.jpg",
-                voteAverage = 8.5,
-                voteCount = 7793
-            )
+            val bookmarkTvShowResponse = RoomUtils.getBookmarkTvShowResponse()
             val bookmarkTvShowRequest = mapper.map(bookmarkTvShowResponse)
 
-            coEvery { bookmarkTvShowRepository.add(bookmarkTvShowRequest) } returns 2
+            coEvery { bookmarkTvShowRepository.add(bookmarkTvShowRequest) } returns ADD_SUCCESS_RESPONSE
             coEvery { coroutineProvider.background() } returns Dispatchers.Unconfined
 
             viewModel.addBookmarkResult.observeForever(successObserver)
@@ -188,22 +177,10 @@ class BookmarkTvShowsVMTest {
     @Test
     fun `add bookmark tv show error`() {
         runBlockingTest {
-            val bookmarkTvShowResponse = BookmarkTvShowResponse(
-                id = 85271,
-                backdropPath = "/rFLF2QTZL37Yjdc6kmV0PbrYz3w.jpg",
-                firstAirDate = "2021-01-15",
-                name = "WandaVision",
-                originalLanguage = "en",
-                originalName = "WandaVision",
-                overview = "Wanda Maximoff and Vision—two super-powered beings living idealized suburban lives—begin to suspect that everything is not as it seems.",
-                popularity = 894.651,
-                posterPath = "/glKDfE6btIRcVB5zrjspRIs4r52.jpg",
-                voteAverage = 8.5,
-                voteCount = 7793
-            )
+            val bookmarkTvShowResponse = RoomUtils.getBookmarkTvShowResponse()
             val bookmarkTvShowRequest = mapper.map(bookmarkTvShowResponse)
 
-            coEvery { bookmarkTvShowRepository.add(bookmarkTvShowRequest) } returns -1
+            coEvery { bookmarkTvShowRepository.add(bookmarkTvShowRequest) } returns ADD_FAILED_RESPONSE
             coEvery { coroutineProvider.background() } returns Dispatchers.Unconfined
 
             viewModel.errorResult.observeForever(deleteFailedObserver)

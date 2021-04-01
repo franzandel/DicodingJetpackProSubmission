@@ -1,8 +1,8 @@
 package com.franzandel.dicodingjetpackprosubmission.utils
 
-import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieDTO
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieRequest
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieResponse
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowRequest
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowResponse
 
 /**
@@ -11,6 +11,13 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entit
  */
 
 object RoomUtils {
+
+    const val MOVIE_ID = 1
+    const val TV_SHOW_ID = 2
+    const val ADD_SUCCESS_RESPONSE = 2L
+    const val DELETE_SUCCESS_RESPONSE = 2
+    const val ADD_FAILED_RESPONSE = -1L
+    const val DELETE_FAILED_RESPONSE = -1
 
     fun getBookmarkMovieRequest(): BookmarkMovieRequest =
         BookmarkMovieRequest(
@@ -31,23 +38,6 @@ object RoomUtils {
 
     fun getBookmarkMovieResponse(): BookmarkMovieResponse =
         BookmarkMovieResponse(
-            id = 399566,
-            adult = false,
-            backdropPath = "/iopYFB1b6Bh7FWZh3onQhph1sih.jpg",
-            originalLanguage = "en",
-            originalTitle = "Godzilla vs. Kong",
-            overview = "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
-            popularity = 9043.741,
-            posterPath = "/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
-            releaseDate = "2021-03-24",
-            title = "Godzilla vs. Kong",
-            video = false,
-            voteAverage = 7.1,
-            voteCount = 155
-        )
-
-    fun getBookmarkMovieDTO(): BookmarkMovieDTO =
-        BookmarkMovieDTO(
             id = 399566,
             adult = false,
             backdropPath = "/iopYFB1b6Bh7FWZh3onQhph1sih.jpg",
@@ -152,6 +142,36 @@ object RoomUtils {
         )
         return bookmarkMovies
     }
+
+    fun getBookmarkTvShowRequest(): BookmarkTvShowRequest =
+        BookmarkTvShowRequest(
+            id = 88396,
+            backdropPath = "/JB17sIsU53NuWVUecOwrCA0CUp.jpg",
+            firstAirDate = "2021-03-19",
+            name = "The Falcon and the Winter Soldier",
+            originalLanguage = "en",
+            originalName = "The Falcon and the Winter Soldier",
+            overview = "Following the events of “Avengers: Endgame”, the Falcon, Sam Wilson and the Winter Soldier, Bucky Barnes team up in a global adventure that tests their abilities, and their patience.",
+            popularity = 5436.012,
+            posterPath = "/qGA31gx01iIJMgk2MyVgurhCGeO.jpg",
+            voteAverage = 7.8,
+            voteCount = 2122
+        )
+
+    fun getBookmarkTvShowResponse(): BookmarkTvShowResponse =
+        BookmarkTvShowResponse(
+            id = 88396,
+            backdropPath = "/JB17sIsU53NuWVUecOwrCA0CUp.jpg",
+            firstAirDate = "2021-03-19",
+            name = "The Falcon and the Winter Soldier",
+            originalLanguage = "en",
+            originalName = "The Falcon and the Winter Soldier",
+            overview = "Following the events of “Avengers: Endgame”, the Falcon, Sam Wilson and the Winter Soldier, Bucky Barnes team up in a global adventure that tests their abilities, and their patience.",
+            popularity = 5436.012,
+            posterPath = "/qGA31gx01iIJMgk2MyVgurhCGeO.jpg",
+            voteAverage = 7.8,
+            voteCount = 2122
+        )
 
     fun getBookmarkTvShowsResponse(): List<BookmarkTvShowResponse> {
         val bookmarkTvShows = mutableListOf<BookmarkTvShowResponse>()
