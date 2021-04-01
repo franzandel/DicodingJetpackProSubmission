@@ -1,5 +1,7 @@
 package com.franzandel.dicodingjetpackprosubmission.utils
 
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieDTO
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieRequest
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity.BookmarkMovieResponse
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entity.BookmarkTvShowResponse
 
@@ -8,9 +10,60 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entit
  * Android Engineer
  */
 
-object RoomUtil {
+object RoomUtils {
 
-    fun getBookmarkMovies(): List<BookmarkMovieResponse> {
+    fun getBookmarkMovieRequest(): BookmarkMovieRequest =
+        BookmarkMovieRequest(
+            id = 399566,
+            adult = false,
+            backdropPath = "/iopYFB1b6Bh7FWZh3onQhph1sih.jpg",
+            originalLanguage = "en",
+            originalTitle = "Godzilla vs. Kong",
+            overview = "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
+            popularity = 9043.741,
+            posterPath = "/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
+            releaseDate = "2021-03-24",
+            title = "Godzilla vs. Kong",
+            video = false,
+            voteAverage = 7.1,
+            voteCount = 155
+        )
+
+    fun getBookmarkMovieResponse(): BookmarkMovieResponse =
+        BookmarkMovieResponse(
+            id = 399566,
+            adult = false,
+            backdropPath = "/iopYFB1b6Bh7FWZh3onQhph1sih.jpg",
+            originalLanguage = "en",
+            originalTitle = "Godzilla vs. Kong",
+            overview = "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
+            popularity = 9043.741,
+            posterPath = "/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
+            releaseDate = "2021-03-24",
+            title = "Godzilla vs. Kong",
+            video = false,
+            voteAverage = 7.1,
+            voteCount = 155
+        )
+
+    fun getBookmarkMovieDTO(): BookmarkMovieDTO =
+        BookmarkMovieDTO(
+            id = 399566,
+            adult = false,
+            backdropPath = "/iopYFB1b6Bh7FWZh3onQhph1sih.jpg",
+            originalLanguage = "en",
+            originalTitle = "Godzilla vs. Kong",
+            overview = "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
+            popularity = 9043.741,
+            posterPath = "/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
+            releaseDate = "2021-03-24",
+            title = "Godzilla vs. Kong",
+            video = false,
+            voteAverage = 7.1,
+            voteCount = 155
+        )
+
+    fun getBookmarkMoviesResponse(): List<BookmarkMovieResponse> {
         val bookmarkMovies = mutableListOf<BookmarkMovieResponse>()
         bookmarkMovies.add(
             BookmarkMovieResponse(
@@ -100,7 +153,7 @@ object RoomUtil {
         return bookmarkMovies
     }
 
-    fun getBookmarkTvShows(): List<BookmarkTvShowResponse> {
+    fun getBookmarkTvShowsResponse(): List<BookmarkTvShowResponse> {
         val bookmarkTvShows = mutableListOf<BookmarkTvShowResponse>()
         bookmarkTvShows.add(
             BookmarkTvShowResponse(

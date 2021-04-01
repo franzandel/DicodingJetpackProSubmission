@@ -13,7 +13,7 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.repository.BookmarkMovieRepository
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.presentation.mapper.BookmarkMovieResponseRequestMapper
 import com.franzandel.dicodingjetpackprosubmission.utils.PagedListUtil.mockPagedList
-import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtil
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils
 import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.verify
@@ -70,7 +70,7 @@ class BookmarkMoviesVMTest {
     fun `get bookmark movies success`() {
         runBlockingTest {
             val sortChoice = SortChoice.TITLE
-            val dummyBookmarkMovies = RoomUtil.getBookmarkMovies()
+            val dummyBookmarkMovies = RoomUtils.getBookmarkMoviesResponse()
             val bookmarkMoviesLiveData = MutableLiveData<PagedList<BookmarkMovieResponse>>()
             bookmarkMoviesLiveData.value = mockPagedList(dummyBookmarkMovies)
 
@@ -156,21 +156,7 @@ class BookmarkMoviesVMTest {
     @Test
     fun `add bookmark movie success`() {
         runBlockingTest {
-            val bookmarkMovieResponse = BookmarkMovieResponse(
-                id = 399566,
-                adult = false,
-                backdropPath = "/iopYFB1b6Bh7FWZh3onQhph1sih.jpg",
-                originalLanguage = "en",
-                originalTitle = "Godzilla vs. Kong",
-                overview = "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
-                popularity = 9043.741,
-                posterPath = "/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
-                releaseDate = "2021-03-24",
-                title = "Godzilla vs. Kong",
-                video = false,
-                voteAverage = 7.1,
-                voteCount = 155
-            )
+            val bookmarkMovieResponse = RoomUtils.getBookmarkMovieResponse()
             val bookmarkMovieRequest = mapper.map(bookmarkMovieResponse)
 
             coEvery { bookmarkMovieRepository.add(bookmarkMovieRequest) } returns 2
@@ -190,21 +176,7 @@ class BookmarkMoviesVMTest {
     @Test
     fun `add bookmark movie error`() {
         runBlockingTest {
-            val bookmarkMovieResponse = BookmarkMovieResponse(
-                id = 399566,
-                adult = false,
-                backdropPath = "/iopYFB1b6Bh7FWZh3onQhph1sih.jpg",
-                originalLanguage = "en",
-                originalTitle = "Godzilla vs. Kong",
-                overview = "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
-                popularity = 9043.741,
-                posterPath = "/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
-                releaseDate = "2021-03-24",
-                title = "Godzilla vs. Kong",
-                video = false,
-                voteAverage = 7.1,
-                voteCount = 155
-            )
+            val bookmarkMovieResponse = RoomUtils.getBookmarkMovieResponse()
             val bookmarkMovieRequest = mapper.map(bookmarkMovieResponse)
 
             coEvery { bookmarkMovieRepository.add(bookmarkMovieRequest) } returns -1

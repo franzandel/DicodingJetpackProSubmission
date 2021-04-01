@@ -13,7 +13,7 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.entit
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.repository.BookmarkTvShowRepository
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.presentation.mapper.BookmarkTvShowResponseRequestMapper
 import com.franzandel.dicodingjetpackprosubmission.utils.PagedListUtil
-import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtil
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils
 import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.verify
@@ -70,7 +70,7 @@ class BookmarkTvShowsVMTest {
     fun `get bookmark tv shows success`() {
         runBlockingTest {
             val sortChoice = SortChoice.TITLE
-            val dummyBookmarkTvShows = RoomUtil.getBookmarkTvShows()
+            val dummyBookmarkTvShows = RoomUtils.getBookmarkTvShowsResponse()
             val bookmarkTvShowsLiveData = MutableLiveData<PagedList<BookmarkTvShowResponse>>()
             bookmarkTvShowsLiveData.value = PagedListUtil.mockPagedList(dummyBookmarkTvShows)
 
