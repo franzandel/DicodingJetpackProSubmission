@@ -3,17 +3,16 @@ package com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.fragm
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.base.BaseFragmentVM
 import com.franzandel.dicodingjetpackprosubmission.databinding.FragmentMoviesBinding
 import com.franzandel.dicodingjetpackprosubmission.databinding.LayoutErrorBinding
-import com.franzandel.dicodingjetpackprosubmission.external.extension.goTo
 import com.franzandel.dicodingjetpackprosubmission.external.extension.hide
 import com.franzandel.dicodingjetpackprosubmission.external.extension.show
 import com.franzandel.dicodingjetpackprosubmission.external.extension.showShareMessage
 import com.franzandel.dicodingjetpackprosubmission.instrumentedtest.EspressoIdlingResource
-import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.BookmarkActivity
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.adapter.MoviesAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.viewmodel.MoviesViewModel
@@ -83,7 +82,9 @@ class MoviesFragment : BaseFragmentVM<MoviesViewModel, FragmentMoviesBinding>() 
                     true
                 }
                 R.id.menu_bookmark -> {
-                    requireContext().goTo(BookmarkActivity::class.java)
+                    val navDirections =
+                        MoviesFragmentDirections.actionNavigationMoviesToBookmarkActivity()
+                    Navigation.findNavController(requireView()).navigate(navDirections)
                     true
                 }
                 else -> false
