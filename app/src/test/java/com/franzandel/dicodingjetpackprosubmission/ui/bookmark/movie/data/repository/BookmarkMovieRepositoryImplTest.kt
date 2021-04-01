@@ -9,6 +9,11 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.entity
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.local.BookmarkMovieLocalDataSource
 import com.franzandel.dicodingjetpackprosubmission.utils.PagedListUtil
 import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils.ADD_FAILED_RESPONSE
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils.ADD_SUCCESS_RESPONSE
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils.DELETE_FAILED_RESPONSE
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils.DELETE_SUCCESS_RESPONSE
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils.MOVIE_ID
 import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.verify
@@ -32,10 +37,6 @@ import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class BookmarkMovieRepositoryImplTest {
-
-    companion object {
-        private const val MOVIE_ID = 1
-    }
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -107,10 +108,8 @@ class BookmarkMovieRepositoryImplTest {
     fun `get bookmark movie is not null`() {
         runBlocking {
             val bookmarkMovieResponse = RoomUtils.getBookmarkMovieResponse()
-
             coEvery { localDataSource.get(MOVIE_ID) } returns bookmarkMovieResponse
             val getResponse = repository.get(MOVIE_ID)
-
             assertEquals(getResponse, bookmarkMovieResponse)
         }
     }
@@ -118,12 +117,10 @@ class BookmarkMovieRepositoryImplTest {
     @Test
     fun `get bookmark movie is null`() {
         runBlocking {
-            val bookmarkMovieDTO = null
-
-            coEvery { localDataSource.get(MOVIE_ID) } returns bookmarkMovieDTO
+            val bookmarkMovieResponse = null
+            coEvery { localDataSource.get(MOVIE_ID) } returns bookmarkMovieResponse
             val getResponse = repository.get(MOVIE_ID)
-
-            assertEquals(getResponse, bookmarkMovieDTO)
+            assertEquals(getResponse, bookmarkMovieResponse)
         }
     }
 
@@ -131,10 +128,9 @@ class BookmarkMovieRepositoryImplTest {
     fun `add bookmark movie success`() {
         runBlocking {
             val bookmarkMovieRequest = RoomUtils.getBookmarkMovieRequest()
-
-            coEvery { localDataSource.add(bookmarkMovieRequest) } returns 2
+            coEvery { localDataSource.add(bookmarkMovieRequest) } returns ADD_SUCCESS_RESPONSE
             val addResponse = repository.add(bookmarkMovieRequest)
-            assertEquals(addResponse, 2)
+            assertEquals(addResponse, ADD_SUCCESS_RESPONSE)
         }
     }
 
@@ -142,28 +138,27 @@ class BookmarkMovieRepositoryImplTest {
     fun `add bookmark movie error`() {
         runBlocking {
             val bookmarkMovieRequest = RoomUtils.getBookmarkMovieRequest()
-
-            coEvery { localDataSource.add(bookmarkMovieRequest) } returns -1
+            coEvery { localDataSource.add(bookmarkMovieRequest) } returns ADD_FAILED_RESPONSE
             val addResponse = repository.add(bookmarkMovieRequest)
-            assertEquals(addResponse, -1)
+            assertEquals(addResponse, ADD_FAILED_RESPONSE)
         }
     }
 
     @Test
     fun `delete bookmark movie success`() {
         runBlocking {
-            coEvery { localDataSource.delete(MOVIE_ID) } returns 2
+            coEvery { localDataSource.delete(MOVIE_ID) } returns DELETE_SUCCESS_RESPONSE
             val deleteResponse = repository.delete(MOVIE_ID)
-            assertEquals(deleteResponse, 2)
+            assertEquals(deleteResponse, DELETE_SUCCESS_RESPONSE)
         }
     }
 
     @Test
     fun `delete bookmark movie error`() {
         runBlocking {
-            coEvery { localDataSource.delete(MOVIE_ID) } returns -1
+            coEvery { localDataSource.delete(MOVIE_ID) } returns DELETE_FAILED_RESPONSE
             val deleteResponse = repository.delete(MOVIE_ID)
-            assertEquals(deleteResponse, -1)
+            assertEquals(deleteResponse, DELETE_FAILED_RESPONSE)
         }
     }
 }

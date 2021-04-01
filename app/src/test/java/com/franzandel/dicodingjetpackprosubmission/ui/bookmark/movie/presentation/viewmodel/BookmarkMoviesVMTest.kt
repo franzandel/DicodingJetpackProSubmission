@@ -14,6 +14,11 @@ import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.data.reposi
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.movie.presentation.mapper.BookmarkMovieResponseRequestMapper
 import com.franzandel.dicodingjetpackprosubmission.utils.PagedListUtil.mockPagedList
 import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils.ADD_FAILED_RESPONSE
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils.ADD_SUCCESS_RESPONSE
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils.DELETE_FAILED_RESPONSE
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils.DELETE_SUCCESS_RESPONSE
+import com.franzandel.dicodingjetpackprosubmission.utils.RoomUtils.MOVIE_ID
 import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.verify
@@ -117,13 +122,11 @@ class BookmarkMoviesVMTest {
     @Test
     fun `delete bookmark movie success`() {
         runBlockingTest {
-            val id = 1
-
-            coEvery { bookmarkMovieRepository.delete(id) } returns 2
+            coEvery { bookmarkMovieRepository.delete(MOVIE_ID) } returns DELETE_SUCCESS_RESPONSE
             coEvery { coroutineProvider.background() } returns Dispatchers.Unconfined
 
             viewModel.deleteBookmarkResult.observeForever(successObserver)
-            viewModel.deleteMovieFromBookmark(id)
+            viewModel.deleteMovieFromBookmark(MOVIE_ID)
 
             verify {
                 val deleteBookmarkResult = viewModel.deleteBookmarkResult.value
@@ -136,13 +139,11 @@ class BookmarkMoviesVMTest {
     @Test
     fun `delete bookmark movie error`() {
         runBlockingTest {
-            val id = 1
-
-            coEvery { bookmarkMovieRepository.delete(id) } returns -1
+            coEvery { bookmarkMovieRepository.delete(MOVIE_ID) } returns DELETE_FAILED_RESPONSE
             coEvery { coroutineProvider.background() } returns Dispatchers.Unconfined
 
             viewModel.errorResult.observeForever(deleteFailedObserver)
-            viewModel.deleteMovieFromBookmark(id)
+            viewModel.deleteMovieFromBookmark(MOVIE_ID)
 
             verify {
                 val errorMessage = viewModel.errorResult.value
@@ -159,7 +160,7 @@ class BookmarkMoviesVMTest {
             val bookmarkMovieResponse = RoomUtils.getBookmarkMovieResponse()
             val bookmarkMovieRequest = mapper.map(bookmarkMovieResponse)
 
-            coEvery { bookmarkMovieRepository.add(bookmarkMovieRequest) } returns 2
+            coEvery { bookmarkMovieRepository.add(bookmarkMovieRequest) } returns ADD_SUCCESS_RESPONSE
             coEvery { coroutineProvider.background() } returns Dispatchers.Unconfined
 
             viewModel.addBookmarkResult.observeForever(successObserver)
@@ -179,7 +180,7 @@ class BookmarkMoviesVMTest {
             val bookmarkMovieResponse = RoomUtils.getBookmarkMovieResponse()
             val bookmarkMovieRequest = mapper.map(bookmarkMovieResponse)
 
-            coEvery { bookmarkMovieRepository.add(bookmarkMovieRequest) } returns -1
+            coEvery { bookmarkMovieRepository.add(bookmarkMovieRequest) } returns ADD_FAILED_RESPONSE
             coEvery { coroutineProvider.background() } returns Dispatchers.Unconfined
 
             viewModel.errorResult.observeForever(deleteFailedObserver)

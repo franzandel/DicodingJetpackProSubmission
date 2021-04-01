@@ -1,5 +1,7 @@
 package com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.di
 
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.local.BookmarkTvShowLocalDataSource
+import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.local.BookmarkTvShowLocalDataSourceImpl
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.repository.BookmarkTvShowRepository
 import com.franzandel.dicodingjetpackprosubmission.ui.bookmark.tvshow.data.repository.BookmarkTvShowRepositoryImpl
 import dagger.Binds
@@ -18,4 +20,7 @@ abstract class BookmarkTvShowAbstractModule {
 
     @Binds
     abstract fun bindBookmarkTvShowRepository(bookmarkTvShowRepositoryImpl: BookmarkTvShowRepositoryImpl): BookmarkTvShowRepository
+
+    @Binds
+    abstract fun bindBookmarkTvShowLocalDataSource(bookmarkTvShowLocalDataSourceImpl: BookmarkTvShowLocalDataSourceImpl): BookmarkTvShowLocalDataSource
 }
