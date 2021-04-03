@@ -5,6 +5,7 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -13,6 +14,7 @@ import com.franzandel.dicodingjetpackprosubmission.instrumentedtest.EspressoIdli
 import com.franzandel.dicodingjetpackprosubmission.ui.dashboard.DashboardActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.hamcrest.CoreMatchers.allOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -23,6 +25,11 @@ import org.junit.Test
  */
 
 class DetailFragmentTest {
+
+    companion object {
+        private const val MOVIE_POSITION = 0
+        private const val TV_SHOW_POSITION = 0
+    }
 
     private lateinit var bottomNavigation: BottomNavigationView
     private lateinit var fabBookmark: FloatingActionButton
@@ -41,11 +48,10 @@ class DetailFragmentTest {
 
     @Test
     fun checkIfMovieDetailDataCorrectlyShown() {
-        val moviePosition = 0
         onView(withId(R.id.rvMovies)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                moviePosition,
-                ViewActions.click()
+                MOVIE_POSITION,
+                click()
             )
         )
         onView(withId(R.id.toolbarDetail)).check(matches(isDisplayed()))
@@ -61,11 +67,10 @@ class DetailFragmentTest {
 
     @Test
     fun checkIfMovieDetailBookmarkWork() {
-        val moviePosition = 0
         onView(withId(R.id.rvMovies)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                moviePosition,
-                ViewActions.click()
+                MOVIE_POSITION,
+                click()
             )
         )
         activityScenario.onActivity { dashboardActivity ->
@@ -77,9 +82,14 @@ class DetailFragmentTest {
         } else {
             R.string.detail_bookmark_added
         }
-        onView(withId(R.id.fabBookmark)).perform(ViewActions.click())
+        onView(withId(R.id.fabBookmark)).perform(click())
         onView(withId(com.google.android.material.R.id.snackbar_text))
             .check(matches(withText(snackbarMessage)))
+
+        if (fabBookmark.isSelected) {
+            onView(allOf(withId(com.google.android.material.R.id.snackbar_action))).perform(click())
+            onView(withId(R.id.bookmarkActivity)).check(matches(isDisplayed()))
+        }
     }
 
     @Test
@@ -90,11 +100,10 @@ class DetailFragmentTest {
         }
         EspressoIdlingResource.decrement()
 
-        val tvShowPosition = 0
         onView(withId(R.id.rvTvShows)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                tvShowPosition,
-                ViewActions.click()
+                TV_SHOW_POSITION,
+                click()
             )
         )
         onView(withId(R.id.toolbarDetail)).check(matches(isDisplayed()))
@@ -116,11 +125,10 @@ class DetailFragmentTest {
         }
         EspressoIdlingResource.decrement()
 
-        val tvShowPosition = 0
         onView(withId(R.id.rvTvShows)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                tvShowPosition,
-                ViewActions.click()
+                TV_SHOW_POSITION,
+                click()
             )
         )
 
@@ -128,14 +136,18 @@ class DetailFragmentTest {
             fabBookmark = dashboardActivity.findViewById(R.id.fabBookmark)
         }
 
-        val snackbarMessage = if (fabBookmark.isSelected) {
+        val snackbarMessage = if (fabBookmark.isSelected)
             R.string.detail_bookmark_removed
-        } else {
+        else
             R.string.detail_bookmark_added
-        }
 
-        onView(withId(R.id.fabBookmark)).perform(ViewActions.click())
+        onView(withId(R.id.fabBookmark)).perform(click())
         onView(withId(com.google.android.material.R.id.snackbar_text))
             .check(matches(withText(snackbarMessage)))
+
+        if (fabBookmark.isSelected) {
+            onView(allOf(withId(com.google.android.material.R.id.snackbar_action))).perform(click())
+            onView(withId(R.id.bookmarkActivity)).check(matches(isDisplayed()))
+        }
     }
 }
