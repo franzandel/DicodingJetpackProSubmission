@@ -70,6 +70,7 @@ class DetailFragment : BaseFragmentVM<DetailViewModel, FragmentDetailBinding>() 
             viewLifecycleOwner,
             Observer { isBookmarked ->
                 this.isBookmarked = isBookmarked
+                viewBinding.fabBookmark.isSelected = isBookmarked
                 val imageResource = if (isBookmarked)
                     R.drawable.ic_baseline_star_24
                 else
@@ -89,6 +90,8 @@ class DetailFragment : BaseFragmentVM<DetailViewModel, FragmentDetailBinding>() 
     }
 
     private fun setupBookmark() {
+        viewBinding.fabBookmark.isSelected = isBookmarked
+
         if (isBookmarked) {
             viewBinding.fabBookmark.setImageResource(R.drawable.ic_baseline_star_24)
             val snackbar = Snackbar.make(
