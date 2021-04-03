@@ -19,7 +19,7 @@ class BookmarkActivity : AppCompatActivity() {
         BookmarkMoviesFragment()
     }
 
-    private val bookmarkTvShowsFragment by lazy {
+    val bookmarkTvShowsFragment by lazy {
         BookmarkTvShowsFragment()
     }
 
