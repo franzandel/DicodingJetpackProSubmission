@@ -12,6 +12,7 @@ import com.franzandel.dicodingjetpackprosubmission.R
 import com.franzandel.dicodingjetpackprosubmission.instrumentedtest.EspressoIdlingResource
 import com.franzandel.dicodingjetpackprosubmission.ui.dashboard.DashboardActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -24,6 +25,7 @@ import org.junit.Test
 class DetailFragmentTest {
 
     private lateinit var bottomNavigation: BottomNavigationView
+    private lateinit var fabBookmark: FloatingActionButton
     private lateinit var activityScenario: ActivityScenario<DashboardActivity>
 
     @Before
@@ -66,9 +68,18 @@ class DetailFragmentTest {
                 ViewActions.click()
             )
         )
+        activityScenario.onActivity { dashboardActivity ->
+            fabBookmark = dashboardActivity.findViewById(R.id.fabBookmark)
+        }
+
+        val snackbarMessage = if (fabBookmark.isSelected) {
+            R.string.detail_bookmark_removed
+        } else {
+            R.string.detail_bookmark_added
+        }
         onView(withId(R.id.fabBookmark)).perform(ViewActions.click())
         onView(withId(com.google.android.material.R.id.snackbar_text))
-            .check(matches(withText(R.string.detail_bookmark_added)))
+            .check(matches(withText(snackbarMessage)))
     }
 
     @Test
@@ -112,8 +123,19 @@ class DetailFragmentTest {
                 ViewActions.click()
             )
         )
+
+        activityScenario.onActivity { dashboardActivity ->
+            fabBookmark = dashboardActivity.findViewById(R.id.fabBookmark)
+        }
+
+        val snackbarMessage = if (fabBookmark.isSelected) {
+            R.string.detail_bookmark_removed
+        } else {
+            R.string.detail_bookmark_added
+        }
+
         onView(withId(R.id.fabBookmark)).perform(ViewActions.click())
         onView(withId(com.google.android.material.R.id.snackbar_text))
-            .check(matches(withText(R.string.detail_bookmark_added)))
+            .check(matches(withText(snackbarMessage)))
     }
 }
