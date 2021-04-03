@@ -28,6 +28,8 @@ class BookmarkTvShowsFragment :
     @Inject
     lateinit var bookmarkTvShowsVM: BookmarkTvShowsVM
 
+    var bookmarkTvShowsSizeForUITesting = 0
+
     private lateinit var deletedBookmarkTvShowResponse: BookmarkTvShowResponse
 
     override fun getVM(): BookmarkTvShowsVM = bookmarkTvShowsVM
@@ -46,8 +48,9 @@ class BookmarkTvShowsFragment :
     private fun setupObservers() {
         bookmarkTvShowsVM.bookmarkTvShows.observe(
             viewLifecycleOwner,
-            Observer { bookmarkMoviesDTO ->
-                setupRV(bookmarkMoviesDTO)
+            Observer { bookmarkTvShowsResponse ->
+                bookmarkTvShowsSizeForUITesting = bookmarkTvShowsResponse.size
+                setupRV(bookmarkTvShowsResponse)
             })
 
         bookmarkTvShowsVM.deleteBookmarkResult.observe(viewLifecycleOwner, Observer {
