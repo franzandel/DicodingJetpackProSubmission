@@ -22,6 +22,8 @@ class BookmarkMoviesFragment : BaseFragmentVM<BookmarkMoviesVM, FragmentBookmark
     @Inject
     lateinit var bookmarkMoviesVM: BookmarkMoviesVM
 
+    var bookmarkMoviesSizeForUITesting = 0
+
     private lateinit var deletedBookmarkMovieResponse: BookmarkMovieResponse
 
     override fun getVM(): BookmarkMoviesVM = bookmarkMoviesVM
@@ -38,9 +40,12 @@ class BookmarkMoviesFragment : BaseFragmentVM<BookmarkMoviesVM, FragmentBookmark
     }
 
     private fun setupObservers() {
-        bookmarkMoviesVM.bookmarkMovies.observe(viewLifecycleOwner, Observer { bookmarkMoviesDTO ->
-            setupRV(bookmarkMoviesDTO)
-        })
+        bookmarkMoviesVM.bookmarkMovies.observe(
+            viewLifecycleOwner,
+            Observer { bookmarkMoviesResponse ->
+                bookmarkMoviesSizeForUITesting = bookmarkMoviesResponse.size
+                setupRV(bookmarkMoviesResponse)
+            })
 
         bookmarkMoviesVM.deleteBookmarkResult.observe(viewLifecycleOwner, Observer {
             Snackbar.make(
