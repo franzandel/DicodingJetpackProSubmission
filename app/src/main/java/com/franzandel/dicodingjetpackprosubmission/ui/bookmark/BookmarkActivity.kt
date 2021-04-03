@@ -15,7 +15,7 @@ class BookmarkActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityBookmarkBinding
 
-    private val bookmarkMoviesFragment by lazy {
+    val bookmarkMoviesFragment by lazy {
         BookmarkMoviesFragment()
     }
 
