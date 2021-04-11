@@ -53,6 +53,10 @@ class BookmarkActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        binding.mtbBookmark.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     private fun setupTabAdapter() {
