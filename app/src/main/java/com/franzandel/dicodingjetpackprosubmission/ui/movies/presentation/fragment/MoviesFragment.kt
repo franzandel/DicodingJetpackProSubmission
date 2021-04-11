@@ -16,6 +16,7 @@ import com.franzandel.dicodingjetpackprosubmission.instrumentedtest.EspressoIdli
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.data.entity.Movie
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.adapter.MoviesAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.movies.presentation.viewmodel.MoviesViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -42,10 +43,16 @@ class MoviesFragment : BaseFragmentVM<MoviesViewModel, FragmentMoviesBinding>() 
 
     override fun onFragmentCreated() {
         errorViewBinding = viewBinding.layoutError
+        showBottomNavigation()
         setupObservers()
         setupListeners()
         EspressoIdlingResource.increment()
         moviesViewModel.getMovies()
+    }
+
+    private fun showBottomNavigation() {
+        val bottomNavigation = requireActivity().findViewById<BottomNavigationView>(R.id.navView)
+        bottomNavigation.show()
     }
 
     private fun setupObservers() {

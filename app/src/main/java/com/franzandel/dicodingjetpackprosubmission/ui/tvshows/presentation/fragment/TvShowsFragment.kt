@@ -16,6 +16,7 @@ import com.franzandel.dicodingjetpackprosubmission.instrumentedtest.EspressoIdli
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.data.entity.TvShow
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.adapter.TvShowsAdapter
 import com.franzandel.dicodingjetpackprosubmission.ui.tvshows.presentation.viewmodel.TvShowsViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -42,10 +43,16 @@ class TvShowsFragment : BaseFragmentVM<TvShowsViewModel, FragmentTvShowsBinding>
 
     override fun onFragmentCreated() {
         errorViewBinding = viewBinding.layoutError
+        showBottomNavigation()
         setupObservers()
         setupListeners()
         EspressoIdlingResource.increment()
         tvShowsViewModel.getTvShows()
+    }
+
+    private fun showBottomNavigation() {
+        val bottomNavigation = requireActivity().findViewById<BottomNavigationView>(R.id.navView)
+        bottomNavigation.show()
     }
 
     private fun setupObservers() {
